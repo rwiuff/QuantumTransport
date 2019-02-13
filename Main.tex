@@ -1,0 +1,182 @@
+%!TeX spellcheck = en-GB
+
+%Basics
+\documentclass[aps, prb, a4paper, english, 12pt, onecolumn, longbibliography, amsmath, amssymb, colorinlistoftodos, floatfix]{revtex4-1}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+
+%Symbols and scientifics
+\usepackage{amsmath, amsfonts, amssymb, bm}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\sisetup{
+	per-mode = power ,
+	round-mode = figures ,
+	round-precision = 3 ,
+	scientific-notation = false ,
+	output-decimal-marker = {.} ,
+	exponent-product = \times ,
+	separate-uncertainty = true ,
+	uncertainty-separator = \ ,
+	output-product = \cdot ,
+	quotient-mode = fraction ,
+	range-phrase = - ,
+	range-units =  single ,
+	inter-unit-product = \ensuremath{{\cdot{}}} ,
+	number-unit-product = \ ,
+	multi-part-units = single ,
+	alsoload = synchem ,
+	alsoload = addn
+}
+\DeclareSIUnit\atm{atm}
+
+%Appendix, TOC and Bibliography
+\usepackage{appendix}
+\renewcommand\appendixtocname{Appendices}
+%\usepackage[nottoc]{tocbibind}
+\usepackage[lastpage,user]{zref}
+
+%Figures
+\usepackage[svgnames]{xcolor} % Required to specify font color
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[format=plain,
+            labelfont={bf,it},
+            textfont=it]{caption}
+\usepackage[verbose]{wrapfig}
+\usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=2.5cm]{geometry}
+\usepackage{etoolbox}
+\usepackage{verbatim}
+\usepackage[space]{grffile}
+\usepackage[final]{pdfpages}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{dcolumn}
+%\usepackage{animate}
+\usepackage{fontawesome}
+\usepackage[european]{circuitikz}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm}
+\def\axisdefaultwidth{10cm}
+%\usepgfplotslibrary{external}
+\usepgfplotslibrary{units}
+%\tikzexternalize
+
+%Header footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{N. Kihm \\ R. K. F. Wiuff}
+\chead{Course 10401\\Fusion Energy and Plasma Physics}
+\rhead{January \nth{24}\\2019}
+\cfoot{Page \thepage\, of \zpageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%Text tools
+\usepackage[super]{nth}
+\usepackage[normalem]{ulem}
+\usepackage{import}
+\usepackage{url}
+\usepackage{lipsum}
+\usepackage{microtype}
+\usepackage[pdfencoding=auto, psdextra]{hyperref}
+\hypersetup{
+	colorlinks   = true, %Colours links instead of ugly boxes
+	urlcolor     = blue, %Colour for external hyperlinks
+	linkcolor    = blue, %Colour of internal links
+	citecolor   = red %Colour of citations
+}
+\usepackage[capitalise]{cleveref}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0mm}
+\usepackage{booktabs}
+\usepackage{silence}
+\usepackage{todonotes}
+\WarningFilter{revtex4-1}{Repair the float}
+
+%Python
+\usepackage{minted}
+\setminted{fontsize=\small}
+\usemintedstyle{monokai}
+\renewcommand{\listoflistingscaption}{Listings}
+%\renewcommand{\MintedPygmentize}{C:/Users/rwiuf/AppData/Roaming/Python/Python37/Scripts/pygmentize}
+
+%Definitions and new commands
+\newcommand{\degr}{^{\circ}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand*\mathinhead[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+%PDFPages and RevTeX incompatability fix
+\makeatletter
+\AtBeginDocument{\let\LS@rot\@undefined}
+\makeatother
+
+\begin{document}
+%Titlepage herunder:
+\begin{abstract}
+	\vspace{5mm}
+	\centering
+	\includegraphics[width=.5\textwidth]{Figures/ITERmachine.jpg}
+	\begin{description}
+		\item[Abstract] Plasma fusion for energy production is a growing scientific field with interests all over the globe as clean and sustainable energy as well as growing energy demands needs to be addressed. In the course ``10401: Fusion energy and plasma physics'' we deal with some of the fundamental engineering aspects of a commercial fusion energy power plant, as well as the research towards this goal. In this paper we first address a simple model for such a plant and how the model can be improved upon. Secondly we investigate how to diagnose plasma density with simple interferometry in the DTU tokamak reactor. Lastly we made measurements in the DTU fusor, and investigated some energy production aspects with such a device. \vspace{3\baselineskip}
+	\end{description}
+	\includegraphics[width=1cm]{Figures/DTU3CMYK.eps}
+\end{abstract}
+
+\title{10401\\Fusion Energy and Plasma Physics}
+\date{January \nth{24} 2019}
+\author{Rasmus Kronborg Finnemann Wiuff (s163977)}
+\email[E-mail at ]{s163977@student.dtu.dk}
+\author{Nicklas Kihm (s143286)}
+\email[E-mail at ]{spacrone@live.dk}
+\affiliation{Technical University of Denmark}
+\homepage[Homepage of the Technical University of Denmark ]{http://www.dtu.dk/english/}
+\homepage[\\\faGithub \ Project Repository: ]{https://github.com/rwiuff/10401}
+\maketitle
+
+\pagenumbering{arabic}
+
+\tableofcontents
+
+% ToC before List-ofs fix
+\makeatletter
+\let\toc@pre\relax
+\let\toc@post\relax
+\makeatother
+
+\thispagestyle{empty}
+%\newpage
+\setcounter{page}{1}
+
+%Text
+\subsection{Intro}
+\input{sections/Intro.tex}
+\section{A simple reactor model}
+\input{sections/Assignment1.tex}
+\section{Diagnostics via interferometry}
+\input{sections/Assignment2.tex}
+\section{Fusor exercise}
+\input{sections/Assignment3.tex}\newpage
+\section{Conclusions}
+\input{sections/Conclusions.tex}
+% \begin{acknowledgments}
+% 	The authors would like to thank...
+% \end{acknowledgments}
+%End of text
+% List of ToDos
+%\listoftodos %Uncomment for list of todos
+%Bibliography herunder:
+%\newpage
+\onecolumngrid
+\bibliography{Bibliography}
+
+\newpage
+\listoffigures
+\listoftables
+\listoflistings
+%\listoftodos
+\newpage
+%Appendicer herunder:
+\input{Appendix.tex}
+\end{document}
