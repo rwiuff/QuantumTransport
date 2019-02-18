@@ -3,6 +3,9 @@
 # Edit at https://www.gitignore.io/?templates=latex
 
 ### LaTeX ###
+/tex
+/bst
+latexmkrc
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

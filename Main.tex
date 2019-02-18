@@ -58,12 +58,24 @@
 %\usepackage{animate}
 \usepackage{fontawesome}
 \usepackage[european]{circuitikz}
+\usepackage{pdflscape}
 \usepackage{pgfplots}
 \pgfplotsset{width=10cm}
 \def\axisdefaultwidth{10cm}
 %\usepgfplotslibrary{external}
 \usepgfplotslibrary{units}
 %\tikzexternalize
+\usepackage{pgfgantt}
+\newcounter{myWeekNum}
+\stepcounter{myWeekNum}
+%
+\newcommand{\myWeek}{\themyWeekNum
+    \stepcounter{myWeekNum}
+    \ifnum\themyWeekNum=53
+         \setcounter{myWeekNum}{1}
+    \else\fi
+}
+%
 
 %Header footer
 \usepackage{fancyhdr}
@@ -170,7 +182,7 @@
 \listoftables
 \listoflistings
 %\listoftodos
-% \newpage
-% %Appendicer herunder:
-% \input{Appendix.tex}
+\newpage
+ %Appendicer herunder:
+\input{Appendix.tex}
 \end{document}
