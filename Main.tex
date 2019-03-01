@@ -31,6 +31,8 @@
 	alsoload = addn
 }
 \DeclareSIUnit\atm{atm}
+\usepackage{chemfig}
+\usepackage{tikzorbital}
 
 %Appendix, TOC and Bibliography
 \usepackage{appendix}
@@ -39,8 +41,8 @@
 \usepackage[lastpage,user]{zref}
 
 %Figures
-\usepackage[svgnames]{xcolor} % Required to specify font color
 \usepackage{float}
+\usepackage[svgnames]{xcolor} % Required to specify font color
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage[format=plain,
@@ -165,7 +167,7 @@
 %Text
 \subsection{Intro}
 \input{sections/Intro.tex}
-
+\newpage
 \begin{acknowledgments}
 	The authors would like to thank...
 \end{acknowledgments}
