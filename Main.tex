@@ -1,7 +1,7 @@
 %!TeX spellcheck = en-GB
 
 %Basics
-\documentclass[aps, prb, a4paper, english, 12pt, onecolumn, longbibliography, amsmath, amssymb, colorinlistoftodos, floatfix]{revtex4-2}
+\documentclass[aps, prb, a4paper, english, 12pt, onecolumn, longbibliography, amsmath, amssymb, colorinlistoftodos, floatfix, svgnames]{revtex4-2}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
 
@@ -42,7 +42,7 @@
 
 %Figures
 \usepackage{float}
-\usepackage[svgnames]{xcolor} % Required to specify font color
+\usepackage{xcolor} % Required to specify font color
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage[format=plain,
@@ -64,9 +64,9 @@
 \usepackage{pgfplots}
 \pgfplotsset{width=10cm}
 \def\axisdefaultwidth{10cm}
-%\usepgfplotslibrary{external}
+\usepgfplotslibrary{external}
 \usepgfplotslibrary{units}
-%\tikzexternalize
+\tikzexternalize
 \usepackage{pgfgantt}
 \newcounter{myWeekNum}
 \stepcounter{myWeekNum}
