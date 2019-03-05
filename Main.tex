@@ -151,8 +151,9 @@
 \maketitle
 
 \pagenumbering{arabic}
-
+\twocolumngrid
 \tableofcontents
+\onecolumngrid
 
 % ToC before List-ofs fix
 \makeatletter
@@ -165,8 +166,10 @@
 \setcounter{page}{1}
 
 %Text
-\subsection{Intro}
-\input{sections/Intro.tex}
+\section{Introduction}
+\input{sections/Intro}
+\section{Quantum transport}
+\input{sections/Theory.tex}
 \newpage
 \begin{acknowledgments}
 	The authors would like to thank...
