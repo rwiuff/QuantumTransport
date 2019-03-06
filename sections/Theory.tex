@@ -71,27 +71,35 @@ This hybradisation lock all but one valence electron for the carbon atoms. These
 The last electron in the p\(_z\) orbital does not mix with the tightly bound s, p\(_x\) and p\(_y\) electrons and moves more freely. Thus these electrons have higher energies compared to the \(sp^2\) electrons and occupy states at the Fermi level. These electrons dominates transport in the graphene lattice. The p\(_z\) orbital is also known as the \(\pi\)-orbital and as such the electron lying there is called a \(\pi\)-electron. Through a carbon lattice the \(\pi\)-electrons will travel through \(\pi\)-orbitals, switching sign as they go as shown in \cref{sign}.
 \begin{figure}[H]
 	\begin{center}
+		\pgfdeclarelayer{background}
+		\pgfdeclarelayer{middle}
+		\pgfdeclarelayer{foreground}
+		\pgfsetlayers{background,middle,main,foreground}
 		\begin{tikzpicture}
-			\orbital[pos = {(7,4.73)}]{pz}
-			\node[above] at (7,5.73) {p$_\pi$};
-			\orbital[pos = {(3,4.73)}]{-pz}
-			\node[above] at (3,5.73) {-p$_\pi$};
-			\orbital[pos = {(6,6.46)}]{-pz}
-			\node[above] at (6,7.46) {-p$_\pi$};
-			\orbital[pos = {(4,6.46)}]{pz}
-			\node[above] at (4,7.46) {p$_\pi$};
-			\draw[dashed, very thick] (6,6.46) -- (4,6.46);
-			\draw[dashed, very thick] (7,4.73) -- (6,6.46);
-			\draw[dashed, very thick] (4,6.46) -- (3,4.73);
-			\draw[dashed, very thick] (6,3) -- (7,4.73);
-			\draw[dashed, very thick] (3,4.73) -- (4,3);
-			\orbital[pos = {(4,3)}]{pz}
-			\node[above] at (4,4) {p$_\pi$};
-			\orbital[pos = {(6,3)}]{-pz}
-			\node[above] at (6,4) {-p$_\pi$};
-			\draw[dashed, very thick] (4,3) -- (6,3);
+			\begin{pgfonlayer}{background}
+				\orbital[pos = {(6,6)}]{-pz}
+				\node[above] at (6,7) {-p$_\pi$};
+				\orbital[pos = {(4,6)}]{pz}
+				\node[above] at (4,7) {p$_\pi$};
+				\draw[dashed, very thick] (6,6) -- (4,6);
+				\draw[dashed, very thick] (7,4.73) -- (6,6);
+				\draw[dashed, very thick] (4,6) -- (3,4.73);
+			\end{pgfonlayer}
+				\orbital[pos = {(7,4.73)}]{pz}
+				\node[above] at (7,5.73) {p$_\pi$};
+				\orbital[pos = {(3,4.73)}]{-pz}
+				\node[above] at (3,5.73) {-p$_\pi$};
+			\begin{pgfonlayer}{foreground}
+				\orbital[pos = {(4,3.46)}]{pz}
+				\node[above] at (4,4.46) {p$_\pi$};
+				\orbital[pos = {(6,3.46)}]{-pz}
+				\node[above] at (6,4.46) {-p$_\pi$};
+				\draw[dashed, very thick] (4,3.46) -- (6,3.46);
+			\end{pgfonlayer}
+			\draw[dashed, very thick] (6,3.46) -- (7,4.73);
+			\draw[dashed, very thick] (3,4.73) -- (4,3.46);
 		\end{tikzpicture}
-		\caption{When going from one carbon atom to another, the \(\pi\)-electron goes betwenn p\(_\pi\) and -p\(_\pi\).}
+		\caption{When going from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\) and -p\(_\pi\).}
 		\label{sign}
 	\end{center}
 \end{figure}
@@ -101,4 +109,4 @@ In this approximation the electrons are considered being tightly bound to the at
 \begin{align}
 	\Psi_{\mathrm{MO}} = \sum_{\alpha,R}c_{\alpha,R}\phi_{\alpha}(R)
 \end{align}
-where \(\phi_{\alpha}(R)\) is some atomic orbital at position \(R\), with \(\alpha\) denoting a specific valence orbital. In electron transport the states close to the Fermi level is of interest. These are namely the highest occupied moelcular orbitals (HOMO), or the lowest unoccupied molecular orbitals (LUMO).
+where \(\phi_{\alpha}(R)\) is some atomic orbital at position \(R\), with \(\alpha\) denoting the valence of the orbital (\(2s,2p_x,2p_y,2p_z\)). In electron transport the states close to the Fermi level is of interest. These are namely the highest occupied moelcular orbitals (HOMO), or the lowest unoccupied molecular orbitals (LUMO).
