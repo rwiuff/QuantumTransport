@@ -85,10 +85,10 @@ The last electron in the p\(_z\) orbital does not mix with the tightly bound s, 
 				\draw[dashed, very thick] (7,4.73) -- (6,6);
 				\draw[dashed, very thick] (4,6) -- (3,4.73);
 			\end{pgfonlayer}
-				\orbital[pos = {(7,4.73)}]{pz}
-				\node[above] at (7,5.73) {p$_\pi$};
-				\orbital[pos = {(3,4.73)}]{-pz}
-				\node[above] at (3,5.73) {-p$_\pi$};
+			\orbital[pos = {(7,4.73)}]{pz}
+			\node[above] at (7,5.73) {p$_\pi$};
+			\orbital[pos = {(3,4.73)}]{-pz}
+			\node[above] at (3,5.73) {-p$_\pi$};
 			\begin{pgfonlayer}{foreground}
 				\orbital[pos = {(4,3.46)}]{pz}
 				\node[above] at (4,4.46) {p$_\pi$};
@@ -105,8 +105,70 @@ The last electron in the p\(_z\) orbital does not mix with the tightly bound s, 
 \end{figure}
 \subsection{Tight-binding}
 Now that the transport carrying electrons are defined, one must choose a formalism for the transport itself. Introducing: \textbf{``The Tight-Binding approximation''}.
-In this approximation the electrons are considered being tightly bound to the atoms. Contrary to a free electron gass approximation, the electrons does not spend time in between orbitals, but jump from orbital in atom \(a\) to orbital in atom \(b\). In this world view the Hamiltonian operator is a matrix of hopping elements for a collection of neighbouring atomic orbitals, i.e. molecular orbitals. This can be done by describing the orbitals as a Linear Combination of Atomic Orbitals (LCAO). The solution to the Schrödinger equation is then:
+In this approximation the electrons are considered being tightly bound to the atoms. Contrary to a free electron gass approximation, the electrons does not spend time in between orbitals, but jump from orbital in atom \(a\) to orbital in atom \(b\). In this world view the Hamiltonian contains a matrix of hopping elements for a collection of neighbouring atomic orbitals, i.e. molecular orbitals, as well as the energy contained within each orbital (which will be adressed later on). This can be done by describing the orbitals as a Linear Combination of Atomic Orbitals (LCAO). The solution to the Schrödinger equation is then:
 \begin{align}
 	\Psi_{\mathrm{MO}} = \sum_{\alpha,R}c_{\alpha,R}\phi_{\alpha}(R)
 \end{align}
-where \(\phi_{\alpha}(R)\) is some atomic orbital at position \(R\), with \(\alpha\) denoting the valence of the orbital (\(2s,2p_x,2p_y,2p_z\)). In electron transport the states close to the Fermi level is of interest. These are namely the highest occupied moelcular orbitals (HOMO), or the lowest unoccupied molecular orbitals (LUMO).
+where \(\phi_{\alpha}(R)\) is some atomic orbital at position \(R\), with \(\alpha\) denoting the valence of the orbital (\(2s,2p_x,2p_y,2p_z\)). In electron transport the states close to the Fermi level is of interest. These are namely the highest occupied moelcular orbitals (HOMO), or the lowest unoccupied molecular orbitals (LUMO). As stated earlier only the \(\pi\)-electrons is then of interest.
+The electrons' motion can be described with the hopping matrix of elements:
+\begin{align}
+	V_{pp\pi} = \bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(2)}\label{V}
+\end{align}
+Physically this means that there is a potential between the \(\pi\) orbitals of neighbouring atoms \(1\) and \(2\). The element
+\begin{align}
+	\epsilon_0 = \bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(1)}
+\end{align}
+is the average energy of the electron on atom \(1\) and, it is normal to define the hopping energy relative to this:
+\begin{align}
+	\epsilon_0 = 0
+\end{align}
+\subsection{The benzene molecule}
+\begin{wrapfigure}[7]{r}{.3\textwidth}
+	\vspace{-2.3em}
+	\centering
+	\begin{tikzpicture}
+		\chemfig{1*6(-2-3-4-5-6-)}
+	\end{tikzpicture}
+	\caption{Indices of a benzene molecule}\label{benz}
+\end{wrapfigure}
+As an example the Hamiltonian of benzene is considered. In \cref{benz} one can see the indices of a benzene molecule. Remember that \(\bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(1)} = 0\) and \cref{V}, the Hamiltonian reads:
+\begin{align}
+	\mqty{\\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
+															\mqty{1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
+																																				 1 & 0 & 1 & 0 & 0 & 0 \\
+																																				 0 & 1 & 0 & 1 & 0 & 0 \\
+																																				 0 & 0 & 1 & 0 & 1 & 0 \\
+																																				 0 & 0 & 0 & 1 & 0 & 1 \\
+																																				 1 & 0 & 0 & 0 & 1 & 0)}\label{BH}
+\end{align}
+As a helping aid, \cref{BH} shows the atomic indices of the atom on the top and to the left of the matrix. This will give an understanding of how to work with such matrices.
+The structure of the benzene molecule is rotationally symmetric and rotating the indices one sixth must yield the same Hamiltonian. Consider the energy eigenvector:
+\begin{align}
+	\phi = \mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
+\end{align}
+There must exist an operator that rotates the indices as such:
+\begin{align}
+	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1)
+\end{align}
+The rotated Hamiltonian is the same, and thus \(C_6\) and \(\vb{H}\) commutes. The rotated vector must be an eigenvector with the same energy and it should be possible to find simultaneous eigenvectors to \(C_6\) and \(\vb{H}\).
+\begin{align}
+	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1) = \lambda\mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
+\end{align}
+This operator \(C_6\) is represented with the matrix:
+\begin{align}
+	\vb{C}_6 = \mqty*(0 & 1 & 0 & 0 & 0 & 0 \\
+										0 & 0 & 1 & 0 & 0 & 0 \\
+										0 & 0 & 0 & 1 & 0 & 0 \\
+										0 & 0 & 0 & 0 & 1 & 0 \\
+										0 & 0 & 0 & 0 & 0 & 1 \\
+										1 & 0 & 0 & 0 & 0 & 0)
+\end{align}
+It can quickly be shown that the normalized eigenvectors to \(C_6\) are
+\begin{align}
+	\phi_n = \frac{1}{\sqrt{6}}\mqty(\lambda_n^0 & \lambda_n^1 & \lambda_n^2 & \lambda_n^3 & \lambda_n^4 & \lambda_n^5), \quad \lambda_n = \exp{-i2\pi n / 6}, \quad n = 0,1,2,3,4,5
+\end{align}
+These eigenvectors are also eigenvectors for \(\vb{H}\) with the eigenvalues:
+\begin{align}
+	\varepsilon_n = \lambda_n + \lambda_{n-1} = 2 \cos{n\pi/3}
+\end{align}
+Thus thanks to the rotational symmetry it was possible to find the eigenvectors and eigenenergies for the Hamiltonian.
