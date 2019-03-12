@@ -1,23 +1,32 @@
 import numpy as np
 import math
+from sympy import *
 from matplotlib import pyplot as plt
 
-k = np.linspace(-math.pi, math.pi, 100)
-e = np.array([k, k, k, k])
-for i in range(np.size(k)):
-    e[0, i] = (1 / 2) + math.sqrt(8 * math.cos(k[i]) + 9) / 2
-for i in range(np.size(k)):
-    e[1, i] = (1 / 2) - math.sqrt(8 * math.cos(k[i]) + 9) / 2
-for i in range(np.size(k)):
-    e[2, i] = -(1 / 2) + math.sqrt(8 * math.cos(k[i]) + 9) / 2
-for i in range(np.size(k)):
-    e[3, i] = -(1 / 2) - math.sqrt(8 * math.cos(k[i]) + 9) / 2
-plt.plot(k, e[0], '-', label=r'$\epsilon_1$')
-plt.plot(k, e[1], '-', label=r'$\epsilon_2$')
-plt.plot(k, e[2], '-', label=r'$\epsilon_3$')
-plt.plot(k, e[3], '-', label=r'$\epsilon_4$')
-plt.xlabel('k')
-plt.ylabel('Energy')
-plt.grid(True)
-plt.legend(ncol=4)
-plt.show()
+
+h = Matrix([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]])
+V = Matrix([[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0]])
+VT = V.T
+k = symbols('k')
+e = symbols('e')
+hVVT = h + V * exp(-I * k) + VT * exp(-I * k)
+bcp = hVVT - Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
+                     [0, 0, 1, 0], [0, 0, 0, 1]]) * e
+cp = bcp.det()
+print(cp)
+# e = hVVT.eigenvals()
+# e = list(e.keys())
+# print(e[0].rewrite(exp).simplify())
+# for j in range(len(roots)):
+#     for k in range(np.size(r)):
+#         energy[0, i] = roots(k).evalf
+#
+# plt.plot(k, energy[0], '-', label=r'$\epsilon_1$')
+# plt.plot(k, energy[1], '-', label=r'$\epsilon_2$')
+# plt.plot(k, energy[2], '-', label=r'$\epsilon_3$')
+# plt.plot(k, energy[3], '-', label=r'$\epsilon_4$')
+# plt.xlabel('k')
+# plt.ylabel('Energy')
+# plt.grid(True)
+# plt.legend(ncol=4)
+# plt.show()
