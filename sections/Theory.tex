@@ -99,7 +99,7 @@ The last electron in the p\(_z\) orbital does not mix with the tightly bound s, 
 			\draw[dashed, very thick] (6,3.46) -- (7,4.73);
 			\draw[dashed, very thick] (3,4.73) -- (4,3.46);
 		\end{tikzpicture}
-		\caption{When going from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\) and -p\(_\pi\).}
+		\caption{When jumping from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\) and -p\(_\pi\). Such a jump is described by two matrix elements in the system's Hamiltonian.}
 		\label{sign}
 	\end{center}
 \end{figure}
@@ -112,16 +112,17 @@ In this approximation the electrons are considered being tightly bound to the at
 where \(\phi_{\alpha}(R)\) is some atomic orbital at position \(R\), with \(\alpha\) denoting the valence of the orbital (\(2s,2p_x,2p_y,2p_z\)). In electron transport the states close to the Fermi level is of interest. These are namely the highest occupied moelcular orbitals (HOMO), or the lowest unoccupied molecular orbitals (LUMO). As stated earlier only the \(\pi\)-electrons is then of interest.
 The electrons' motion can be described with the hopping matrix of elements:
 \begin{align}
-	V_{pp\pi} = \bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(2)}\label{V}
+	V_{pp\pi} = \bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(2)}\label{V}
 \end{align}
 Physically this means that there is a potential between the \(\pi\) orbitals of neighbouring atoms \(1\) and \(2\). The element
 \begin{align}
-	\epsilon_0 = \bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(1)}
+	\epsilon_0 = \bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)}
 \end{align}
 is the average energy of the electron on atom \(1\) and, it is normal to define the hopping energy relative to this:
 \begin{align}
 	\epsilon_0 = 0
 \end{align}
+If the atoms or their environment differs, so does the on-site potential.
 \subsection{The benzene molecule}
 \begin{wrapfigure}[7]{r}{.3\textwidth}
 	\vspace{-2.3em}
@@ -131,15 +132,15 @@ is the average energy of the electron on atom \(1\) and, it is normal to define 
 	\end{tikzpicture}
 	\caption{Indices of a benzene molecule}\label{benz}
 \end{wrapfigure}
-As an example the Hamiltonian of benzene is considered. In \cref{benz} one can see the indices of a benzene molecule. Remember that \(\bra{\phi_{\pi}}(1)\hat{H}\ket{\phi_{\pi}(1)} = 0\) and \cref{V}, the Hamiltonian reads:
+As an example the Hamiltonian of benzene is considered. In \cref{benz} one can see the indices of a benzene molecule. Remember that \(\bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)} = 0\) and \cref{V}, the Hamiltonian reads:
 \begin{align}
-	\mqty{\\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
-															\mqty{1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
-																																				 1 & 0 & 1 & 0 & 0 & 0 \\
-																																				 0 & 1 & 0 & 1 & 0 & 0 \\
-																																				 0 & 0 & 1 & 0 & 1 & 0 \\
-																																				 0 & 0 & 0 & 1 & 0 & 1 \\
-																																				 1 & 0 & 0 & 0 & 1 & 0)}\label{BH}
+	\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
+		\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
+	1 & 0 & 1 & 0 & 0 & 0             \\
+	0 & 1 & 0 & 1 & 0 & 0             \\
+	0 & 0 & 1 & 0 & 1 & 0             \\
+	0 & 0 & 0 & 1 & 0 & 1             \\
+	1 & 0 & 0 & 0 & 1 & 0)}\label{BH}
 \end{align}
 As a helping aid, \cref{BH} shows the atomic indices of the atom on the top and to the left of the matrix. This will give an understanding of how to work with such matrices.
 The structure of the benzene molecule is rotationally symmetric and rotating the indices one sixth must yield the same Hamiltonian. Consider the energy eigenvector:
@@ -156,12 +157,12 @@ The rotated Hamiltonian is the same, and thus \(C_6\) and \(\vb{H}\) commutes. T
 \end{align}
 This operator \(C_6\) is represented with the matrix:
 \begin{align}
-	\vb{C}_6 = \mqty*(0 & 1 & 0 & 0 & 0 & 0 \\
-										0 & 0 & 1 & 0 & 0 & 0 \\
-										0 & 0 & 0 & 1 & 0 & 0 \\
-										0 & 0 & 0 & 0 & 1 & 0 \\
-										0 & 0 & 0 & 0 & 0 & 1 \\
-										1 & 0 & 0 & 0 & 0 & 0)
+	\vb{C}_6 = \mqty*(0 & 1 & 0 & 0 & 0 & 0  \\
+	0                   & 0 & 1 & 0 & 0 & 0  \\
+	0                   & 0 & 0 & 1 & 0 & 0  \\
+	0                   & 0 & 0 & 0 & 1 & 0  \\
+	0                   & 0 & 0 & 0 & 0 & 1  \\
+	1                   & 0 & 0 & 0 & 0 & 0)
 \end{align}
 It can quickly be shown that the normalized eigenvectors to \(C_6\) are
 \begin{align}
