@@ -1,6 +1,8 @@
 # from ase import Atoms                   # Used to extract coordinates
 # from ase.build import molecule          # Constructs molecules
-from matplotlib import pyplot as plt    # Pyplot for nice graphs
+from matplotlib import pyplot as plt     # Pyplot for nice graphs
+from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
+from matplotlib.widgets import Slider, Button
 # from sympy import I, simplify           # Imaginary unit and simplify
 # import math                             # Maths
 # import sympy as sym                     # SymPy
@@ -50,18 +52,18 @@ for i in range(xyz.shape[0]):
         Ham[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))
 Ham = np.where(Ham < 1.6, Vppi, 0)
 Ham = np.subtract(Ham, Vppi * np.identity(xyz.shape[0]))
-print("Sum of Vppi in Hamiltonian:")
+
+print(Ham.shape)
 print(np.sum(Ham))
 plt.imshow(Ham)
 plt.colorbar()
 plt.show()
-w, e = LA.eig(Ham)
-w = np.around(w.real, decimals=3)
+v, e = LA.eig(Ham)
+v = np.round(v, decimals=3)
+w = v.real
 c = Counter(w)
-y = np.array([v for k, v in sorted(c.items())])
+y = np.array([p for k, p in sorted(c.items())])
 x = np.asarray(sorted([*c]))
-print(y)
-print(x)
 fig, ax = plt.subplots(figsize=(16, 10), dpi=80)
 ax.vlines(x=x, ymin=0, ymax=y,
           color='firebrick', alpha=0.7, linewidth=2)
@@ -69,6 +71,7 @@ ax.scatter(x=x, y=y, s=75, color='firebrick', alpha=0.7)
 
 ax.set_title('Energy degeneracy', fontdict={'size': 22})
 ax.set_ylabel('Degeneracy')
+ax.set_xlabel('Energy')
 ax.set_ylim(0, 10)
 ax.tick_params(axis='both', which='both')
 ax.spines['left'].set_position('center')
@@ -76,4 +79,66 @@ plt.grid(which='both')
 for i in range(x.size):
     ax.text(x[i], y[i] + .5, s=x[i], horizontalalignment='center',
             verticalalignment='bottom', fontsize=14)
+plt.show()
+
+xlin = np.array([[0, 0]])
+ylin = np.array([[0, 0]])
+zlin = np.array([[0, 0]])
+
+for i in range(xyz.shape[0]):
+    for j in range(xyz.shape[0]):
+        if LA.norm(np.subtract(xyz[i], xyz[j])) < 1.6:
+            TmpArr = np.array([[xyz[i, 0], xyz[j, 0]]])
+            xlin = np.append(xlin, TmpArr, axis=0)
+            TmpArr = np.array([[xyz[i, 1], xyz[j, 1]]])
+            ylin = np.append(ylin, TmpArr, axis=0)
+            TmpArr = np.array([[xyz[i, 2], xyz[j, 2]]])
+            zlin = np.append(zlin, TmpArr, axis=0)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+for i in range(xlin.shape[0]):
+    ax.plot(xlin[i], ylin[i], zlin[i])
+
+ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2])
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+
+val = 1
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+for i in range(xlin.shape[0]):
+    ax.plot(xlin[i], ylin[i], zlin[i])
+s = np.zeros(v.size)
+for i in range(v.size):
+    s[i] = np.absolute(v[i])
+s = s * val
+print(s)
+print(s.shape)
+Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
+plt.subplots_adjust(bottom=0.25)
+axcolor = 'lightgoldenrodyellow'
+axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
+state = Slider(axfreq, 'State', 1, 30, valinit=1, valstep=1)
+
+
+def update(val):
+    val = state.val
+    for i in range(v.size):
+        s[i] = np.absolute(v[i])
+    Stateplot._sizes = s*val
+    fig.canvas.draw_idle()
+
+
+resetax = plt.axes([0.8, 0.025, 0.1, 0.04])
+button = Button(resetax, 'Reset', hovercolor='0.975')
+
+
+def reset(event):
+    state.reset()
+
+
+button.on_clicked(reset)
+state.on_changed(update)
+plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
