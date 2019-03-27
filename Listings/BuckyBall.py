@@ -3,9 +3,9 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
-# from sympy import I, simplify           # Imaginary unit and simplify
+from sympy import I  # ,simplify           # Imaginary unit and simplify
 # import math                             # Maths
-# import sympy as sym                     # SymPy
+import sympy as sym                     # SymPy
 import numpy as np                      # NumPy
 from numpy import linalg as LA
 from collections import Counter
@@ -58,9 +58,9 @@ print(np.sum(Ham))
 plt.imshow(Ham)
 plt.colorbar()
 plt.show()
-v, e = LA.eig(Ham)
-v = np.round(v, decimals=3)
-w = v.real
+e, v = LA.eig(Ham)
+e = np.round(e, decimals=3)
+w = e.real
 c = Counter(w)
 y = np.array([p for k, p in sorted(c.items())])
 x = np.asarray(sorted([*c]))
@@ -109,13 +109,17 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 for i in range(xlin.shape[0]):
     ax.plot(xlin[i], ylin[i], zlin[i])
-s = np.zeros(v.size)
-for i in range(v.size):
-    s[i] = np.absolute(v[i])
-s = s * val
+s = np.zeros(v.shape[0])
+c = np.zeros(v.shape[0])
+print(v)
+print(v[:, 0])
+val = 1
+s = np.absolute(v[:, val - 1])
+s = s * 300
+c = np.where(v[:, val - 1] > 0, 'b', 'r')
 print(s)
 print(s.shape)
-Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
+Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s, c=c)
 plt.subplots_adjust(bottom=0.25)
 axcolor = 'lightgoldenrodyellow'
 axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
@@ -124,9 +128,14 @@ state = Slider(axfreq, 'State', 1, 30, valinit=1, valstep=1)
 
 def update(val):
     val = state.val
-    for i in range(v.size):
-        s[i] = np.absolute(v[i])
-    Stateplot._sizes = s*val
+    val = int(val)
+    s = np.absolute(v[:, val - 1])
+    s = s * 300
+    print(s)
+    c = np.where(v[:, val - 1] > 0, 'b', 'r')
+    print(c)
+    Stateplot._sizes = s
+    Stateplot.set_facecolors(c)
     fig.canvas.draw_idle()
 
 
@@ -142,3 +151,11 @@ button.on_clicked(reset)
 state.on_changed(update)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
+
+t = sym.symbols('t', real='true')
+expe = sym.zeros(e.size, 1)
+for i in range(e.size):
+    expe[i] = sym.exp(I * t * e[i])
+DM = sym.Matrix(e.size, e.size, lambda i, j: expe[i] if i == j else 0)
+U = v.T*DM*v
+print(U)
