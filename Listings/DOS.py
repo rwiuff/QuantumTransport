@@ -1,9 +1,7 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
-from sympy import I  # ,simplify           # Imaginary unit and simplify
-# import math                             # Maths
-import sympy as sym                     # SymPy
+from scipy.sparse import dia_matrix
 import numpy as np                      # NumPy
 from numpy import linalg as LA
 from collections import Counter
@@ -144,7 +142,7 @@ ax = fig.add_subplot(111, projection='3d')
 for i in range(xlin.shape[0]):
     ax.plot(xlin[i], ylin[i], zlin[i])
 
-ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2])
+ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=300)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
 
@@ -159,11 +157,12 @@ print(v)
 print(v[:, 0])
 val = 1
 s = np.absolute(v[:, val - 1])
-s = s * 300
-c = np.where(v[:, val - 1] > 0, 'b', 'r')
+s = s * 900
+c = np.where(v[:, val - 1] > 0, 0, 1)
 print(s)
 print(s.shape)
-Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s, c=c)
+Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
+Stateplot.set_cmap("bwr")
 plt.subplots_adjust(bottom=0.25)
 axcolor = 'lightgoldenrodyellow'
 axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
@@ -174,12 +173,12 @@ def update(val):
     val = state.val
     val = int(val)
     s = np.absolute(v[:, val - 1])
-    s = s * 300
+    s = s * 900
     print(s)
-    c = np.where(v[:, val - 1] > 0, 'b', 'r')
+    c = np.where(v[:, val - 1] > 0, 0, 1)
     print(c)
     Stateplot._sizes = s
-    Stateplot.set_facecolors(c)
+    Stateplot.set_array(c)
     fig.canvas.draw_idle()
 
 
