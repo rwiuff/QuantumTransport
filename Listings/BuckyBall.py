@@ -1,11 +1,7 @@
-# from ase import Atoms                   # Used to extract coordinates
-# from ase.build import molecule          # Constructs molecules
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
-from sympy import I  # ,simplify           # Imaginary unit and simplify
-# import math                             # Maths
-import sympy as sym                     # SymPy
+from scipy.sparse import dia_matrix
 import numpy as np                      # NumPy
 from numpy import linalg as LA
 from collections import Counter
@@ -135,7 +131,7 @@ def update(val):
     c = np.where(v[:, val - 1] > 0, 'b', 'r')
     print(c)
     Stateplot._sizes = s
-    Stateplot.set_facecolors(c)
+    Stateplot._facecolors = c
     fig.canvas.draw_idle()
 
 
@@ -152,10 +148,21 @@ state.on_changed(update)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
 
-t = sym.symbols('t', real='true')
-expe = sym.zeros(e.size, 1)
+expe = np.zeros((e.size), dtype=complex)
+t = 0.05
 for i in range(e.size):
-    expe[i] = sym.exp(I * t * e[i])
-DM = sym.Matrix(e.size, e.size, lambda i, j: expe[i] if i == j else 0)
-U = v.T*DM*v
+    expe[i] = np.exp(j * t * e[i])
+DM = np.diagflat(expe)
+delta = 10**-5
+v.real[abs(v.real) < delta] = 0.0
+v.imag[abs(v.imag) < delta] = 0.0
+print(v)
+U = v.T * DM * v
 print(U)
+
+psi0 = dia_matrix((np.ones(e.size)), shape=(e.size, e.size))
+
+States = dict()
+for i in range(100):
+    States[i] = 
+psi = psi0
