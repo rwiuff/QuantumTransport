@@ -1,3 +1,15 @@
+# -------------------------------------------------------------------- #
+#                                                                      #
+#       Python script for calculating the bandstructure of C60         #
+#                                                                      #
+#             This scgript calcutes the electron transport             #
+#                        of the Bucky Ball (C60)                       #
+#                                                                      #
+#              Written by Rasmus Wiuff (rwiuff@gmail.com)              #
+#                                                                      #
+# -------------------------------------------------------------------- #
+
+# --------------------------Import Libraries-------------------------- #
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
@@ -11,6 +23,7 @@ Vppi = -1
 
 # BB = molecule('C60')
 # xyz = BB.get_positions()
+
 xyz = np.array([[1.3624, 1.5632, 2.8359], [2.0435, 0.36748, 2.7818],
                 [1.6002, 2.5246, 1.8519], [0.0036388, 1.2996, 3.3319],
                 [1.2172, -0.64172, 3.2237], [2.9886, 0.13386, 1.8164],
@@ -157,13 +170,30 @@ DM = np.diagflat(expe)
 delta = 10**-5
 v.real[abs(v.real) < delta] = 0.0
 v.imag[abs(v.imag) < delta] = 0.0
-print(v)
 U = v.T * DM * v
-print(U)
 
 psi0 = dia_matrix((np.ones(e.size)), shape=(e.size, e.size))
 
-# States = dict()
-# for i in range(100):
-#     States[i] =
 psi = psi0
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+for i in range(xlin.shape[0]):
+    ax.plot(xlin[i], ylin[i], zlin[i])
+s = np.zeros(v.shape[0])
+c = np.zeros(v.shape[0])
+val = 1
+s = np.absolute(v[:, val - 1])
+s = s * 900
+c = np.where(v[:, val - 1] > 0, 0, 1)
+
+Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
+Stateplot.set_cmap("bwr")
+plt.subplots_adjust(bottom=0.25)
+axcolor = 'lightgoldenrodyellow'
+axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
+state = Slider(axfreq, 'State', 1, 30, valinit=1, valstep=1)
+button.on_clicked(reset)
+state.on_changed(update)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
