@@ -13,7 +13,6 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
-from scipy.sparse import dia_matrix
 import numpy as np                      # NumPy
 from numpy import linalg as LA
 from collections import Counter
@@ -120,14 +119,10 @@ for i in range(xlin.shape[0]):
     ax.plot(xlin[i], ylin[i], zlin[i])
 s = np.zeros(v.shape[0])
 c = np.zeros(v.shape[0])
-print(v)
-print(v[:, 0])
 val = 1
 s = np.absolute(v[:, val - 1])
 s = s * 900
 c = np.where(v[:, val - 1] > 0, 0, 1)
-print(s)
-print(s.shape)
 Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
 Stateplot.set_cmap("bwr")
 plt.subplots_adjust(bottom=0.25)
@@ -165,27 +160,47 @@ plt.show()
 expe = np.zeros((e.size), dtype=complex)
 t = 0.05
 for i in range(e.size):
-    expe[i] = np.exp(j * t * e[i])
+    expe[i] = np.exp(0.0j * t * e[i])
 DM = np.diagflat(expe)
 delta = 10**-5
 v.real[abs(v.real) < delta] = 0.0
 v.imag[abs(v.imag) < delta] = 0.0
 U = v.T * DM * v
 
-psi0 = dia_matrix((np.ones(e.size)), shape=(e.size, e.size))
-
+psi0 = np.ones((U.shape[0]))
 psi = psi0
+Statearray = np.zeros((U.shape[0], 100), dtype=complex)
+Statearray[:, 0] = U.dot(psi)
+print(Statearray[:, 0])
 
+for i in range(1, 100):
+    psi = U.dot(psi)
+    Statearray[:, i] = psi
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 for i in range(xlin.shape[0]):
     ax.plot(xlin[i], ylin[i], zlin[i])
-s = np.zeros(v.shape[0])
-c = np.zeros(v.shape[0])
+s = np.zeros(Statearray.shape[0])
+c = np.zeros(Statearray.shape[0])
+
 val = 1
-s = np.absolute(v[:, val - 1])
+s = np.absolute(Statearray[:, val - 1])
 s = s * 900
-c = np.where(v[:, val - 1] > 0, 0, 1)
+c = np.where(Statearray[:, val - 1] > 0, 0, 1)
+
+
+def update(val):
+    val = state.val
+    val = int(val)
+    s = np.absolute(Statearray[:, val - 1])
+    s = s * 900
+    print(s)
+    c = np.where(Statearray[:, val - 1] > 0, 0, 1)
+    print(c)
+    Stateplot._sizes = s
+    Stateplot.set_array(c)
+    fig.canvas.draw_idle()
+
 
 Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
 Stateplot.set_cmap("bwr")
@@ -193,7 +208,4 @@ plt.subplots_adjust(bottom=0.25)
 axcolor = 'lightgoldenrodyellow'
 axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
 state = Slider(axfreq, 'State', 1, 30, valinit=1, valstep=1)
-button.on_clicked(reset)
-state.on_changed(update)
-plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
