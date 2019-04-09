@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Apr  5 11:06:47 2019
-
-@author: Chr_0
-"""
-
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
@@ -130,19 +123,19 @@ for i in range(xyz.shape[0]):
         V3[i, j] = LA.norm(np.subtract(xyz[i], xyz3[j]))
 V3 = np.where(V3 < 1.6, Vppi, 0)
 
-
-#plt.imshow(Ham)
-#plt.colorbar()
-#plt.show()
-#plt.imshow(V1)
-#plt.colorbar()
-#plt.show()
-#plt.imshow(V2)
-#plt.colorbar()
-#plt.show()
-#plt.imshow(V3)
-#plt.colorbar()
-#plt.show()
+print(np.sum(Ham))
+plt.imshow(Ham)
+plt.colorbar()
+plt.show()
+plt.imshow(V1)
+plt.colorbar()
+plt.show()
+plt.imshow(V2)
+plt.colorbar()
+plt.show()
+plt.imshow(V3)
+plt.colorbar()
+plt.show()
 
 
 def Hkay(Ham, V1, V2, V3, x, y):
@@ -161,19 +154,17 @@ for i in range(k.shape[0]):
     X[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=-k[i], y=0)
     Z[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=k[i])
 zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)
-#plt.scatter(np.zeros((zero.shape[0])), zero)
-#plt.show()
-Xspace = np.linspace(0, 1/shifty, 1000)
-Zspace = np.linspace(0, 1/shiftx, 1000)
+Xspace = np.linspace(0, 1 / shifty, 1000)
+Zspace = np.linspace(0, 1 / shiftx, 1000)
 ax = plt.figure(figsize=(1, 6))
 for i in range(X.shape[0]):
     plt.plot(np.flip(-Zspace, axis=0), np.flip(X[i, :], axis=0))
 for i in range(X.shape[0]):
     plt.plot(Xspace, Z[i, :])
-xtick = np.array([-1/shiftx, 0, 1/shifty])
-plt.xticks(xtick, ('X','G','Z'))
-plt.axvline(x=0,linewidth=1,color='k',linestyle='--')
+xtick = np.array([-1 / shiftx, 0, 1 / shifty])
+plt.xticks(xtick, ('X', 'G', 'Z'))
+plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 plt.title('NPG-normal')
 plt.ylim(-1, 1)
 plt.show()
-plt.savefig('FabNPGBS.eps',bbox_inches = 'tight')
+plt.savefig('FabNPGBS.eps', bbox_inches='tight')
