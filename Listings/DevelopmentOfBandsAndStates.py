@@ -126,7 +126,20 @@ for i in range(xlin.shape[0]):
 
 ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=300)
 plt.gca().set_aspect('equal', adjustable='box')
-ax.set_zlim(0, 50)
+max_range = np.array([xyz[:, 0].max() - xyz[:, 0].min(), xyz[:, 1].max()
+                      - xyz[:, 1].min(), xyz[:, 2].max() - xyz[:, 2].min()]).max()
+Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][0].flatten() + 0.5 * (xyz[:, 0].max()
+                                                               + xyz[:, 0].min())
+Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][1].flatten() + 0.5 * (xyz[:, 1].max()
+                                                               + xyz[:, 1].min())
+Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][2].flatten() + 0.5 * (xyz[:, 2].max()
+                                                               + xyz[:, 2].min())
+# Comment or uncomment following both lines to test the fake bounding box:
+for xb, yb, zb in zip(Xb, Yb, Zb):
+    ax.plot([xb], [yb], [zb], 'w')
 ax.set_xlabel('X: [Å]')
 ax.set_ylabel('Y: [Å]')
 ax.set_zlabel('Z: [Å]')
@@ -151,7 +164,7 @@ s = np.zeros(v.shape[0])
 c = np.zeros(v.shape[0])
 val = 1
 s = np.absolute(v[:, val - 1])
-s = s * 900
+s = s * 300
 c = np.where(v[:, val - 1] > 0, 0, 1)
 Stateplot = ax.scatter(xyz[:, 0], xyz[:, 1], xyz[:, 2], zdir='z', s=s)
 Stateplot.set_cmap("bwr")
@@ -165,7 +178,7 @@ def update(val):
     val = state.val
     val = int(val)
     s = np.absolute(v[:, val - 1])
-    s = s * 900
+    s = s * 300
     print(s)
     c = np.where(v[:, val - 1] > 0, 0, 1)
     print(c)
@@ -185,7 +198,20 @@ def reset(event):
 button.on_clicked(reset)
 state.on_changed(update)
 plt.gca().set_aspect('equal', adjustable='box')
-ax.set_zlim(0, 50)
+max_range = np.array([xyz[:, 0].max() - xyz[:, 0].min(), xyz[:, 1].max()
+                      - xyz[:, 1].min(), xyz[:, 2].max() - xyz[:, 2].min()]).max()
+Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][0].flatten() + 0.5 * (xyz[:, 0].max()
+                                                               + xyz[:, 0].min())
+Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][1].flatten() + 0.5 * (xyz[:, 1].max()
+                                                               + xyz[:, 1].min())
+Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][2].flatten() + 0.5 * (xyz[:, 2].max()
+                                                               + xyz[:, 2].min())
+# Comment or uncomment following both lines to test the fake bounding box:
+for xb, yb, zb in zip(Xb, Yb, Zb):
+    ax.plot([xb], [yb], [zb], 'w')
 ax.set_xlabel('X: [Å]')
 ax.set_ylabel('Y: [Å]')
 ax.set_zlabel('Z: [Å]')
@@ -203,9 +229,9 @@ c = np.zeros(v.shape[0])
 colors = np.zeros((v.shape[0], 4))
 val = 1
 s = np.absolute(v[:, val - 1])
-s = s * 900
+s = s * 300
 cmap = matplotlib.cm.get_cmap('hsv')
-c[:] = np.angle(v[:, val-1])
+c[:] = np.angle(v[:, val - 1])
 vmin = np.min(c)
 vmax = np.max(c)
 normalize = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
@@ -227,10 +253,10 @@ def update(val):
     val = state.val
     val = int(val)
     s = np.absolute(v[:, val - 1])
-    s = s * 900
+    s = s * 300
     print(s)
     colors = np.zeros((v.shape[0], 4))
-    c[:] = np.angle(v[:, val-1])
+    c[:] = np.angle(v[:, val - 1])
     vmin = np.min(c)
     vmax = np.max(c)
     normalize = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
@@ -253,7 +279,20 @@ def reset(event):
 button.on_clicked(reset)
 state.on_changed(update)
 plt.gca().set_aspect('equal', adjustable='box')
-ax.set_zlim(0, 50)
+max_range = np.array([xyz[:, 0].max() - xyz[:, 0].min(), xyz[:, 1].max()
+                      - xyz[:, 1].min(), xyz[:, 2].max() - xyz[:, 2].min()]).max()
+Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][0].flatten() + 0.5 * (xyz[:, 0].max()
+                                                               + xyz[:, 0].min())
+Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][1].flatten() + 0.5 * (xyz[:, 1].max()
+                                                               + xyz[:, 1].min())
+Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][2].flatten() + 0.5 * (xyz[:, 2].max()
+                                                               + xyz[:, 2].min())
+# Comment or uncomment following both lines to test the fake bounding box:
+for xb, yb, zb in zip(Xb, Yb, Zb):
+    ax.plot([xb], [yb], [zb], 'w')
 ax.set_xlabel('X: [Å]')
 ax.set_ylabel('Y: [Å]')
 ax.set_zlabel('Z: [Å]')
@@ -272,9 +311,11 @@ c = np.zeros(v.shape[0])
 colors = np.zeros((v.shape[0], 4))
 val = 1
 s = np.absolute(v[:, val - 1])
-s = s * 900
+s = s * 300
 cmap = matplotlib.cm.get_cmap('hsv')
-c[:] = np.angle(v[:, val-1])
+c[:] = normalize(np.angle(v[:, val - 1]))
+print(c)
+print(np.angle(v[:, val - 1]))
 vmin = np.min(c)
 vmax = np.max(c)
 normalize = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
@@ -296,10 +337,10 @@ def update(val):
     val = state.val
     val = int(val)
     s = np.absolute(v[:, val - 1])
-    s = s * 900
+    s = s * 300
     print(s)
     colors = np.zeros((v.shape[0], 4))
-    c[:] = np.angle(v[:, val-1])
+    c[:] = np.angle(v[:, val - 1])
     vmin = np.min(c)
     vmax = np.max(c)
     normalize = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
@@ -322,7 +363,20 @@ def reset(event):
 button.on_clicked(reset)
 state.on_changed(update)
 plt.gca().set_aspect('equal', adjustable='box')
-ax.set_zlim(0, 50)
+max_range = np.array([xyz[:, 0].max() - xyz[:, 0].min(), xyz[:, 1].max()
+                      - xyz[:, 1].min(), xyz[:, 2].max() - xyz[:, 2].min()]).max()
+Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][0].flatten() + 0.5 * (xyz[:, 0].max()
+                                                               + xyz[:, 0].min())
+Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][1].flatten() + 0.5 * (xyz[:, 1].max()
+                                                               + xyz[:, 1].min())
+Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2,
+                                - 1:2:2][2].flatten() + 0.5 * (xyz[:, 2].max()
+                                                               + xyz[:, 2].min())
+# Comment or uncomment following both lines to test the fake bounding box:
+for xb, yb, zb in zip(Xb, Yb, Zb):
+    ax.plot([xb], [yb], [zb], 'w')
 ax.set_xlabel('X: [Å]')
 ax.set_ylabel('Y: [Å]')
 ax.set_zlabel('Z: [Å]')

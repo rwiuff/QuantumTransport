@@ -7,6 +7,8 @@ import seaborn
 from numpy import linalg as LA
 from collections import Counter
 from Functions import xyzimport, Hkay, Onsite, Hop
+# import sys
+# np.set_printoptions(threshold=sys.maxsize)
 
 # Set hopping potential
 Vppi = -1
@@ -51,3 +53,14 @@ if Show == 1:
     plt.imshow(V3)
     plt.colorbar()
     plt.show()
+
+Erange = np.linspace(-1, 1, Ham.shape[0])
+print(Erange)
+Z = np.zeros((Erange.shape[0]), dtype=complex)
+Z[:] = Erange[:] + 1j * 0.0000001
+print(Z)
+Z = np.diag(Z)
+print(Z)
+OnS = Z - Ham
+SelfE = V1 @ LA.inv(OnS) @ np.transpose(V1)
+print(SelfE)
