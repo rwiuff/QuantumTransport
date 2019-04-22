@@ -70,7 +70,7 @@ for i in range(X.shape[0]):
 xtick = np.array([-1 / shiftx, 0, 1 / shifty])
 plt.xticks(xtick, ('X', r'$\Gamma$', 'Z'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
-plt.title('NPG-normal')
+plt.title('NPG-meta')
 plt.ylim(-1, 1)
 # plt.show()
 plt.savefig('metaNPGBS.eps', bbox_inches='tight')
