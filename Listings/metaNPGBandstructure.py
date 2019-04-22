@@ -1,99 +1,76 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Apr  5 11:06:47 2019
-
-@author: Chr_0
-"""
-
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
-from matplotlib.widgets import Slider, Button
-from scipy.sparse import dia_matrix
 import numpy as np                      # NumPy
-from numpy import linalg as LA
-from collections import Counter
+from Functions import xyzimport, Hkay, Onsite, Hop
 
+# Set hopping potential
 Vppi = -1
-xyz = np.array([[39.693150440,     7.569288530,    25.000000000], [39.692731480,     1.782242540,    25.000000000], [39.691745000,     6.127412820,    25.000000000], [39.691056320,     3.221017740,    25.000000000], [38.443390390,     8.297700260,    25.000000000], [38.442571280,     5.396793230,    25.000000000], [38.440684250,     1.051924560,    25.000000000], [38.438708560,     3.949608420,    25.000000000], [37.194651450,     1.776418720,    25.000000000], [37.192434640,     3.223684160,    25.000000000], [37.191610430,     7.580090620,    25.000000000], [37.190442490,     6.111259890,    25.000000000], [35.979835140,     8.325105240,    25.000000000], [35.977481280,     5.364720270,    25.000000000], [35.946600310,     1.042670230,    25.000000000], [35.941154380,     3.953161050,    25.000000000], [34.667693100,     1.773262260,    25.000000000], [34.660358540,     3.211161120,    25.000000000], [33.408784510,     3.893083240,    25.000000000], [33.408470700,     1.095217630,    25.000000000], [32.191107460,     1.790378580,    25.000000000], [32.162538650,     3.222238970,    25.000000000], [30.879055720,     3.992716540,    25.000000000], [30.875312440,     5.418415280,    25.000000000], [29.657091140,     6.130605470,    25.000000000], [29.620601110,     3.327586110,    25.000000000], [28.418819330,     5.452272560,    25.000000000], [28.379378290,     4.026876520,    25.000000000], [27.080278860,     3.283792480,    25.000000000], [27.041714690,     1.852696330,    25.000000010], [25.838175220,     3.965266730,    25.000000010], [25.821664580,     1.164822950,    25.000000000], [24.580974130,     3.289930550,    25.000000010], [24.567310280,     1.851800160,    25.000000000], [23.299221200,     4.033475850,    25.000000000], [23.288094420,     1.123325080,    25.000000000], [23.262605530,     5.445506040,    25.000000000], [23.255258790,     8.406011720,    25.000000000], [22.048085600,     6.192142110,    25.000000000], [22.045918120,     3.305682520,    25.000000000], [22.044583030,     7.660971200,    25.000000000], [22.041520080,     1.858369610,    25.000000000], [20.798995370,     4.031802140,    25.000000000], [20.795536810,     1.134264770,    25.000000000], [20.794795060,    5.478996540,    25.000000000], [20.793201240,     8.379914520, 25.000000000], [19.545471400,     3.304274280,    25.000000000], [19.545025110,     6.210271600,    25.000000000], [19.543912340,     1.865393200,    25.000000000], [19.543092980,     7.652181260,    25.000000000], [18.295169110,     5.482894400,    25.000000000], [18.293637550,     4.035545040,    25.000000000], [18.293557630,     8.383468350,    25.000000000], [18.291050020,     1.137514570,    25.000000000], [17.047052510,     3.311169820,    24.999999990], [17.046171240,     1.864047750,    25.000000000], [17.043511390,     6.200174380,    25.000000000], [17.040400610,     7.668881980,    25.000000000], [15.832016350,     5.454101900,    25.000000000], [15.826912380,     8.415144160,    25.000000000], [15.797723820,     4.043583970,    24.999999990], [15.795661050,     1.133947610,    24.999999990], [14.519042830,     1.871788990,    24.999999990], [14.513788380,     3.309924180,    25.000000000], [13.264081350,     3.999342520,    25.000000000], [13.257264810,     1.199959610,    24.999999990], [12.043587960,     1.900095900,    24.999999990], [12.016739830,     3.332611950,    25.000000000], [10.726515710,     4.091678770,    25.000000000], [10.684220030,     5.518039810,    25.000000000], [9.486796040,     3.393289220,    25.000000000], [9.441329490,     6.190039150,    25.000000000], [8.225699970,     4.049281170,    25.000000000], [8.223074860,     5.476143820,    25.000000000], [6.953729770,     3.260689610,    25.000000000], [6.936330100,     1.827525180,    25.000000000], [5.723663450,     1.120951410,    25.000000000], [5.702535170,     3.918141100,    25.000000000], [4.458356870,     3.224341380,    25.000000000], [4.457730930,     1.787118410,    25.000000000], [3.181439480,     1.048492260,    25.000000000], [3.177101510,     3.959007540,    25.000000000], [3.149030450,     8.329924240,    25.000000000], [3.143933480,     5.369536110,    25.000000000], [1.936119640,    7.583651580,    25.000000000], [1.932585010,    6.115375240,    25.000000000], [1.930816650,     1.778723920,    25.000000000], [1.929127520,     3.226196640,    25.000000000], [0.686039370,     1.053188630,    25.000000000], [0.683538100,     8.299213310,   25.000000000], [0.683313600, 3.951358720, 25.000000000], [0.681194580, 5.398587650, 25.000000000]])
 
-Ham = np.zeros((xyz.shape[0], xyz.shape[0]))
-for i in range(xyz.shape[0]):
-    for j in range(xyz.shape[0]):
-        Ham[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))
-Ham = np.where(Ham < 1.6, Vppi, 0)
-Ham = np.subtract(Ham, Vppi * np.identity(xyz.shape[0]))
-
+# Define lattice vectors
 shiftx = 40.2591751900
-xyz1 = xyz + np.array([shiftx, 0, 0])
-V1 = np.zeros((xyz.shape[0], xyz.shape[0]))
-
-for i in range(xyz.shape[0]):
-    for j in range(xyz1.shape[0]):
-        V1[i, j] = LA.norm(np.subtract(xyz[i], xyz1[j]))
-V1 = np.where(V1 < 1.6, Vppi, 0)
-
 shifty = 8.6935000000
+
+# Retrieve unit cell
+xyz = xyzimport('meta_C.fdf')
+# Calculate onsite nearest neighbours
+Ham = Onsite(xyz, Vppi)
+
+# Shift unit cell
+xyz1 = xyz + np.array([shiftx, 0, 0])
+# Calculate offsite nearest neighbours
+V1 = Hop(xyz, xyz1, Vppi)
+
+# Shift unit cell
 xyz2 = xyz + np.array([0, shifty, 0])
-V2 = np.zeros((xyz.shape[0], xyz.shape[0]))
+# Calculate offsite nearest neighbours
+V2 = Hop(xyz, xyz2, Vppi)
 
-for i in range(xyz.shape[0]):
-    for j in range(xyz2.shape[0]):
-        V2[i, j] = LA.norm(np.subtract(xyz[i], xyz2[j]))
-V2 = np.where(V2 < 1.6, Vppi, 0)
-
-
+# Shift unit cell
 xyz3 = xyz + np.array([shiftx, shifty, 0])
-V3 = np.zeros((xyz.shape[0], xyz.shape[0]))
-
-for i in range(xyz.shape[0]):
-    for j in range(xyz3.shape[0]):
-        V3[i, j] = LA.norm(np.subtract(xyz[i], xyz3[j]))
-V3 = np.where(V3 < 1.6, Vppi, 0)
+# Calculate offsite nearest neighbours
+V3 = Hop(xyz, xyz3, Vppi)
 
 
-# plt.imshow(Ham)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V1)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V2)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V3)
-# plt.colorbar()
-# plt.show()
+print(np.sum(Ham))
+Show = 0
+if Show == 1:
+    plt.imshow(Ham)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V1)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V2)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V3)
+    plt.colorbar()
+    plt.show()
 
-
-def Hkay(Ham, V1, V2, V3, x, y):
-    Ham = Ham + (V1 * np.exp(-1.0j * x) + np.transpose(V1) * np.exp(1.0j * x)
-                 + V2 * np.exp(-1.0j * y) + np.transpose(V2) * np.exp(1.0j * y)
-                 + V3 * np.exp(-1.0j * x) * np.exp(-1.0j * y) + np.transpose(V3)
-                 * np.exp(1.0j * x) * np.exp(1.0j * y))
-    e = LA.eigh(Ham)[0]
-    return e
-
-
+# Define k-space range
 k = np.linspace(0, np.pi, 1000)
+# Array for X-bands
 X = np.zeros((Ham.shape[0], k.size))
+# Array for Z-bands
 Z = np.zeros((Ham.shape[0], k.size))
+# Get bands from gamma to X and Z
 for i in range(k.shape[0]):
-    X[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=-k[i], y=0)
-    Z[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=k[i])
-zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)
-#plt.scatter(np.zeros((zero.shape[0])), zero)
-# plt.show()
+    X[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=-k[i], y=0)[0]
+    Z[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=k[i])[0]
+# Get energies at k(0,0)
+zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)[0]
+# Renormalise distances according to lattice vectors
 Xspace = np.linspace(0, 1 / shifty, 1000)
 Zspace = np.linspace(0, 1 / shiftx, 1000)
+# Plot Bandstructures
 ax = plt.figure(figsize=(1, 6))
 for i in range(X.shape[0]):
-    plt.plot(np.flip(-Zspace, axis=0), np.flip(X[i, :], axis=0))
-for i in range(X.shape[0]):
-    plt.plot(Xspace, Z[i, :])
+    plt.plot(np.flip(-Zspace, axis=0),
+             np.flip(X[i, :], axis=0), 'k', linewidth=1)
+    plt.plot(Xspace, Z[i, :], 'k', linewidth=1)
 xtick = np.array([-1 / shiftx, 0, 1 / shifty])
-plt.xticks(xtick, ('X', 'G', 'Z'))
+plt.xticks(xtick, ('X', r'$\Gamma$', 'Z'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
-plt.title('NPG-meta')
+plt.title('NPG-normal')
 plt.ylim(-1, 1)
-plt.show()
+# plt.show()
 plt.savefig('metaNPGBS.eps', bbox_inches='tight')

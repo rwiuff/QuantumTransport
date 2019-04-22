@@ -37,18 +37,20 @@ V3 = Hop(xyz, xyz3, Vppi)
 
 
 print(np.sum(Ham))
-# plt.imshow(Ham)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V1)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V2)
-# plt.colorbar()
-# plt.show()
-# plt.imshow(V3)
-# plt.colorbar()
-# plt.show()
+Show = 0
+if Show == 1:
+    plt.imshow(Ham)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V1)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V2)
+    plt.colorbar()
+    plt.show()
+    plt.imshow(V3)
+    plt.colorbar()
+    plt.show()
 
 # Define k-space range
 k = np.linspace(0, np.pi, 1000)
