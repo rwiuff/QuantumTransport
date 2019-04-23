@@ -1,0 +1,26 @@
+# #
+
+SystemLabel      TestCell.aims
+
+NumberOfAtoms    4
+
+NumberOfSpecies  1
+%block ChemicalSpeciesLabel
+    1    6  C
+%endblock ChemicalSpeciesLabel
+
+LatticeConstant 1.0 Ang
+%block LatticeVectors
+  32.7862152500    0.0000000000    0.0000000000
+   0.0000000000    8.6934634800    0.0000000000
+   0.0000000000    0.0000000000   50.0000000000
+%endblock LatticeVectors
+
+AtomicCoordinatesFormat NotScaledCartesianAng
+%block AtomicCoordinatesAndAtomicSpecies
+     1.254670230     0.731351490    25.000000000    1
+     1.250026790     2.179080810    25.000000000    1
+     0.000386640     2.908879360    25.000000000    1
+     0.000164750     0.003167960    25.000000000    1
+%endblock AtomicCoordinatesAndAtomicSpecies
+
