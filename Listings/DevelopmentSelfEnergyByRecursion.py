@@ -43,7 +43,7 @@ V = np.array([[0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0]])
 h = h * Vppi
 V = V * Vppi
 
-print(np.sum(h))
+# print(np.sum(h))
 
 Show = 0
 if Show == 1:
@@ -57,35 +57,61 @@ if Show == 1:
 jsize = 4
 
 z = np.linspace(-1, 1, jsize)
-z = np.diag(z)-0.001j
+z = np.diag(z) - 0.001j
 es = h
 a = np.transpose(V)
 b = V
 e = h
+g = LA.inv(z - e)
 
-ext = np.zeros((h.shape[0], ) * 4, dtype=complex)
-
-for j in range(jsize):
-    if j == 0:
-        ext[0, 0, :] = z-es
-        ext[0, 1, :] = -a
-    elif j == jsize-1:
-        ext[-1, -1, :] = z-e
-        ext[-1, -2, :] = -b
-    else:
-        ext[j, j - 1, :] = -b
-        ext[j, j, :] = z-e
-        ext[j, j + 1, :] = -a
-print(ext)
+Recurs = np.zeros((h.shape[0], ) * 4, dtype=complex)
 
 for j in range(jsize):
     if j == 0:
-        ext[0, 0, :] = z-es
-        ext[0, 1, :] = -a
-    elif j == jsize-1:
-        ext[-1, -1, :] = z-e
-        ext[-1, -2, :] = -b
+        Recurs[0, 0, :] = z - es
+        Recurs[0, 1, :] = -a
+    elif j == jsize - 1:
+        Recurs[-1, -1, :] = z - e
+        Recurs[-1, -2, :] = -b
     else:
-        ext[j, j - 1, :] = -b
-        ext[j, j, :] = z-e
-        ext[j, j + 1, :] = -a
+        Recurs[j, j - 1, :] = -b
+        Recurs[j, j, :] = z - e
+        Recurs[j, j + 1, :] = -a
+print(Recurs)
+print(np.sum(np.abs(Recurs)))
+q = 1
+while np.sum(np.abs(a)) != 0:
+    for j in range(jsize):
+        if j == 0:
+            g = LA.inv(z - e)
+            es = es + a @ g @ b
+            e = e + a @ g @ b + b @ g @ a
+            a = a @ g @ a
+            b = b @ g @ b
+            Recurs[0, 0, :] = z - es
+            Recurs[0, 1, :] = -a
+        elif j == jsize - 1:
+            Recurs[-1, -1, :] = z - e
+            Recurs[-1, -2, :] = -b
+        else:
+            Recurs[j, j - 1, :] = -b
+            Recurs[j, j, :] = z - e
+            Recurs[j, j + 1, :] = -a
+    print(q)
+    print(b)
+    print(np.sum(np.abs(a)))
+    q = q + 1
+print(Recurs)
+SelfER = es - h
+print(SelfER)
+SelfEL = e - h - SelfER
+print(SelfEL)
+G00 = LA.inv(z-es)
+X = np.linspace(-1, 1, G00.flatten().shape[0])
+Y = np.sort(G00.flatten())
+print(G00.flatten())
+Y1 = Y.real
+Y2 = Y.imag
+plt.plot(X, Y1)
+plt.plot(X, Y2)
+plt.show()
