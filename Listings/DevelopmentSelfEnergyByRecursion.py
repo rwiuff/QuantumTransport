@@ -1,12 +1,13 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
+from matplotlib import patches as mpatches 
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
 import matplotlib
 import numpy as np                      # NumPy
-import seaborn
+#import seaborn
 from numpy import linalg as LA
-from collections import Counter
-from Functions import xyzimport, Hkay, Onsite, Hop
+#from collections import Counter
+#from Functions import xyzimport, Hkay, Onsite, Hop
 import sys
 np.set_printoptions(threshold=sys.maxsize)
 
@@ -56,8 +57,8 @@ if Show == 1:
 
 jsize = 4
 
-z = np.linspace(-1, 1, jsize)
-z = np.diag(z) - 0.001j
+z = np.linspace(-0.1, 0.1, jsize)
+z = np.diag(z) - 0.01j
 es = h
 a = np.transpose(V)
 b = V
@@ -77,8 +78,8 @@ for j in range(jsize):
         Recurs[j, j - 1, :] = -b
         Recurs[j, j, :] = z - e
         Recurs[j, j + 1, :] = -a
-print(Recurs)
-print(np.sum(np.abs(Recurs)))
+#print(Recurs)
+#print(np.sum(np.abs(Recurs)))
 q = 1
 while np.sum(np.abs(a)) != 0:
     for j in range(jsize):
@@ -97,21 +98,26 @@ while np.sum(np.abs(a)) != 0:
             Recurs[j, j - 1, :] = -b
             Recurs[j, j, :] = z - e
             Recurs[j, j + 1, :] = -a
-    print(q)
-    print(b)
-    print(np.sum(np.abs(a)))
+#    print(q)
+#    print(b)
+#    print(np.sum(np.abs(a)))
     q = q + 1
-print(Recurs)
+#print(Recurs)
 SelfER = es - h
-print(SelfER)
+#print(SelfER)
 SelfEL = e - h - SelfER
-print(SelfEL)
+#print(SelfEL)
 G00 = LA.inv(z-es)
-X = np.linspace(-1, 1, G00.flatten().shape[0])
-Y = np.sort(G00.flatten())
-print(G00.flatten())
+print(G00)
+X = np.linspace(-4, 4, G00.flatten().shape[0])
+Y = G00.flatten()
+print(Y)
 Y1 = Y.real
 Y2 = Y.imag
-plt.plot(X, Y1)
-plt.plot(X, Y2)
+Y1 = np.sort(Y1)
+Y2 = np.sort(Y2)
+print(Y1,Y2)
+real, = plt.plot(X, Y1, label = 'real')
+imag, = plt.plot(X, Y2, label = 'imag')
+plt.legend(handles=[imag,real])
 plt.show()
