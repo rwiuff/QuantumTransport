@@ -37,16 +37,16 @@ Using the full Hamiltonian, the Schrodinger equation can be solved
 \end{align}
 In practice this is all done by defining a function that takes the on-site Hamiltonian, the hopping matrices, and \(k\) as inputs and outputs the eigenvalues, using numpy's \textit{numpy.linalg.eigh}. The number of eigenvalues in the output corresponds to the dimension of the full Hamiltonian. As the eigenvalues corresponds to the eigenenergies of the system, the band structures can be plotted.
 \subsection{Plotting the band structures}
-The continuous variable \(k\) extends in two directions (\(-k_{x}\)) and (\(k_{y}\)) which corresponds to the length along \(X\) and \(\Gamma\) in the Brillouin zone. It is therefore necessary to make two plots, one for each direction. The y-values in each plot corresponds to the eigenvalues obtained by the function described in \cref{FullHam}. Each x-value along \(X\) and \(\Gamma\) therefore has associated with it the amount of y-values which the dimension of full Hamiltonian dictates. F.ex. if the full Hamiltonian has dimension \(80\times80\) there is 80 eigenvalues associated with it and the amount of y-values for each x-value along \(X\) and \(\Gamma\) is 80. In this specific case, the full Hamiltonian for obtaining the eigenvalues that corresponds to \(X\) and \(\Gamma\) are:
+The continuous variable \(k\) extends in two directions (\(-k_{x}\)) and (\(k_{y}\)) which corresponds to lengths between the symmetry points \(X\), \(\Gamma\) and \(Z\) in the Brillouin zone, with \(\Gamma\) being the zero-point. It is therefore necessary to make two plots, one for each pair of symmetry points. The y-values in each plot corresponds to the eigenvalues obtained by the function described in \cref{FullHam}. Each x-value between \(\Gamma\), \(X\) and \(\Gamma\), \(Z\) therefore has associated with it the amount of y-values which the dimension of full Hamiltonian dictates. F.ex. if the full Hamiltonian has dimension \(80\times80\) there is 80 eigenvalues associated with it and the amount of y-values for each x-value between \(\Gamma\), \(X\) and \(\Gamma\), \(Z\) is 80. In this specific case, the full Hamiltonian for obtaining the eigenvalues that corresponds to \(X\) and \(Z\) are:
 \begin{align}
 X: \ \vb{H}_{X} = \vb{h}_0 + (\vb{V}_{1x}e^{ik_x} + \vb{V}_{1x}^{\dagger}e^{-ik_x} + \vb{V}_{2x} + \vb{V}_{2x}^{\dagger} + \vb{V}_{3xy}e^{ik_x} + \vb{V}_{3xy}^{\dagger}e^{-ik_x})\\
-\Gamma: \ \vb{H}_{\Gamma} = \vb{h}_0 + (\vb{V}_{1x} + \vb{V}_{1x}^{\dagger} + \vb{V}_{2x}e^{-ik_y} + \vb{V}_{2x}^{\dagger}e^{ik_y} + \vb{V}_{3xy}e^{-ik_y} + \vb{V}_{3xy}^{\dagger}e^{ik_y})
+Z: \ \vb{H}_{Z} = \vb{h}_0 + (\vb{V}_{1x} + \vb{V}_{1x}^{\dagger} + \vb{V}_{2x}e^{-ik_y} + \vb{V}_{2x}^{\dagger}e^{ik_y} + \vb{V}_{3xy}e^{-ik_y} + \vb{V}_{3xy}^{\dagger}e^{ik_y})
 \end{align}
 Using the eigenvalues as y-values in the two plots, putting the two plots together  will yield a full plot of the band structure shown in \cref{Fab}.
 \begin{figure}[H]
     \centering
     \includegraphics{Figures/FabNPGBS.eps}
-    \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with normal bridges in the \(\Gamma\)- and \(X\)-direction}
+    \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with normal bridges between symmetry points \(X\) and \(Z\) with respect to \(\Gamma\)}
     \label{Fab}
 \end{figure}
 
@@ -54,21 +54,21 @@ Using the eigenvalues as y-values in the two plots, putting the two plots togeth
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{Figures/FabNPGBS.eps}
-                \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with normal bridges in the \(\Gamma\)- and \(X\)-direction}
+                \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with normal bridges between symmetry points \(X\) and \(Z\) with respect to \(\Gamma\)}
         \label{Fabbs}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{Figures/paraNPGBS.eps}
-        \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with para bridges in the \(\Gamma\)- and \(X\)-direction}
+        \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with para bridges between symmetry points \(X\) and \(Z\) with respect to \(\Gamma\)}
         \label{parabs}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
     %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{Figures/metaNPGBS.eps}
-        \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with meta bridges in the \(\Gamma\)- and \(X\)-direction}
+        \caption{Plot showing the band structure in the energy range -1 to 1 for NPG with meta bridges between symmetry points \(X\) and \(Z\) with respect to \(\Gamma\)}
         \label{metabs}
     \end{subfigure}
     \caption{Figure showing para, meta and normal NPG band structures}\label{allbands}
