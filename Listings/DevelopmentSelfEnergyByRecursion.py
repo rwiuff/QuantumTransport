@@ -1,13 +1,13 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-from matplotlib import patches as mpatches 
+from matplotlib import patches as mpatches
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
 import matplotlib
 import numpy as np                      # NumPy
-#import seaborn
+# import seaborn
 from numpy import linalg as LA
-#from collections import Counter
-#from Functions import xyzimport, Hkay, Onsite, Hop
+# from collections import Counter
+# from Functions import xyzimport, Hkay, Onsite, Hop
 import sys
 np.set_printoptions(threshold=sys.maxsize)
 
@@ -55,69 +55,58 @@ if Show == 1:
     plt.colorbar()
     plt.show()
 
-jsize = 4
+En = np.linspace(-1, 1, 100)
+En = np.linspace(-1, 1, 3)
 
-z = np.linspace(-0.1, 0.1, jsize)
-z = np.diag(z) - 0.01j
-es = h
-a = np.transpose(V)
-b = V
-e = h
-g = LA.inv(z - e)
 
-Recurs = np.zeros((h.shape[0], ) * 4, dtype=complex)
+def RecursionRoutine(En, h, V):
+    ns = h.shape[0]
+    z = np.identity(ns) * (En - 1e-21j)
+    a0 = np.transpose(V)
+    b0 = V
+    es0 = h
+    e0 = h
+    g0 = LA.inv(z - e0)
+    q = 1
+    while np.max(np.abs(a0)) > 0.000000001:
+        ag = a0 @ g0
+        a1 = ag @ a0
+        bg = b0 @ g0
+        b1 = bg @ b0
+        e1 = e0 + ag @ b0 + bg @ a0
+        es1 = es0 + ag @ b0
+        g1 = LA.inv(z - e1)
 
-for j in range(jsize):
-    if j == 0:
-        Recurs[0, 0, :] = z - es
-        Recurs[0, 1, :] = -a
-    elif j == jsize - 1:
-        Recurs[-1, -1, :] = z - e
-        Recurs[-1, -2, :] = -b
-    else:
-        Recurs[j, j - 1, :] = -b
-        Recurs[j, j, :] = z - e
-        Recurs[j, j + 1, :] = -a
-#print(Recurs)
-#print(np.sum(np.abs(Recurs)))
-q = 1
-while np.sum(np.abs(a)) != 0:
-    for j in range(jsize):
-        if j == 0:
-            g = LA.inv(z - e)
-            es = es + a @ g @ b
-            e = e + a @ g @ b + b @ g @ a
-            a = a @ g @ a
-            b = b @ g @ b
-            Recurs[0, 0, :] = z - es
-            Recurs[0, 1, :] = -a
-        elif j == jsize - 1:
-            Recurs[-1, -1, :] = z - e
-            Recurs[-1, -2, :] = -b
-        else:
-            Recurs[j, j - 1, :] = -b
-            Recurs[j, j, :] = z - e
-            Recurs[j, j + 1, :] = -a
-#    print(q)
-#    print(b)
-#    print(np.sum(np.abs(a)))
-    q = q + 1
-#print(Recurs)
-SelfER = es - h
-#print(SelfER)
-SelfEL = e - h - SelfER
-#print(SelfEL)
-G00 = LA.inv(z-es)
+        a0 = a1
+        b0 = b1
+        e0 = e1
+        es0 = es1
+        g0 = g1
+        q = q + 1
+    print(q)
+    e, es = e0, es0
+    SelfER = es - h
+    SelfEL = e - h - SelfER
+    G00 = LA.inv(z - es)
+    return G00
+
+
+G00 = np.zeros((En.shape[0]), dtype=complex)
+for i in range(En.shape[0]):
+    G = RecursionRoutine(En[i], h, V)
+    G = np.diag(G)
+    G00[i] = G[0]
 print(G00)
-X = np.linspace(-4, 4, G00.flatten().shape[0])
-Y = G00.flatten()
-print(Y)
+Y = G00
+X = En
 Y1 = Y.real
 Y2 = Y.imag
 Y1 = np.sort(Y1)
 Y2 = np.sort(Y2)
-print(Y1,Y2)
-real, = plt.plot(X, Y1, label = 'real')
-imag, = plt.plot(X, Y2, label = 'imag')
-plt.legend(handles=[imag,real])
+print(Y1, Y2)
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.plot(X, Y2, label='imag')
+plt.axis('equal')
+plt.grid(which='major', axis='both')
+plt.legend(handles=[imag, real])
 plt.show()
