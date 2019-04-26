@@ -1,3 +1,17 @@
+# -------------------------------------------------------------------- #
+#                                                                      #
+#            Python script containing various routines                 #
+#        for calculating Green's functions using Tight-binding         #
+#                                                                      #
+#                                                                      #
+#                             Written by                               #
+#                                                                      #
+#               Christoffer Sørensen (chves@dtu.dk)                    #
+#                       Rasmus Wiuff (rwiuff@gmail.com)                #
+#                                                                      #
+# -------------------------------------------------------------------- #
+
+
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
 from matplotlib.widgets import Slider, Button
@@ -44,3 +58,35 @@ def Hkay(Ham, V1, V2, V3, x, y):
     e = LA.eigh(Ham)[0]
     v = LA.eigh(Ham)[1]
     return e, v
+
+
+def RecursionRoutine(En, h, V):
+    ns = h.shape[0]
+    z = np.identity(ns) * (En - 1e-21j)
+    a0 = np.transpose(V)
+    b0 = V
+    es0 = h
+    e0 = h
+    g0 = LA.inv(z - e0)
+    q = 1
+    while np.max(np.abs(a0)) > 0.000000001:
+        ag = a0 @ g0
+        a1 = ag @ a0
+        bg = b0 @ g0
+        b1 = bg @ b0
+        e1 = e0 + ag @ b0 + bg @ a0
+        es1 = es0 + ag @ b0
+        g1 = LA.inv(z - e1)
+
+        a0 = a1
+        b0 = b1
+        e0 = e1
+        es0 = es1
+        g0 = g1
+        q = q + 1
+    e, es = e0, es0
+    SelfER = es - h
+    SelfEL = e - h - SelfER
+    G00 = LA.inv(z - es)
+    # print(q)
+    return G00
