@@ -61,9 +61,9 @@ if Show == 1:
 En = np.linspace(-3, 3, 100)
 # En = np.linspace(-1, 1, 3)
 
-G00, SelfER, SelfEL = np.zeros((En.shape[0]), dtype=complex)
+G00 = np.zeros((En.shape[0]), dtype=complex)
 for i in range(En.shape[0]):
-    G = RecursionRoutine(En[i], h, V)
+    G, SelfER, SelfEL = RecursionRoutine(En[i], h, V)
     G = np.diag(G)
     G00[i] = G[0]
 # print(G00)
