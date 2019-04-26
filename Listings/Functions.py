@@ -20,7 +20,7 @@ import numpy as np                      # NumPy
 from numpy import linalg as LA
 from collections import Counter
 import sisl as si
-
+from sisl import Atom
 
 def xyzimport(path):
     fdf = si.io.siesta.fdfSileSiesta(path, mode='r', base=None)
@@ -89,3 +89,11 @@ def RecursionRoutine(En, h, V):
     G00 = LA.inv(z - es)
     # print(q)
     return G00, SelfER, SelfEL
+
+
+def GrapheneSheet(nx, ny):
+    Graphene = si.Geometry([[0.62, 3.55, 0],
+                            [0.62, 0.71, 0],
+                            [1.85, 2.84, 0],
+                            [1.85, 1.42, 0]], [Atom('C')], [2.46, 4.26, 0])
+    return Graphene
