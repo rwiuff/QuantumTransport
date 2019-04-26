@@ -41,6 +41,9 @@ Vppi = -1
 h = np.array([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]])
 V = np.array([[0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0]])
 
+# h = np.array([[0]])
+# V = np.array([[1]])
+
 h = h * Vppi
 V = V * Vppi
 
@@ -55,10 +58,10 @@ if Show == 1:
     plt.colorbar()
     plt.show()
 
-En = np.linspace(-1, 3, 1000)
+En = np.linspace(-3, 3, 100)
 # En = np.linspace(-1, 1, 3)
 
-G00 = np.zeros((En.shape[0]), dtype=complex)
+G00, SelfER, SelfEL = np.zeros((En.shape[0]), dtype=complex)
 for i in range(En.shape[0]):
     G = RecursionRoutine(En[i], h, V)
     G = np.diag(G)
@@ -68,12 +71,13 @@ Y = G00
 X = En
 Y1 = Y.real
 Y2 = Y.imag
-Y1 = np.sort(Y1)
+# Y1 = np.sort(Y1)
 # Y2 = np.sort(Y2)
 # print(Y1, Y2)
 real, = plt.plot(X, Y1, label='real')
-imag, = plt.plot(X, Y2, label='imag')
-plt.ylim((-5, 10))
+# imag, = plt.plot(X, Y2, label='imag')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+plt.ylim((-2, 4))
 # plt.axis('equal')
 plt.grid(which='major', axis='both')
 plt.legend(handles=[imag, real])
