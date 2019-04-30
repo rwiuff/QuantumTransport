@@ -12,7 +12,7 @@ For simplicity and in order to check whether the routine would yield the results
     \begin{minipage}[b]{.40\textwidth}
         \inputminted[bgcolor=Black, breaklines, breakanywhere, linenos=true, python3=true, firstline=80, lastline=91]{python}{Listings/Functions.py}
     \end{minipage}
-\end{listing}The threshold is defined as the absolute maximum value in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Following is a list of these matrix multiplications: 
+\end{listing}The threshold is defined as the absolute maximum value in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Following is a list of these matrix multiplications:
 \begin{align*}
 a1 &= a0\ g0\ a0\\
 b1 &= b0\ g0\ b0\\
@@ -20,7 +20,7 @@ e1 &= e0 + a0\ g0\ b0 + b0\ g0\ a0 \\
 e1_{s} &= e0_{s} + a0\ g0\ b0 \\
 g1 &= (z - e1)^{-1}
 \end{align*}
-As stated above in the equations, the matrix product are defined as new variables with a \(+1\) variable name. This is all very well but the while loop would stop here because of the definition of new variables. It is therefore necessary to redefine the new variables in terms of the old ones (f.ex. \(a0 = a1\)) an as such the while loop will continue until the threshold has been reached. For the rest of the function the only thing left to do is to define the self energies and the first cell Green's function using the variables obtained from the while loop. These are simply given as: 
+As stated above in the equations, the matrix product are defined as new variables with a \(+1\) variable name. This is all very well but the while loop would stop here because of the definition of new variables. It is therefore necessary to redefine the new variables in terms of the old ones (f.ex. \(a0 = a1\)) an as such the while loop will continue until the threshold has been reached. For the rest of the function the only thing left to do is to define the self energies and the first cell Green's function using the variables obtained from the while loop. These are simply given as:
 \begin{align*}\label{outputs}
     \mathbf{\Sigma}_R &= e_s - h \\
     \mathbf{\Sigma}_L &= e - h - \mathbf{\Sigma}_R \\
@@ -34,7 +34,7 @@ As a good way to check whether the recursion routine has been implemented succes
     \caption{Code showing the loop which produces the Green's function (or y) values for a range of energies used in the plot.}
     \label{plotcode}
 \end{listing}
-The output from this loop will be the real and imaginary y-values for the plot. These will have to be sorted to imaginary and real parts before plotting. The x-values will just be the energy range used for the loop.The imaginary part of the Green's function is especially important as it represents the local density of states LDOS. Following is the plot of the real and imaginary part of the first cell Green's function obtained by the recursion routine for the simple four atom unit cell described in \cref{recursionroutinesec}. In \cref{imrealplot} a plot of the imaginary and real part of the resulting Green's function can be seen. 
+The output from this loop will be the real and imaginary y-values for the plot. These will have to be sorted to imaginary and real parts before plotting. The x-values will just be the energy range used for the loop.The imaginary part of the Green's function is especially important as it represents the local density of states LDOS. Following is the plot of the real and imaginary part of the first cell Green's function obtained by the recursion routine for the simple four atom unit cell described in \cref{recursionroutinesec}. In \cref{imrealplot} a plot of the imaginary and real part of the resulting Green's function can be seen.
 \begin{figure}
     \centering
     \includegraphics[width = 0.5\textwidth]{Figures/imrealplot.eps}
