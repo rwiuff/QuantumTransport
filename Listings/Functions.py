@@ -22,6 +22,7 @@ from collections import Counter
 import sisl as si
 from sisl import Atom
 
+
 def xyzimport(path):
     fdf = si.io.siesta.fdfSileSiesta(path, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
