@@ -12,7 +12,13 @@ Vppi = -1
 
 Graphene = GrapheneSheet(10, 1)
 print(Graphene)
-plt.scatter(Graphene.xyz[:, 0], Graphene.xyz[:, 1])
-plt.axis('equal')
-plt.show()
-plt.plot(Graphene, atom_indices=True)
+
+
+print(np.minimum(Graphene.xyz))
+
+
+
+#plt.scatter(Graphene.xyz[:, 0], Graphene.xyz[:, 1])
+#plt.axis('equal')
+#plt.show()
+#plt.plot(Graphene, atom_indices=True)
