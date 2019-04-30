@@ -10,13 +10,9 @@ np.set_printoptions(threshold=sys.maxsize)
 # Set hopping potential
 Vppi = -1
 
-Graphene = GrapheneSheet(10, 10)
+Graphene = GrapheneSheet(10, 1)
 print(Graphene)
-plt.plot(Graphene)
+plt.scatter(Graphene.xyz[:, 0], Graphene.xyz[:, 1])
+plt.axis('equal')
 plt.show()
-coord = Graphene.xyz[0, :]
-temp = Graphene.remove(0)
-plt.plot(temp)
-plt.scatter(temp.xyz[:, 0], temp.xyz[:, 1])
-plt.scatter(coord[0], coord[1], c='r', s=200)
-plt.show()
+plt.plot(Graphene, atom_indices=True)

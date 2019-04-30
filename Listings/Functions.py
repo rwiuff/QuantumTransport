@@ -97,4 +97,5 @@ def GrapheneSheet(nx, ny):
                             [0.62, 0.71, 0],
                             [1.85, 2.84, 0],
                             [1.85, 1.42, 0]], [Atom('C')], [2.46, 4.26, 0])
+    Graphene = Graphene.tile(nx, 0).tile(ny, 1)
     return Graphene
