@@ -3,12 +3,12 @@ In order to calculate the transport of electrons in NPG one must obtain the Gree
 For simplicity and in order to check whether the routine would yield the results expected, the starting point is a simple system containing only 4 atoms in the unit cell. The idea is to make a function that takes in an energy, a hamiltonian (alternatively two in case there is a special site in the molecule) and a hopping matrix as arguments and outputs the Green's function at the zeroth site as well as the self energies going left and right. Firstly all the necessary variables are defined. The first of these consists of a complex number matrix which has the value \(E + i\eta\) in the diagonal and dimension identical to that of the hamiltonian given as argument. Here \(E\) is the energy which the function takes as an argument and \(\eta\) is a small number (in specific case \(1\times10^{-6}\)). Note that \(\eta\) should not be made too small as it will yield incorrect results. The rest of the variables are the hamiltonian, hopping matrices and Green's functions. They are defined as: \(a0 = V^{\dagger}, \ b0 = V, \ e0_{s} = h, \ e_{0} = h, \ g0 = (z-e0)^{-1}\). Note that the hamiltonian \(h\) here is the same for both \(e0_{s}\) and \(e0\) as the zeroth cell is identical to those of the rest of the molecule. Now that the variables is defined, the actual recursion can begin. As the recursion is an algorithm that runs for an arbitrary amount of iterations, a while loop is chosen to run the iterations until a threshold has been reached. In \cref{recursfunc} the code for the routine is shown. Line 64-70 is the listing of variables, 71-78 is the while loop with the matrix multiplication, 80-84 is the redefinition of new variables in terms of the old and 86-89 is the definition of the outputs as per \cref{\outputs}.\\
 \noindent
 \begin{listing}
-    \begin{minipage}[t]{.45\textwidth}
+    \begin{minipage}[b]{.45\textwidth}
         \im{Listings/Functions.py}{63}{78}
     \end{minipage}
 \end{listing}
 \begin{listing}
-    \begin{minipage}[t]{.45\textwidth}
+    \begin{minipage}[b]{.45\textwidth}
         \im{Listings/Functions.py}{80}{91}
     \end{minipage}
 \end{listing}The threshold is defined as the absolute maximum value in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Following is a list of these matrix multiplications: 
