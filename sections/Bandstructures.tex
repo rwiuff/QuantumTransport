@@ -35,14 +35,12 @@ Using the full Hamiltonian, the Schrodinger equation can be solved
 \begin{align}
     \vb{H}(k_x,k_y)\vb*{\phi}_{k} = \vb*{\epsilon}_n (k_x,k_y) \vb*{\phi}_k
 \end{align}
-In practice this is all done by defining a function that takes the on-site Hamiltonian, the hopping matrices, and \(k\) as inputs and outputs the eigenvalues, using numpy's \textit{numpy.linalg.eigh}. The number of eigenvalues in the output corresponds to the dimension of the full Hamiltonian. In \cref{fullhamil} the code for the function is shown.
-\begin{listing}[ht]
+In practice this is all done by defining a function that takes the on-site Hamiltonian, the hopping matrices, and \(k\) as inputs and outputs the eigenvalues, using numpy's \textit{numpy.linalg.eigh}. The number of eigenvalues in the output corresponds to the dimension of the full Hamiltonian. In \cref{fullhamil} the code for the function is shown.\begin{listing}[ht]
 \centering
 \im{Listings/Functions.py}{42}{48}
 \caption{Function producing the full hamiltonian in this case using the equations corresponding to \cref{hamilxgamma}}
 \label{fullhamil}
-\end{listing}
-As the eigenvalues corresponds to the eigenenergies of the system, the band structures can be plotted.
+\end{listing}As the eigenvalues corresponds to the eigenenergies of the system, the band structures can be plotted.
 \subsection{Plotting the band structures}
 The continuous variable \(k\) extends in two directions (\(-k_{x}\)) and (\(k_{y}\)) which corresponds to lengths between the symmetry points \(X\), \(\Gamma\) and \(Z\) in the Brillouin zone, with \(\Gamma\) being the zero-point. It is therefore necessary to make two plots, one for each pair of symmetry points. The y-values in each plot corresponds to the eigenvalues obtained by the function described in \cref{FullHam}. Each x-value between \(\Gamma\), \(X\) and \(\Gamma\), \(Z\) therefore has associated with it the amount of y-values which the dimension of full Hamiltonian dictates. F.ex. if the full Hamiltonian has dimension \(80\times80\) there is 80 eigenvalues associated with it and the amount of y-values for each x-value between \(\Gamma\), \(X\) and \(\Gamma\), \(Z\) is 80. In this specific case, the full Hamiltonian for obtaining the eigenvalues that corresponds to \(X\) and \(Z\) are:
 \begin{align}\label{hamilxgamma}
