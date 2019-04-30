@@ -77,7 +77,6 @@ def RecursionRoutine(En, h, V):
         e1 = e0 + ag @ b0 + bg @ a0
         es1 = es0 + ag @ b0
         g1 = LA.inv(z - e1)
-
         a0 = a1
         b0 = b1
         e0 = e1
