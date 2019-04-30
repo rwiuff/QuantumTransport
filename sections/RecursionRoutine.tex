@@ -19,7 +19,7 @@ e1 &= e0 + a0\ g0\ b0 + b0\ g0\ a0 \\
 e1_{s} &= e0_{s} + a0\ g0\ b0 \\
 g1 &= (z - e1)^{-1}
 \end{align*}
-As stated above in the equations, the matrix product are defined as new variables with a \(+1\) variable name. Notice, however, that the code contains intermediate products of \(a0, b0\) and \( This is all very well but the while loop would stop here because of the definition of new variables. It is therefore necessary to redefine the new variables in terms of the old ones (f.ex. \(a0 = a1\)) (see \cref{recurfunc2}) an as such the while loop will continue until the threshold has been reached. For the rest of the function the only thing left to do is to define the self energies and the first cell Green's function using the variables obtained from the while loop. These are simply given as: 
+As stated above in the equations, the matrix product are defined as new variables with a \(+1\) variable name. Notice, however, that the code contains intermediate products of \(a0, b0\) and \(g0\) this is for runtime optimiza This is all very well but the while loop would stop here because of the definition of new variables. It is therefore necessary to redefine the new variables in terms of the old ones (f.ex. \(a0 = a1\)) (see \cref{recurfunc2}) an as such the while loop will continue until the threshold has been reached. For the rest of the function the only thing left to do is to define the self energies and the first cell Green's function using the variables obtained from the while loop. These are simply given as: 
 \begin{align*}\label{outputs}
     \mathbf{\Sigma}_R &= e_s - h \\
     \mathbf{\Sigma}_L &= e - h - \mathbf{\Sigma}_R \\
