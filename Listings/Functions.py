@@ -41,10 +41,10 @@ def Onsite(xyz, Vppi):
 
 
 def Hop(xyz, xyz1, Vppi):
-    hop = np.zeros((xyz.shape[0], xyz.shape[0]))
-    for i in range(xyz.shape[0]):
-        for j in range(xyz1.shape[0]):
-            hop[i, j] = LA.norm(np.subtract(xyz[i], xyz1[j]))
+    hop = np.zeros((xyz1.shape[0], xyz.shape[0]))
+    for i in range(xyz1.shape[0]):
+        for j in range(xyz.shape[0]):
+            hop[i, j] = LA.norm(np.subtract(xyz1[i], xyz[j]))
     hop = np.where(hop < 1.6, Vppi, 0)
     return hop
 
@@ -97,4 +97,5 @@ def GrapheneSheet(nx, ny):
                             [1.85, 2.84, 0],
                             [1.85, 1.42, 0]], [Atom('C')], [2.46, 4.26, 0])
     Graphene = Graphene.tile(nx, 0).tile(ny, 1)
+    Graphene = Graphene.sort(axes=(1, 0, 2))
     return Graphene

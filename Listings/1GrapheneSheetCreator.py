@@ -1,18 +1,24 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-import matplotlib
 import numpy as np                      # NumPy
-from numpy import linalg as LA
 from Functions import GrapheneSheet
 import sisl as si
 import sys
 np.set_printoptions(threshold=sys.maxsize)
 
-# Set hopping potential
-Vppi = -1
+Graphene = GrapheneSheet(3, 1)
 
-Graphene = GrapheneSheet(10, 1)
 print(Graphene)
+print(Graphene.xyz)
+
 plt.scatter(Graphene.xyz[:, 0], Graphene.xyz[:, 1])
 plt.axis('equal')
+for i in range(Graphene.xyz[:, 0].shape[0]):
+    s = i
+    xy = (Graphene.xyz[i, 0], Graphene.xyz[i, 1])
+    plt.annotate(s, xy)
 plt.show()
-plt.plot(Graphene, atom_indices=True)
+
+filename = input('Enter filename: ')
+filename = filename + '.fdf'
+
+Graphene.write(filename)
