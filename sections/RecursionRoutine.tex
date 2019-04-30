@@ -25,7 +25,7 @@ As stated above in the equations, the matrix product are defined as new variable
     \mathbf{\Sigma}_L &= e - h - \mathbf{\Sigma}_R \\ \nonumber
     \mathbf{G00} &= (z - e_s)^{-1}
 \end{align}
-Where \(e_s\) and \(e\) are the resulting matrices from the while loop. The first cell Green's function as well as the self energies has now been obtained by recursion. 
+Where \(e_s\) and \(e\) are the resulting matrices from the while loop (\(e0_s, e0\)). The first cell Green's function as well as the self energies has now been obtained by recursion. 
 \subsection{Plotting the real and imaginary part of the first cell Green's function}
 As a good way to check whether the recursion routine has been implemented successfully, the real and imaginary part of the Green's function can be plotted. With a relatively simple approach, the Green's function can be obtained as a function of energy, using a \textit{for loop}, looping over a range of energies which is then used as input in the function \cref{recursionfunc} (see \cref{plotcode}):
 \begin{listing}[ht]
