@@ -28,6 +28,9 @@ As stated above in the equations, the matrix product are defined as new variable
 Where \(e_s\) and \(e\) are the resulting matrices from the while loop. The first cell Green's function as well as the self energies has now been obtained by recursion. 
 \subsection{Plotting the real and imaginary part of the first cell Green's function}
 As a good way to check whether the recursion routine has been implemented successfully, the real and imaginary part of the Green's function can be plotted with a relatively simple approach including a for loop:
+\begin{listing}[ht]
+    \im{Listings/Functions.py}{}{}
+\end{listing}
 The imaginary part of the Green's function is especially important as it represents the local density of states LDOS. Following is the plot of the real and imaginary part of the first cell Green's function obtained by the recursion routine for the simple four atom unit cell described in \cref{recursionroutinesec}. In \cref{imrealplot} a plot of the imaginary and real part of the resulting Green's function can be seen. 
 \begin{figure}
     \centering
