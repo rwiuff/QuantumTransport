@@ -38,7 +38,7 @@ Using the full Hamiltonian, the Schrodinger equation can be solved
 In practice this is all done by defining a function that takes the on-site Hamiltonian, the hopping matrices, and \(k\) as inputs and outputs the eigenvalues, using numpy's \textit{numpy.linalg.eigh}. The number of eigenvalues in the output corresponds to the dimension of the full Hamiltonian. In \cref{} the code for the function is shown.
 \begin{listing}[ht]
 \im{Listings/Functions.py}{42}{48}
-\caption{Function producing the full hamiltonian in this case }
+\caption{Function producing the full hamiltonian in this case using the equations corresponding to \cref{}}
 \end{listing}
 As the eigenvalues corresponds to the eigenenergies of the system, the band structures can be plotted.
 \subsection{Plotting the band structures}
