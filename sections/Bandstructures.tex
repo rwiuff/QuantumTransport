@@ -27,7 +27,9 @@ In practice this is done by shifting the original coordinates by the given unit 
 Now that the on-site Hamiltonian along with its hopping matrices has been defined, the next step is to create the full Hamiltonian in order to solve the Schrodinger equation for system, which is a eigen-value/vector problem. In essence the full Hamiltonian denoted \(\vb{H}\) is a sum of the on-site Hamiltonian and its corresponding hopping matrices multiplied by a complex exponential function that has the appropriate phase relative to the hopping matrix:
 \begin{flalign}\label{\hamileq}
 \begin{split}
-\vb{H}(k_x,k_y) &= \vb{h}_0 + (\vb{V}_{1x}e^{-ik_x} + \vb{V}_{1x}^{\dagger}e^{ik_x} + \vb{V}_{2x}e^{-ik_y} + \vb{V}_{2x}^{\dagger}e^{-ik_y}\\ & + \vb{V}_{3xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{3xy}^{\dagger}e^{ik_x}e^{ik_y})
+\vb{H}(k_x,k_y) &= \vb{h}_0 + (\vb{V}_{1x}e^{-ik_x} \\
+& + \vb{V}_{1x}^{\dagger}e^{ik_x} + \vb{V}_{2y}e^{-ik_y} + \vb{V}_{2y}^{\dagger}e^{-ik_y}\\
+& + \vb{V}_{3xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{3xy}^{\dagger}e^{ik_x}e^{ik_y})
 \end{split}
 \end{flalign}
 Here \(k\) represents a continuous variable between 0 and \(\pi\) along the x- and y-axis in inverse space.
