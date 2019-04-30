@@ -11,7 +11,7 @@ For simplicity and in order to check whether the routine would yield the results
     \begin{minipage}[b]{.40\textwidth}
         \inputminted[bgcolor=Black, breaklines, breakanywhere, linenos=true, python3=true, firstline=80, lastline=91]{python}{Listings/Functions.py}
     \end{minipage}
-\end{listing}The threshold is defined as the absolute maximum value in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Notice, however, that the code (\cref{recurfunc}) contains intermediate products of \(a0, b0\) and \(g0\). This is for run time optimisation.Following is a list of these matrix multiplications: 
+\end{listing}The threshold is defined as the absolute maximum value in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Notice, however, that the code (\cref{recurfunc}) contains intermediate products of \(a0, b0\) and \(g0\). This is for run time optimisation. Following is a list of these matrix multiplications: 
 \begin{align*}
 a1 &= a0\ g0\ a0\\ 
 b1 &= b0\ g0\ b0\\ 
