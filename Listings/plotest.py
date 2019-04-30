@@ -14,3 +14,4 @@ import matplotlib.pyplot as plt
 
 GUC = Geometry([[0.62,3.55,0],[0.62,0.71,0],[1.85,2.84,0],[1.85,1.41,0]],[Atom('C')],[2.46,4.26,0])
 plot(GUC)
+
