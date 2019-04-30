@@ -25,7 +25,7 @@ In practice this is done by shifting the original coordinates by the given unit 
 \end{figure}
 \subsection{Defining the full Hamiltonian and solving the Schrodinger equation}\label{FullHam}
 Now that the on-site Hamiltonian along with its hopping matrices has been defined, the next step is to create the full Hamiltonian in order to solve the Schrodinger equation for system, which is a eigen-value/vector problem. In essence the full Hamiltonian denoted \(\vb{H}\) is a sum of the on-site Hamiltonian and its corresponding hopping matrices multiplied by a complex exponential function that has the appropriate phase relative to the hopping matrix:
-\begin{flalign}\label{\}
+\begin{flalign}\label{\hamileq}
 \begin{split}
 \vb{H}(k_x,k_y) = &\vb{h}_0 + (\vb{V}_{1x}e^{-ik_x} + \vb{V}_{1x}^{\dagger}e^{ik_x} + \vb{V}_{2x}e^{-ik_y} + \vb{V}_{2x}^{\dagger}e^{-ik_y}\\ & + \vb{V}_{3xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{3xy}^{\dagger}e^{ik_x}e^{ik_y})
 \end{split}
@@ -38,7 +38,7 @@ Using the full Hamiltonian, the Schrodinger equation can be solved
 In practice this is all done by defining a function that takes the on-site Hamiltonian, the hopping matrices, and \(k\) as inputs and outputs the eigenvalues, using numpy's \textit{numpy.linalg.eigh}. The number of eigenvalues in the output corresponds to the dimension of the full Hamiltonian. In \cref{fullhamil} the code for the function is shown.\begin{listing}[ht]
     \centering
     \im{Listings/Functions.py}{51}{60}
-    \caption{Function producing the full hamiltonian, corresponding to \cref{}}
+    \caption{Function producing the full hamiltonian, corresponding to \cref{hamileq}}
     \label{fullhamil}
 \end{listing}As the eigenvalues corresponds to the eigenenergies of the system, the band structures can be plotted.
 \subsection{Plotting the band structures}
