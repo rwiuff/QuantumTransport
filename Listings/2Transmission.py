@@ -90,10 +90,8 @@ HR = Onsite(xyz=Rxyz, Vppi=-1)
 shiftx = 2.46
 Lxyz1 = Lxyz - np.array([shiftx, 0, 0])
 Rxyz1 = Rxyz + np.array([shiftx, 0, 0])
-VL = Hop(xyz=Lxyz, xyz1=Lxyz1, Vppi=-1)
-VR = Hop(xyz=Rxyz1, xyz1=Rxyz, Vppi=-1)
-VR = VR.T
-VL = VL.T
+VL = Hop(xyz=Lxyz1, xyz1=Lxyz, Vppi=-1)
+VR = Hop(xyz=Rxyz, xyz1=Rxyz1, Vppi=-1)
 plt.imshow(HD)
 plt.colorbar()
 plt.show()
@@ -129,8 +127,8 @@ for i in En:
     Matrix[-SS:, -SS:] = SER
     SER = Matrix
 
-    GD[q] = LA.inv(np.identity(HD.shape[0]) *
-                   (i + eta) - HD - SEL - SER)
+    GD[q] = LA.inv(np.identity(HD.shape[0])
+                   * (i + eta) - HD - SEL - SER)
     GammaL[q] = 1j * (SEL - SEL.conj().T)
     GammaR[q] = 1j * (SER - SER.conj().T)
     q = q + 1
@@ -163,9 +161,10 @@ plt.show()
 
 T = np.zeros(En.shape[0], dtype=complex)
 for i in range(En.shape[0]):
-    T[i] = np.trace(GammaR[i] @ GD[i] @ GammaL[i] @ GD[i].conj().T).real
+    T[i] = np.trace(GammaR[i] @ GD[i] @ GammaL[i] @ GD[i].conj().T)
 print(T)
-Y = T
+Y = T.real
+print(Y)
 X = En
 plt.plot(X, Y)
 plt.ylim((0, 1))
