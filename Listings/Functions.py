@@ -61,8 +61,8 @@ def Hkay(Ham, V1, V2, V3, x, y):
     return e, v
 
 
-def RecursionRoutine(En, h, V):
-    z = np.identity(h.shape[0]) * (En - 1e-6j)
+def RecursionRoutine(En, h, V, eta):
+    z = np.identity(h.shape[0]) * (En - eta)
     a0 = np.transpose(V)
     b0 = V
     es0 = h
