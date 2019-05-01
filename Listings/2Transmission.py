@@ -131,20 +131,20 @@ q = 0
 for i in En:
     gl, SelfER, SelfEL = RecursionRoutine(i, HL, VL)
     gr, SelfER, SelfEL = RecursionRoutine(i, HR, VRDak)
-    print(gl.shape)
-    print(gr.shape)
+#    print(gl.shape)
+#    print(gr.shape)
     SelfEL = VL @ gl @ VLDak
-    print(VRDak.shape)
-    print(VR.shape)
+#    print(VRDak.shape)
+#    print(VR.shape)
     SelfER = VRDak @ gl @ VR
-    print(SelfEL.shape)
-    print(SelfER.shape)
+#    print(SelfEL.shape)
+#    print(SelfER.shape)
     Diff = HD.shape[0] - SelfEL.shape[0]
     Blowup = np.zeros((Diff, HD.shape[1]))
     SelfEL, SelfER = np.append(
         SelfEL, Blowup, axis=0), np.append(SelfER, Blowup, axis=0)
     GD[q] = LA.inv(np.identity(HD.shape[0]) *
-                   (i - 1e-6j) - HD - SelfEL - SelfER)
+                   (i + 1e-6j) - HD - SelfEL - SelfER)
     GammaL[q] = 1j * (SelfEL - np.transpose(SelfEL))
     GammaR[q] = 1j * (SelfER - np.transpose(SelfER))
     q = q + 1
