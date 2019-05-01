@@ -118,11 +118,11 @@ for i in En:
     gl, crap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
     gr, SER, crap = RecursionRoutine(i, HR, VR, eta=eta)
     SS = SEL.shape[0]
-
     Matrix = np.zeros((HD.shape), dtype=complex)
     Matrix[0:SS, 0:SS] = SEL
     SEL = Matrix
 
+    SS = SER.shape[0]
     Matrix = np.zeros((HD.shape), dtype=complex)
     Matrix[-SS:, -SS:] = SER
     SER = Matrix
@@ -150,13 +150,13 @@ real, = plt.plot(X, Y1, label='real')
 imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
 plt.ylim((-10, 20))
 # plt.axis('equal')
-plt.grid(which='major', axis='both')
+plt.grid(which='both', axis='both')
 plt.legend(handles=[imag, real])
-plt.show()
 plt.title('Greens function of a simple four-atom unit cell')
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G00(E)]/Im[G00(E)]')
 plt.savefig('imrealTE.eps', bbox_inches='tight')
+plt.show()
 
 T = np.zeros(En.shape[0], dtype=complex)
 for i in range(En.shape[0]):
@@ -167,9 +167,9 @@ X = En
 plt.plot(X, Y)
 plt.ylim((0, 1))
 # plt.axis('equal')
-plt.grid(which='major', axis='both')
+plt.grid(which='both', axis='both')
 plt.title('Transmission for simple system')
-plt.xlabel('E(Vppi)')
-plt.ylabel('Transmission coefficient')
+plt.xlabel(r'$E(V_{pp\pi})$')
+plt.ylabel(r'T(E)')
 plt.savefig('TE.eps', bbox_inches='tight')
 plt.show()
