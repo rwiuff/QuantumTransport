@@ -3,7 +3,7 @@ from matplotlib import path
 import matplotlib.patches as patches
 import numpy as np                      # NumPy
 from numpy import linalg as LA
-from Functions import xyzimport, Onsite, Hop, Hkay, RecursionRoutine
+from Functions import ImportSystem, Onsite, Hop, Hkay, RecursionRoutine
 import sisl as si
 import sys
 np.set_printoptions(threshold=sys.maxsize)
@@ -11,7 +11,13 @@ np.set_printoptions(threshold=sys.maxsize)
 filename = input('Enter filename: ')
 filename = filename + '.fdf'
 
-xyz = xyzimport(filename)
+nx = 1
+ny = 1
+
+xyz, UX, UY = ImportSystem(filename, nx, ny)
+
+print('Unit Cell x: {}'.format(UX))
+print('Unit Cell y: {}'.format(UY))
 
 plt.scatter(xyz[:, 0], xyz[:, 1])
 plt.axis('equal')
@@ -22,70 +28,42 @@ for i in range(xyz[:, 0].shape[0]):
 plt.grid(b=True, which='both', axis='both')
 plt.show()
 
-# LX = input('(x1, x2): ')
-# LY = input('(y1, y2): ')
-# RX = input('(x1, x2): ')
-# RY = input('(y1, y2): ')
-LX = '0, 2.46'
-LX = np.fromstring(LX, dtype=float, sep=',')
-LY = '0, 4.26'
-LY = np.fromstring(LY, dtype=float, sep=',')
-RX = '4.92, 7.38'
-RX = np.fromstring(RX, dtype=float, sep=',')
-RY = '0, 4.26'
-RY = np.fromstring(RY, dtype=float, sep=',')
-Lverts = [(LX[0], LY[0]),
-          (LX[1], LY[0]),
-          (LX[1], LY[1]),
-          (LX[0], LY[1]),
-          (LX[0], LY[0])]
+L = np.fromstring(
+    input('Left contant atomic indices (#-#): '), dtype=int, sep='-')
+R = np.fromstring(
+    input('Right contant atomic indices (#-#): '), dtype=int, sep='-')
+L = np.arange(L[0], L[1]+1, 1, dtype=int)
+R = np.arange(R[0], R[1]+1, 1, dtype=int)
+# LX = '0, 2.46'
+# LX = np.fromstring(LX, dtype=float, sep=',')
+# LY = '0, 4.26'
+# LY = np.fromstring(LY, dtype=float, sep=',')
+# RX = '4.92, 7.38'
+# RX = np.fromstring(RX, dtype=float, sep=',')
+# RY = '0, 4.26'
+# RY = np.fromstring(RY, dtype=float, sep=',')
 
-Rverts = [(RX[0], RY[0]),
-          (RX[1], RY[0]),
-          (RX[1], RY[1]),
-          (RX[0], RY[1]),
-          (RX[0], RY[0])]
+Lxyz = xyz[L]
+Rxyz = xyz[R]
+RmArray = np.append(L, R).astype(int)
+Cxyz = np.delete(xyz, RmArray, 0)
 
-Lpath = path.Path(Lverts)
-Rpath = path.Path(Rverts)
-
-Lcell = np.array([])
-Rcell = np.array([])
-xy = np.delete(xyz, 2, 1)
-Lxyz = np.array([[0, 0, 0]])
-print(xy)
-Test = Lpath.contains_points(xy)
-for i in range(Test.size):
-    if Test[i] == True:
-        Lcell = np.append([Lcell], [i])
-        Lxyz = np.append(Lxyz, [xyz[i, :]], axis=0)
-Lxyz = np.delete(Lxyz, 0, 0)
-
-Rxyz = np.array([[0, 0, 0]])
-Test = Rpath.contains_points(xy)
-for i in range(Test.size):
-    if Test[i] == True:
-        Rcell = np.append([Rcell], [i])
-        Rxyz = np.append(Rxyz, [xyz[i, :]], axis=0)
-Rxyz = np.delete(Rxyz, 0, 0)
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-LPatch = patches.PathPatch(Lpath, facecolor='orange', lw=2)
-ax.add_patch(LPatch)
-RPatch = patches.PathPatch(Rpath, facecolor='orange', lw=2)
-ax.add_patch(RPatch)
-plt.grid(b=True, which='both', axis='both')
-plt.scatter(xyz[:, 0], xyz[:, 1])
+plt.scatter(Lxyz[:, 0], Lxyz[:, 1], c='red', label='L')
+plt.scatter(Cxyz[:, 0], Cxyz[:, 1], c='orange', label='C')
+plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
+plt.legend()
 plt.axis('equal')
 for i in range(xyz[:, 0].shape[0]):
     s = i
     xy = (xyz[i, 0], xyz[i, 1])
     plt.annotate(s, xy)
+plt.grid(b=True, which='both', axis='both')
 plt.show()
 
 HD = Onsite(xyz=xyz, Vppi=-1)
-HL = Onsite(xyz=Lxyz, Vppi=-1)
+HL = HD[0:L.shape[0], 0:L.shape[0]]
+# HL = Onsite(xyz=Lxyz, Vppi=-1)
+HR = HD[-L.shape[0]:, -L.shape[0]:]
 HR = Onsite(xyz=Rxyz, Vppi=-1)
 shiftx = 2.46
 Lxyz1 = Lxyz - np.array([shiftx, 0, 0])
@@ -152,7 +130,7 @@ plt.ylim((-10, 20))
 # plt.axis('equal')
 plt.grid(which='both', axis='both')
 plt.legend(handles=[imag, real])
-plt.title('Greens function of a simple four-atom unit cell')
+plt.title('Greens function at 0th site')
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G00(E)]/Im[G00(E)]')
 savename = filename.replace('.fdf', 'imrealTE.eps')

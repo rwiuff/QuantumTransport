@@ -99,3 +99,15 @@ def GrapheneSheet(nx, ny):
     Graphene = Graphene.tile(nx, 0).tile(ny, 1)
     Graphene = Graphene.sort(axes=(1, 0, 2))
     return Graphene
+
+
+def ImportSystem(path, nx, ny):
+    fdf = si.io.siesta.fdfSileSiesta(path, mode='r', base=None)
+    geom = fdf.read_geometry(output=False)
+    geom = geom.tile(nx, 0).tile(ny, 1)
+    geom = geom.sort(axes=(1, 0, 2))
+    xyz = geom.xyz
+    LatticeVectors = fdf.get('LatticeVectors')
+    UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
+    UY = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
+    return xyz, UX, UY
