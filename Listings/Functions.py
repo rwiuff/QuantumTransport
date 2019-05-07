@@ -13,14 +13,12 @@
 
 
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-from mpl_toolkits.mplot3d import Axes3D  # Used for 3D plots
-from matplotlib.widgets import Slider, Button
-from scipy.sparse import dia_matrix
 import numpy as np                      # NumPy
 from numpy import linalg as LA
-from collections import Counter
 import sisl as si
 from sisl import Atom
+from progress.bar import Bar
+import time
 
 
 def xyzimport(path):
@@ -101,13 +99,95 @@ def GrapheneSheet(nx, ny):
     return Graphene
 
 
-def ImportSystem(path, nx, ny):
-    fdf = si.io.siesta.fdfSileSiesta(path, mode='r', base=None)
+def ImportSystem(nx, ny):
+    filename = input('Enter filename: ')
+    filename = filename + '.fdf'
+    fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
     geom = geom.tile(nx, 0).tile(ny, 1)
+    geom = geom.sort(axes=(1, 0, 2))
     geom = geom.sort(axes=(1, 0, 2))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
     UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
     UY = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
-    return xyz, UX, UY
+    print('Unit Cell x: {}'.format(UX))
+    print('Unit Cell y: {}'.format(UY))
+    plt.scatter(xyz[:, 0], xyz[:, 1])
+    plt.axis('equal')
+    for i in range(xyz[:, 0].shape[0]):
+        s = i
+        xy = (xyz[i, 0], xyz[i, 1])
+        plt.annotate(s, xy)
+    plt.grid(b=True, which='both', axis='both')
+    plt.show()
+    return xyz, UX, UY, filename
+
+
+def DefineDevice(xyz):
+    L = np.fromstring(
+        input('Left contant atomic indices (#-#): '), dtype=int, sep='-')
+    R = np.fromstring(
+        input('Right contant atomic indices (#-#): '), dtype=int, sep='-')
+    L = np.arange(L[0], L[1] + 1, 1, dtype=int)
+    R = np.arange(R[0], R[1] + 1, 1, dtype=int)
+
+    Lxyz = xyz[L]
+    Rxyz = xyz[R]
+    RmArray = np.append(L, R).astype(int)
+    Cxyz = np.delete(xyz, RmArray, 0)
+
+    plt.scatter(Lxyz[:, 0], Lxyz[:, 1], c='red', label='L')
+    plt.scatter(Cxyz[:, 0], Cxyz[:, 1], c='orange', label='C')
+    plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
+    plt.legend()
+    plt.axis('equal')
+    for i in range(xyz[:, 0].shape[0]):
+        s = i
+        xy = (xyz[i, 0], xyz[i, 1])
+        plt.annotate(s, xy)
+    plt.grid(b=True, which='both', axis='both')
+    plt.show()
+    return L, R, Lxyz, Rxyz
+
+
+def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
+    start = time.time()
+    GD = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
+    GammaL = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
+    GammaR = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
+    bar = Bar('Running Recursion', max=En.shape[0])
+    q = 0
+    for i in En:
+        gl, crap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
+        gr, SER, crap = RecursionRoutine(i, HR, VR, eta=eta)
+        SS = SEL.shape[0]
+        Matrix = np.zeros((HD.shape), dtype=complex)
+        Matrix[0:SS, 0:SS] = SEL
+        SEL = Matrix
+
+        SS = SER.shape[0]
+        Matrix = np.zeros((HD.shape), dtype=complex)
+        Matrix[-SS:, -SS:] = SER
+        SER = Matrix
+
+        GD[q] = LA.inv(np.identity(HD.shape[0])
+                       * (i + eta) - HD - SEL - SER)
+        GammaL[q] = 1j * (SEL - SEL.conj().T)
+        GammaR[q] = 1j * (SER - SER.conj().T)
+        q = q + 1
+        bar.next()
+    bar.finish()
+    end = time.time()
+    print('Recursion Execution Time: {} s'.format(end - start))
+    return GD, GammaL, GammaR
+
+
+def Transmission(GammaL, GammaR, GD, En):
+    T = np.zeros(En.shape[0], dtype=complex)
+    bar = Bar('Calculating Transmission', max=En.shape[0])
+    for i in range(En.shape[0]):
+        T[i] = np.trace(GammaR[i] @ GD[i] @ GammaL[i] @ GD[i].conj().T)
+        bar.next()
+    bar.finish()
+    return T
