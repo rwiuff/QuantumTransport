@@ -12,11 +12,11 @@ from Functions import xyzimport, Hkay, Onsite, Hop
 Vppi = -1
 
 # Define lattice vectors
-shiftx = 32.7862152500
-shifty = 8.6934634800
+shiftx = 7.38
+shifty = 4.26
 
 # Retrieve unit cell
-xyz = xyzimport('fab_NPG_C.fdf')
+xyz = xyzimport('alphaLeft.fdf')
 # Calculate onsite nearest neighbours
 Ham = Onsite(xyz, Vppi)
 

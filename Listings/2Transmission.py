@@ -11,7 +11,7 @@ nx = 1
 ny = 1
 shiftx = 2.46
 
-xyz, UX, UY, filename = ImportSystem(nx, ny)
+xyz, UX, UY, filename = ImportSystem(nx)
 
 L, R, Lxyz, Rxyz = DefineDevice(xyz)
 

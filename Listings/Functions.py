@@ -99,12 +99,12 @@ def GrapheneSheet(nx, ny):
     return Graphene
 
 
-def ImportSystem(nx, ny):
+def ImportSystem(nx):
     filename = input('Enter filename: ')
     filename = filename + '.fdf'
     fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
-    geom = geom.tile(nx, 0).tile(ny, 1)
+    geom = geom.tile(nx, 0)
     # xyz = geom.xyz
     # xyz = np.round(xyz, decimals=2)
     # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
@@ -128,9 +128,9 @@ def ImportSystem(nx, ny):
 
 def DefineDevice(xyz):
     L = np.fromstring(
-        input('Left contant atomic indices (#-#): '), dtype=int, sep='-')
+        input('Left contact atomic indices (#-#): '), dtype=int, sep='-')
     R = np.fromstring(
-        input('Right contant atomic indices (#-#): '), dtype=int, sep='-')
+        input('Right contact atomic indices (#-#): '), dtype=int, sep='-')
     L = np.arange(L[0], L[1] + 1, 1, dtype=int)
     R = np.arange(R[0], R[1] + 1, 1, dtype=int)
 
@@ -193,3 +193,12 @@ def Transmission(GammaL, GammaR, GD, En):
         bar.next()
     bar.finish()
     return T
+
+
+def PeriodicHamiltonian(Ham, V1, i):
+    H1 = Ham + V1 * np.exp(-1.0j * i)
+    + np.transpose(V1) * np.exp(1.0j * i)
+    H2 = Ham - V1 * np.exp(-1.0j * i)
+    - np.transpose(V1) * np.exp(1.0j * i)
+    Ham = 0.5 * (H1 + H2)
+    return Ham
