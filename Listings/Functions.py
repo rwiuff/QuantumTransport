@@ -105,8 +105,10 @@ def ImportSystem(nx, ny):
     fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
     geom = geom.tile(nx, 0).tile(ny, 1)
-    geom = geom.sort(axes=(1, 0, 2))
-    geom = geom.sort(axes=(1, 0, 2))
+    # xyz = geom.xyz
+    # xyz = np.round(xyz, decimals=2)
+    # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
+    geom = geom.sort(axes=(2, 1, 0))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
     UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
