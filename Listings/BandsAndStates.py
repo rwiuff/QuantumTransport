@@ -6,17 +6,13 @@ import numpy as np                      # NumPy
 import seaborn
 from numpy import linalg as LA
 from collections import Counter
-from Functions import xyzimport, Hkay, Onsite, Hop
+from Functions import xyzimport, Hkay, Onsite, Hop, ImportSystem
 
 # Set hopping potential
 Vppi = -1
 
-# Define lattice vectors
-shiftx = 7.38
-shifty = 4.26
-
 # Retrieve unit cell
-xyz = xyzimport('alphaLeft.fdf')
+xyz, shiftx, shifty, filename = ImportSystem(1)
 # Calculate onsite nearest neighbours
 Ham = Onsite(xyz, Vppi)
 
@@ -76,10 +72,12 @@ for i in range(X.shape[0]):
 xtick = np.array([-1 / shiftx, 0, 1 / shifty])
 plt.xticks(xtick, ('X', r'$\Gamma$', 'Z'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
-plt.title('NPG-normal')
+filename = filename.replace('.fdf', '')
+plt.title(filename)
 plt.ylim(-1, 1)
-plt.show()
-
+savename = filename + 'Bandstructures.eps'
+plt.savefig(savename, bbox_inches='tight')
+quit()
 # Get eigenvalues/vectors for degeneracy and stateplot
 e, v = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)
 e = np.round(e, decimals=3)

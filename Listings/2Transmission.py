@@ -2,7 +2,8 @@ from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
-from Functions import ImportSystem, Onsite, Hop, DefineDevice, EnergyRecursion, Transmission
+from Functions import ImportSystem, Onsite, Hop, DefineDevice
+from Functions import EnergyRecursion, Transmission
 import sys
 
 np.set_printoptions(threshold=sys.maxsize)
