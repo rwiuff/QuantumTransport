@@ -45,15 +45,14 @@ eta = 1e-6j
 
 GD, GammaL, GammaR = EnergyRecursion(HD, HL, HR, VL, VR, En, eta)
 
-G00 = np.zeros((En.shape[0]), dtype=complex)
+G = np.zeros((En.shape[0]), dtype=complex)
 bar = Bar('Retrieving Greens function', max=En.shape[0])
 for i in range(En.shape[0]):
-    G = np.diag(GD[i])
-    G00[i] = G[0]
+    G[i] = GD["GD{:d}".format(i)].diagonal()[0]
     bar.next()
 bar.finish()
 
-Y = G00
+Y = G
 X = En
 Y1 = Y.real
 Y2 = Y.imag
@@ -64,7 +63,7 @@ plt.grid(which='both', axis='both')
 plt.legend(handles=[imag, real])
 plt.title('Greens function at 0th site')
 plt.xlabel('Energy E arb. unit')
-plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.ylabel('Re[G(E)]/Im[G(E)]')
 savename = filename.replace('.fdf', 'imrealTE.eps')
 plt.savefig(savename, bbox_inches='tight')
 plt.show()

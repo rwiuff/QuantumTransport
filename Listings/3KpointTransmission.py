@@ -51,11 +51,10 @@ for i in kP:
 
     GD, GammaL, GammaR = EnergyRecursion(H, HL, HR, VL, VR, En, eta)
 
-    G00 = np.zeros((En.shape[0]), dtype=complex)
+    G = np.zeros((En.shape[0]), dtype=complex)
     bar = Bar('Retrieving Greens function', max=En.shape[0])
     for i in range(En.shape[0]):
-        G = np.diag(GD[i])
-        G00[i] = G[0]
+        G[i] = GD["GD{:d}".format(i)].diagonal()[0]
         bar.next()
     bar.finish()
 
@@ -88,11 +87,11 @@ for i in kP:
     # savename = filename.replace('.fdf', 'TE.eps')
     # plt.savefig(savename, bbox_inches='tight')
     # plt.show()
-    GG[q, :] = G00
+    GG[q, :] = G
     TT[q, :] = T.real
     q = q + 1
-G00 = np.average(GG, axis=0)
-Y = G00
+G = np.average(GG, axis=0)
+Y = G
 X = En
 Y1 = Y.real
 Y2 = Y.imag

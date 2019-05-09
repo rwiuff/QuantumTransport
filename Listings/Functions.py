@@ -19,6 +19,7 @@ import sisl as si
 from sisl import Atom
 from progress.bar import Bar
 import time
+import scipy.sparse as scp
 
 
 def xyzimport(path):
@@ -154,10 +155,15 @@ def DefineDevice(xyz):
 
 
 def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
+    HD = scp.bsr_matrix(HD)
+    HL = scp.bsr_matrix(HL)
+    HR = scp.bsr_matrix(HR)
+    VL = scp.bsr_matrix(VL)
+    VR = scp.bsr_matrix(VR)
     start = time.time()
-    GD = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
-    GammaL = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
-    GammaR = np.zeros([En.shape[0], HD.shape[0], HD.shape[1]], dtype=complex)
+    GD = {}
+    GammaL = {}
+    GammaR = {}
     bar = Bar('Running Recursion', max=En.shape[0])
     q = 0
     for i in En:
@@ -173,10 +179,12 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
         Matrix[-SS:, -SS:] = SER
         SER = Matrix
 
-        GD[q] = LA.inv(np.identity(HD.shape[0])
-                       * (i + eta) - HD - SEL - SER)
-        GammaL[q] = 1j * (SEL - SEL.conj().T)
-        GammaR[q] = 1j * (SER - SER.conj().T)
+        SEL = scp.bsr_matrix(SEL)
+        SER = scp.bsr_matrix(SER)
+        GD["GD{:d}".format(q)] = scp.linalg.inv(
+            scp.identity(HD.shape[0]) * (i + eta) - HD - SEL - SER)
+        GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())
+        GammaR["GammaR{:d}".format(q)] = 1j * (SER - SER.conj().transpose())
         q = q + 1
         bar.next()
     bar.finish()
@@ -189,16 +197,17 @@ def Transmission(GammaL, GammaR, GD, En):
     T = np.zeros(En.shape[0], dtype=complex)
     bar = Bar('Calculating Transmission', max=En.shape[0])
     for i in range(En.shape[0]):
-        T[i] = np.trace(GammaR[i] @ GD[i] @ GammaL[i] @ GD[i].conj().T)
+        T[i] = np.trace((GammaR["GammaR{:d}".format(i)] @ GD["GD{:d}".format(
+            i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj().transpose()).todense())
         bar.next()
     bar.finish()
     return T
 
 
 def PeriodicHamiltonian(Ham, V1, i):
-    H1 = Ham + V1 * np.exp(-1.0j * i)
-    + np.transpose(V1) * np.exp(1.0j * i)
-    H2 = Ham - V1 * np.exp(-1.0j * i)
-    - np.transpose(V1) * np.exp(1.0j * i)
+    H1 = Ham + V1 * np.exp(1.0j * i)
+    + np.transpose(V1) * np.exp(-1.0j * i)
+    H2 = Ham - V1 * np.exp(1.0j * i)
+    - np.transpose(V1) * np.exp(-1.0j * i)
     Ham = 0.5 * (H1 + H2)
     return Ham
