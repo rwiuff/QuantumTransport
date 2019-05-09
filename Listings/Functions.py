@@ -105,15 +105,16 @@ def ImportSystem(nx):
     filename = filename + '.fdf'
     fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
+    geom = geom.rotatec(90, [0, 0, 0])
     geom = geom.tile(nx, 0)
-    # xyz = geom.xyz
-    # xyz = np.round(xyz, decimals=2)
-    # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
+    xyz = geom.xyz
+    xyz = np.round(xyz, decimals=2)
+    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
     geom = geom.sort(axes=(2, 1, 0))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
-    UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
-    UY = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
+    UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
+    UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
     print('Unit Cell x: {}'.format(UX))
     print('Unit Cell y: {}'.format(UY))
     plt.scatter(xyz[:, 0], xyz[:, 1])
@@ -205,9 +206,6 @@ def Transmission(GammaL, GammaR, GD, En):
 
 
 def PeriodicHamiltonian(Ham, V1, i):
-    H1 = Ham + V1 * np.exp(1.0j * i)
+    Ham = Ham + V1 * np.exp(1.0j * i)
     + np.transpose(V1) * np.exp(-1.0j * i)
-    H2 = Ham - V1 * np.exp(1.0j * i)
-    - np.transpose(V1) * np.exp(-1.0j * i)
-    Ham = 0.5 * (H1 + H2)
     return Ham

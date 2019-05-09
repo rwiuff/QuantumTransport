@@ -10,7 +10,7 @@ np.set_printoptions(threshold=sys.maxsize)
 
 nx = 1
 ny = 1
-shiftx = 2.46
+shiftx = 4.26
 
 xyz, UX, UY, filename = ImportSystem(nx)
 
