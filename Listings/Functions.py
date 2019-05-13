@@ -20,6 +20,7 @@ from sisl import Atom
 from progress.bar import Bar
 import time
 import scipy.sparse as scp
+import math
 
 
 def xyzimport(path):
@@ -68,7 +69,7 @@ def RecursionRoutine(En, h, V, eta):
     e0 = h
     g0 = LA.inv(z - e0)
     q = 1
-    while np.max(np.abs(a0)) > 0.000000001:
+    while np.max(np.abs(a0)) > 1e-8:
         ag = a0 @ g0
         a1 = ag @ a0
         bg = b0 @ g0
@@ -105,16 +106,15 @@ def ImportSystem(nx):
     filename = filename + '.fdf'
     fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
-    geom = geom.rotatec(90, [0, 0, 0])
     geom = geom.tile(nx, 0)
-    xyz = geom.xyz
-    xyz = np.round(xyz, decimals=2)
-    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
+    # xyz = geom.xyz
+    # xyz = np.round(xyz, decimals=2)
+    # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
     geom = geom.sort(axes=(2, 1, 0))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
-    UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
-    UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
+    UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
+    UY = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
     print('Unit Cell x: {}'.format(UX))
     print('Unit Cell y: {}'.format(UY))
     plt.scatter(xyz[:, 0], xyz[:, 1])
@@ -156,16 +156,16 @@ def DefineDevice(xyz):
 
 
 def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
-    HD = scp.bsr_matrix(HD)
-    HL = scp.bsr_matrix(HL)
-    HR = scp.bsr_matrix(HR)
-    VL = scp.bsr_matrix(VL)
-    VR = scp.bsr_matrix(VR)
+    HD = scp.csr_matrix(HD)
+    HL = scp.csr_matrix(HL)
+    HR = scp.csr_matrix(HR)
+    VL = scp.csr_matrix(VL)
+    VR = scp.csr_matrix(VR)
     start = time.time()
     GD = {}
     GammaL = {}
     GammaR = {}
-    bar = Bar('Running Recursion', max=En.shape[0])
+    bar = Bar('Running Recursion          ', max=En.shape[0])
     q = 0
     for i in En:
         gl, crap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
@@ -180,8 +180,8 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
         Matrix[-SS:, -SS:] = SER
         SER = Matrix
 
-        SEL = scp.bsr_matrix(SEL)
-        SER = scp.bsr_matrix(SER)
+        SEL = scp.csr_matrix(SEL)
+        SER = scp.csr_matrix(SER)
         GD["GD{:d}".format(q)] = scp.linalg.inv(
             scp.identity(HD.shape[0]) * (i + eta) - HD - SEL - SER)
         GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())
@@ -190,13 +190,13 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
         bar.next()
     bar.finish()
     end = time.time()
-    print('Recursion Execution Time: {} s'.format(end - start))
+    print('Recursion Execution Time:   {} s'.format(end - start))
     return GD, GammaL, GammaR
 
 
 def Transmission(GammaL, GammaR, GD, En):
     T = np.zeros(En.shape[0], dtype=complex)
-    bar = Bar('Calculating Transmission', max=En.shape[0])
+    bar = Bar('Calculating Transmission   ', max=En.shape[0])
     for i in range(En.shape[0]):
         T[i] = np.trace((GammaR["GammaR{:d}".format(i)] @ GD["GD{:d}".format(
             i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj().transpose()).todense())
@@ -205,7 +205,77 @@ def Transmission(GammaL, GammaR, GD, En):
     return T
 
 
-def PeriodicHamiltonian(Ham, V1, i):
-    Ham = Ham + V1 * np.exp(1.0j * i)
-    + np.transpose(V1) * np.exp(-1.0j * i)
-    return Ham
+def PeriodicHamiltonian(xyz, UY, i):
+    h = Onsite(xyz=xyz, Vppi=-1)
+    V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
+    VL = V
+    VR = np.transpose(V)
+    Ham = h + VL * np.exp(1j*i) + VR*np.exp(-1j*i)
+    return Ham, VL, VR
+
+
+def Import(nx, contactrep):
+    filename = input('Enter filename: ')
+    filename = filename + '.fdf'
+    fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
+    geom = fdf.read_geometry(output=False)
+    cellsize = geom.xyz.shape[0]
+    geom = geom.tile(nx + 2 * contactrep, 1)
+    geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))
+    xyz = geom.xyz
+    xyz = np.round(xyz, decimals=1)
+    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
+    geom = geom.sort(axes=(2, 1, 0))
+    LatticeVectors = fdf.get('LatticeVectors')
+    UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
+    UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
+    print('Unit Cell x: {}'.format(UX))
+    print('Unit Cell y: {}'.format(UY))
+    xyz = geom.xyz
+    dgeom = geom
+    plt.scatter(xyz[:, 0], xyz[:, 1])
+    plt.axis('equal')
+    for i in range(xyz[:, 0].shape[0]):
+        s = i
+        xy = (xyz[i, 0], xyz[i, 1])
+        plt.annotate(s, xy)
+    plt.grid(b=True, which='both', axis='both')
+    plt.show()
+    return xyz, UX, UY, filename, dgeom, cellsize
+
+
+def NPGElectrode(xyz, dgeom, cellsize, nx):
+    csize = cellsize * nx
+    esize = cellsize
+    device = dgeom.sort(axes=(2, 1, 0))
+    xyz = device.xyz
+    print(xyz.shape)
+    plt.scatter(xyz[:, 0], xyz[:, 1])
+    plt.axis('equal')
+    for i in range(xyz[:, 0].shape[0]):
+        s = i
+        xy = (xyz[i, 0], xyz[i, 1])
+        plt.annotate(s, xy)
+    plt.grid(b=True, which='both', axis='both')
+    plt.show()
+    L = np.arange(0, esize)
+    R = np.arange(esize + csize + 1, esize + csize + esize)
+    print(L)
+    print(R)
+    Lxyz = xyz[L]
+    Rxyz = xyz[R]
+    RmArray = np.append(L, R).astype(int)
+    Cxyz = np.delete(xyz, RmArray, 0)
+
+    plt.scatter(Lxyz[:, 0], Lxyz[:, 1], c='red', label='L')
+    plt.scatter(Cxyz[:, 0], Cxyz[:, 1], c='orange', label='C')
+    plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
+    plt.legend()
+    plt.axis('equal')
+    for i in range(xyz[:, 0].shape[0]):
+        s = i
+        xy = (xyz[i, 0], xyz[i, 1])
+        plt.annotate(s, xy)
+    plt.grid(b=True, which='both', axis='both')
+    plt.show()
+    return L, R, Lxyz, Rxyz

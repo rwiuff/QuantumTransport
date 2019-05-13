@@ -10,7 +10,7 @@ np.set_printoptions(threshold=sys.maxsize)
 
 nx = 1
 ny = 1
-shiftx = 4.26
+shiftx = 2.46
 
 xyz, UX, UY, filename = ImportSystem(nx)
 
@@ -46,7 +46,7 @@ eta = 1e-6j
 GD, GammaL, GammaR = EnergyRecursion(HD, HL, HR, VL, VR, En, eta)
 
 G = np.zeros((En.shape[0]), dtype=complex)
-bar = Bar('Retrieving Greens function', max=En.shape[0])
+bar = Bar('Retrieving Greens function ', max=En.shape[0])
 for i in range(En.shape[0]):
     G[i] = GD["GD{:d}".format(i)].diagonal()[0]
     bar.next()
@@ -73,7 +73,7 @@ T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
 Y = T.real
 X = En
 plt.plot(X, Y)
-plt.ylim((0, 1))
+# plt.ylim((0, 1))
 plt.grid(which='both', axis='both')
 plt.title('Transmission')
 plt.xlabel(r'$E(V_{pp\pi})$')

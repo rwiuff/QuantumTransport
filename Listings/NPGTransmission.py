@@ -1,24 +1,24 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-from matplotlib.gridspec import GridSpec
+# from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
-from Functions import ImportSystem, Onsite, Hop, DefineDevice
+from Functions import Import, NPGElectrode
 from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
 import sys
 
 np.set_printoptions(threshold=sys.maxsize)
 
-nx = 5
+nx = 1
 ny = 5
+contactrep = 1
 shiftx = 2.46
-shifty = 4.26
-En = np.linspace(-3, 3, 1000)
+En = np.linspace(-3, 3, 100)
 eta = 1e-6j
 kP = np.linspace(-np.pi, np.pi, ny)
 
-xyz, UX, UY, filename = ImportSystem(nx)
+xyz, UX, UY, filename, dgeom, cellsize = Import(nx, contactrep)
 
-L, R, Lxyz, Rxyz = DefineDevice(xyz)
+L, R, Lxyz, Rxyz = NPGElectrode(xyz, dgeom, cellsize, nx)
 
 TT = np.zeros((kP.shape[0], En.shape[0]))
 GG = np.zeros((kP.shape[0], En.shape[0]), dtype=complex)

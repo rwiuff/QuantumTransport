@@ -74,7 +74,7 @@ plt.xticks(xtick, ('X', r'$\Gamma$', 'Z'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
 plt.title(filename)
-plt.ylim(-1, 1)
+plt.ylim(-np.pi, np.pi)
 savename = filename + 'Bandstructures.eps'
 plt.savefig(savename, bbox_inches='tight')
 quit()
