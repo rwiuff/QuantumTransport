@@ -208,10 +208,8 @@ def Transmission(GammaL, GammaR, GD, En):
 def PeriodicHamiltonian(xyz, UY, i):
     h = Onsite(xyz=xyz, Vppi=-1)
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
-    VL = V
-    VR = np.transpose(V)
-    Ham = h + VL * np.exp(1j*i) + VR*np.exp(-1j*i)
-    return Ham, VL, VR
+    Ham = h + V * np.exp(1j*i) + np.transpose(V)*np.exp(-1j*i)
+    return Ham
 
 
 def Import(nx, contactrep):
@@ -250,14 +248,6 @@ def NPGElectrode(xyz, dgeom, cellsize, nx):
     device = dgeom.sort(axes=(2, 1, 0))
     xyz = device.xyz
     print(xyz.shape)
-    plt.scatter(xyz[:, 0], xyz[:, 1])
-    plt.axis('equal')
-    for i in range(xyz[:, 0].shape[0]):
-        s = i
-        xy = (xyz[i, 0], xyz[i, 1])
-        plt.annotate(s, xy)
-    plt.grid(b=True, which='both', axis='both')
-    plt.show()
     L = np.arange(0, esize)
     R = np.arange(esize + csize + 1, esize + csize + esize)
     print(L)

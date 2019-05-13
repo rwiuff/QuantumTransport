@@ -2,18 +2,18 @@ from matplotlib import pyplot as plt     # Pyplot for nice graphs
 # from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
-from Functions import Import, NPGElectrode
+from Functions import Import, NPGElectrode, Hop
 from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
 import sys
 
 np.set_printoptions(threshold=sys.maxsize)
 
-nx = 1
+nx = 5
 ny = 5
 contactrep = 1
 shiftx = 2.46
 En = np.linspace(-3, 3, 100)
-eta = 1e-6j
+eta = 1e-4j
 kP = np.linspace(-np.pi, np.pi, ny)
 
 xyz, UX, UY, filename, dgeom, cellsize = Import(nx, contactrep)
@@ -26,7 +26,9 @@ q = 0
 for i in kP:
     Lxyz1 = Lxyz - np.array([shiftx, 0, 0])
     Rxyz1 = Rxyz + np.array([shiftx, 0, 0])
-    Ham, VL, VR = PeriodicHamiltonian(xyz, UY, i)
+    VL = Hop(xyz=Lxyz1, xyz1=Lxyz, Vppi=-1)
+    VR = Hop(xyz=Rxyz, xyz1=Rxyz1, Vppi=-1)
+    Ham = PeriodicHamiltonian(xyz, UY, i)
     HL = Ham[0:VL.shape[0], 0:VL.shape[0]]
     HR = Ham[-VR.shape[0]:, -VR.shape[0]:]
     # gs = GridSpec(2, 2, width_ratios=[1, 2])
