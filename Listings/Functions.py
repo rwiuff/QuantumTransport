@@ -20,7 +20,6 @@ from sisl import Atom
 from progress.bar import Bar
 import time
 import scipy.sparse as scp
-import math
 
 
 def xyzimport(path):
@@ -69,7 +68,7 @@ def RecursionRoutine(En, h, V, eta):
     e0 = h
     g0 = LA.inv(z - e0)
     q = 1
-    while np.max(np.abs(a0)) > 1e-8:
+    while np.max(np.abs(a0)) > 1e-6:
         ag = a0 @ g0
         a1 = ag @ a0
         bg = b0 @ g0
@@ -92,10 +91,10 @@ def RecursionRoutine(En, h, V, eta):
 
 
 def GrapheneSheet(nx, ny):
-    Graphene = si.Geometry([[0.62, 3.55, 0],
-                            [0.62, 0.71, 0],
-                            [1.85, 2.84, 0],
-                            [1.85, 1.42, 0]], [Atom('C')], [2.46, 4.26, 0])
+    Graphene = si.Geometry([[0.62, 3.55, 25],
+                            [0.62, 0.71, 25],
+                            [1.85, 2.84, 25],
+                            [1.85, 1.42, 25]], [Atom('C')], [2.46, 4.26, 0])
     Graphene = Graphene.tile(nx, 0).tile(ny, 1)
     Graphene = Graphene.sort(axes=(1, 0, 2))
     return Graphene
@@ -135,15 +134,26 @@ def DefineDevice(xyz):
         input('Right contact atomic indices (#-#): '), dtype=int, sep='-')
     L = np.arange(L[0], L[1] + 1, 1, dtype=int)
     R = np.arange(R[0], R[1] + 1, 1, dtype=int)
+    C = np.arange(L[1] + 3, R[0], 1, dtype=int)
+    RestL = np.arange(0, L[0], dtype=int)
+    RestR = np.arange(R[1] + 3, xyz.shape[0], 1, dtype=int)
+    print(RestL)
+    print(L)
+    print(C)
+    print(R)
+    print(RestR)
 
     Lxyz = xyz[L]
     Rxyz = xyz[R]
-    RmArray = np.append(L, R).astype(int)
-    Cxyz = np.delete(xyz, RmArray, 0)
+    Cxyz = xyz[C]
+    RmArray = np.append(L, C).astype(int)
+    RmArray = np.append(RmArray, R).astype(int)
+    Restxyz = np.delete(xyz, RmArray, 0)
 
     plt.scatter(Lxyz[:, 0], Lxyz[:, 1], c='red', label='L')
     plt.scatter(Cxyz[:, 0], Cxyz[:, 1], c='orange', label='C')
     plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
+    plt.scatter(Restxyz[:, 0], Restxyz[:, 1], c='k')
     plt.legend()
     plt.axis('equal')
     for i in range(xyz[:, 0].shape[0]):
@@ -152,7 +162,7 @@ def DefineDevice(xyz):
         plt.annotate(s, xy)
     plt.grid(b=True, which='both', axis='both')
     plt.show()
-    return L, R, Lxyz, Rxyz
+    return RestL, L, R, C, RestR
 
 
 def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
@@ -218,7 +228,7 @@ def Import(nx, contactrep):
     fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
     geom = fdf.read_geometry(output=False)
     cellsize = geom.xyz.shape[0]
-    geom = geom.tile(nx + 2 * contactrep, 1)
+    geom = geom.tile(nx + 4 * contactrep, 1)
     geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))
     xyz = geom.xyz
     xyz = np.round(xyz, decimals=1)
@@ -248,18 +258,27 @@ def NPGElectrode(xyz, dgeom, cellsize, nx):
     device = dgeom.sort(axes=(2, 1, 0))
     xyz = device.xyz
     print(xyz.shape)
-    L = np.arange(0, esize)
-    R = np.arange(esize + csize + 1, esize + csize + esize)
+    RestL = np.arange(0, esize)
+    L = np.arange(esize, esize * 2)
+    C = np.arange(esize * 2, esize * 2 + csize)
+    R = np.arange(esize * 2 + csize, esize * 2 + csize + esize)
+    RestR = np.arange(esize * 2 + csize + esize, xyz.shape[0])
+    print(RestL)
     print(L)
+    print(C)
     print(R)
+    print(RestR)
     Lxyz = xyz[L]
+    Cxyz = xyz[C]
     Rxyz = xyz[R]
-    RmArray = np.append(L, R).astype(int)
-    Cxyz = np.delete(xyz, RmArray, 0)
+    RmArray = np.append(L, C).astype(int)
+    RmArray = np.append(RmArray, R).astype(int)
+    Restxyz = np.delete(xyz, RmArray, 0)
 
     plt.scatter(Lxyz[:, 0], Lxyz[:, 1], c='red', label='L')
     plt.scatter(Cxyz[:, 0], Cxyz[:, 1], c='orange', label='C')
     plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
+    plt.scatter(Restxyz[:, 0], Restxyz[:, 1], c='k')
     plt.legend()
     plt.axis('equal')
     for i in range(xyz[:, 0].shape[0]):
@@ -268,4 +287,4 @@ def NPGElectrode(xyz, dgeom, cellsize, nx):
         plt.annotate(s, xy)
     plt.grid(b=True, which='both', axis='both')
     plt.show()
-    return L, R, Lxyz, Rxyz
+    return RestL, L, R, C, RestR

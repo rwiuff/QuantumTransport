@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
-# from matplotlib.gridspec import GridSpec
+from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
 from Functions import Import, NPGElectrode, Hop
@@ -8,44 +8,51 @@ import sys
 
 np.set_printoptions(threshold=sys.maxsize)
 
-nx = 5
-ny = 5
+nx = 1
+ny = 2
 contactrep = 1
 shiftx = 2.46
-En = np.linspace(-3, 3, 100)
-eta = 1e-4j
-kP = np.linspace(-np.pi, np.pi, ny)
+En = np.linspace(-3, 3, 1000)
+eta = 1e-6j
+kP = np.linspace(-np.pi, np.pi, 5)
 
 xyz, UX, UY, filename, dgeom, cellsize = Import(nx, contactrep)
 
-L, R, Lxyz, Rxyz = NPGElectrode(xyz, dgeom, cellsize, nx)
+RestL, L, R, C, RestR = NPGElectrode(xyz, dgeom, cellsize, nx)
 
 TT = np.zeros((kP.shape[0], En.shape[0]))
 GG = np.zeros((kP.shape[0], En.shape[0]), dtype=complex)
 q = 0
 for i in kP:
-    Lxyz1 = Lxyz - np.array([shiftx, 0, 0])
-    Rxyz1 = Rxyz + np.array([shiftx, 0, 0])
-    VL = Hop(xyz=Lxyz1, xyz1=Lxyz, Vppi=-1)
-    VR = Hop(xyz=Rxyz, xyz1=Rxyz1, Vppi=-1)
+    print('Calculating for k-point: {}'.format(i))
     Ham = PeriodicHamiltonian(xyz, UY, i)
-    HL = Ham[0:VL.shape[0], 0:VL.shape[0]]
-    HR = Ham[-VR.shape[0]:, -VR.shape[0]:]
+    HL = Ham[L]
+    HL = HL[:, L]
+    HR = Ham[R]
+    HR = HR[:, R]
+    VL = Ham[L]
+    VL = VL[:, RestL]
+    VR = Ham[RestR]
+    VR = VR[:, R]
     # gs = GridSpec(2, 2, width_ratios=[1, 2])
-    # plt.figure(figsize=(7, 4))
+    # a = plt.figure(figsize=(7, 4))
     # ax1 = plt.subplot(gs[:, 1])
-    # plt.imshow(Ham)
+    # plt.imshow(Ham.real)
+    # plt.colorbar()
     # ax2 = plt.subplot(gs[0, 0])
-    # plt.imshow(HL)
+    # plt.imshow(HL.real)
     # ax3 = plt.subplot(gs[1, 0])
-    # plt.imshow(HR)
-    # plt.show()
-    # plt.figure(figsize=(7, 4))
+    # plt.imshow(HR.real)
+    # a.show()
+    # b = plt.figure(figsize=(7, 4))
     # plt.subplot(121)
-    # plt.imshow(VL)
+    # plt.imshow(VL.real)
     # plt.subplot(122)
-    # plt.imshow(VR)
-    # plt.show()
+    # plt.imshow(VR.real)
+    # plt.colorbar()
+    # b.show()
+
+    # input('Press any key to continue')
 
     GD, GammaL, GammaR = EnergyRecursion(Ham, HL, HR, VL, VR, En, eta)
 
@@ -88,7 +95,7 @@ for i in kP:
     GG[q, :] = G
     TT[q, :] = T.real
     q = q + 1
-
+print('Plotting Greens functions')
 plt.subplot(231)
 Y = GG[0, :]
 X = En
@@ -166,7 +173,7 @@ plt.title('Greens function at 0th site')
 savename = filename.replace('.fdf', 'AverageimrealTE.eps')
 plt.savefig(savename, bbox_inches='tight')
 plt.show()
-
+print('Plotting Transmission')
 plt.subplot(231)
 T = TT[0]
 Y = T.real
