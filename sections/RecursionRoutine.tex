@@ -5,7 +5,7 @@ For simplicity and in order to check whether the routine would yield the results
 \newpage
 \im{Listings/Functions.py}{62}{89}
 \vspace{-1\baselineskip}
-\captionof{listing}{The while loop in the recursionroutine. The matrix elements are overwritten with the new variables until the resulting matrix is small enough to diagonalise\label{recurfunc}}\vspace{\baselineskip}\newpage
+\captionof{listing}{The while loop in the recursion routine. The matrix elements are overwritten with the new variables until the resulting matrix is small enough to diagonalise\label{recurfunc}}\vspace{\baselineskip}\newpage
 The threshold is defined as the absolute maximum value element in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Notice, however, that the code (\cref{recurfunc}) contains intermediate products of \(a0, b0\) and \(g0\). This is for run time optimisation. Following is a list of these matrix products:
 \begin{align*}
 	a1     & = a0\ g0\ a0                   \\
@@ -26,10 +26,10 @@ As a good way to check whether the recursion routine has been implemented succes
 \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \vspace{-1\baselineskip}
 \captionof{listing}{Code showing the loop which produces the Green's function (or y) values for a range of energies used in the plot.\label{plotcode}}\vspace{\baselineskip}
-The output from this loop will be the complex y-values for the plot. These will have to be sorted to imaginary and real parts before plotting. The x-values will just be the energy range used for the loop. The imaginary part of the Green's function is especially important as it represents the local density of states LDOS. A plot of the real and imaginary part of the first cell Green's function obtained by the recursion routine for the simple four-atom unit cell described in \cref{recursionroutinesec} is shown in \cref{imrealplot}.
+The output from this loop will be the complex y-values for the plot. These will have to be sorted to imaginary and real parts before plotting. The x-values will just be the energy range used for the loop. The imaginary, it represents the local density of states LDOS. Note that the plot only represents the LDOS for a specific site on the molecule and that they change radically from site to site (see \cref{appfigs}, \cref{siteLDOSplot} for an example using the same structure as \cref{interface}). The site can be changed by choosing another index, which corresponds to the atom indices in \cref{plotcode} line 68. A plot of the real and imaginary part of the first cell Green's function (index 0) obtained by the recursion routine for the simple four-atom unit cell described in \cref{recursionroutinesec} is shown in \cref{imrealplot}.
 \begin{figure}
 	\centering
 	\includegraphics[width = 0.5\textwidth]{Figures/imrealplot.eps}
-	\caption{A plot showing the real and imaginary part of the first cell Green's function resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the density of states.}
+	\caption{A plot showing the real and imaginary part of the first cell Green's function resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
 	\label{imrealplot}
 \end{figure}
