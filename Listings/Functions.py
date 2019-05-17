@@ -232,8 +232,9 @@ def Import(nx, contactrep):
     geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))
     xyz = geom.xyz
     xyz = np.round(xyz, decimals=1)
+
     geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
-    geom = geom.sort(axes=(2, 1, 0))
+    geom = geom.sort(axes=(2,1,0))
     LatticeVectors = fdf.get('LatticeVectors')
     UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
     UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
