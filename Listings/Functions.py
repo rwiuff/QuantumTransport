@@ -218,8 +218,8 @@ def Transmission(GammaL, GammaR, GD, En):
 def PeriodicHamiltonian(xyz, UY, i):
     h = Onsite(xyz=xyz, Vppi=-1)
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
-    plt.imshow(V.real)
-    plt.show()
+    # plt.imshow(V.real)
+    # plt.show()
     print(np.sum(V))
     Ham = h + V * np.exp(1j*i) + np.transpose(V)*np.exp(-1j*i)
     return Ham

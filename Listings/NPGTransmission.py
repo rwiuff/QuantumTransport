@@ -12,7 +12,10 @@ nx = 1
 ny = 2
 contactrep = 1
 shiftx = 2.46
-En = np.linspace(-3, 3, 100)
+En = np.linspace(-3, 3, 200)
+En = np.delete(En, np.where(En == 1))
+En = np.delete(En, np.where(En == -1))
+
 eta = 1e-6j
 kP = np.linspace(-np.pi, np.pi, 5)
 
@@ -140,8 +143,8 @@ plt.legend(handles=[imag, real])
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G00(E)]/Im[G00(E)]')
 plt.title('Greens function at 0th site')
-savename = filename.replace('.fdf', 'AverageimrealTE.eps')
-plt.savefig(savename, bbox_inches='tight')
+# savename = filename.replace('.fdf', 'AverageimrealTE.eps')
+# plt.savefig(savename, bbox_inches='tight')
 plt.show()
 print('Plotting Transmission')
 plt.subplot(231)
@@ -199,6 +202,6 @@ plt.grid(which='both', axis='both')
 plt.xlabel(r'$E(V_{pp\pi})$')
 plt.ylabel(r'T(E)')
 plt.title('Average Transmission')
-savename = filename.replace('.fdf', 'AverageTE.eps')
-plt.savefig(savename, bbox_inches='tight')
+# savename = filename.replace('.fdf', 'AverageTE.eps')
+# plt.savefig(savename, bbox_inches='tight')
 plt.show()
