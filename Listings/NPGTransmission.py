@@ -34,25 +34,22 @@ for i in kP:
     VL = VL[:, RestL]
     VR = Ham[RestR]
     VR = VR[:, R]
-    # gs = GridSpec(2, 2, width_ratios=[1, 2])
-    # a = plt.figure(figsize=(7, 4))
-    # ax1 = plt.subplot(gs[:, 1])
-    # plt.imshow(Ham.real)
-    # plt.colorbar()
-    # ax2 = plt.subplot(gs[0, 0])
-    # plt.imshow(HL.real)
-    # ax3 = plt.subplot(gs[1, 0])
-    # plt.imshow(HR.real)
-    # a.show()
-    # b = plt.figure(figsize=(7, 4))
-    # plt.subplot(121)
-    # plt.imshow(VL.real)
-    # plt.subplot(122)
-    # plt.imshow(VR.real)
-    # plt.colorbar()
-    # b.show()
-
-    # input('Press any key to continue')
+    gs = GridSpec(2, 2, width_ratios=[1, 2])
+    a = plt.figure(figsize=(7, 4))
+    ax1 = plt.subplot(gs[:, 1])
+    plt.imshow(Ham.real)
+    ax2 = plt.subplot(gs[0, 0])
+    plt.imshow(HL.real)
+    ax3 = plt.subplot(gs[1, 0])
+    plt.imshow(HR.real)
+    a.show()
+    b = plt.figure(figsize=(7, 4))
+    plt.subplot(121)
+    plt.imshow(VL.real)
+    plt.subplot(122)
+    plt.imshow(VR.real)
+    b.show()
+    input('Press any key to continue')
 
     GD, GammaL, GammaR = EnergyRecursion(Ham, HL, HR, VL, VR, En, eta)
 
@@ -63,116 +60,89 @@ for i in kP:
         bar.next()
     bar.finish()
 
-    # Y = G00
-    # X = En
-    # Y1 = Y.real
-    # Y2 = Y.imag
-    # real, = plt.plot(X, Y1, label='real')
-    # imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-    # plt.ylim((-10, 20))
-    # plt.grid(which='both', axis='both')
-    # plt.legend(handles=[imag, real])
-    # plt.title('Greens function at 0th site')
-    # plt.xlabel('Energy E arb. unit')
-    # plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-    # savename = filename.replace('.fdf', 'imrealTE.eps')
-    # plt.savefig(savename, bbox_inches='tight')
-    # plt.show()
-
     T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
 
-    # Y = T.real
-    # X = En
-    # plt.plot(X, Y)
-    # plt.ylim((0, 1))
-    # plt.grid(which='both', axis='both')
-    # plt.title('Transmission')
-    # plt.xlabel(r'$E(V_{pp\pi})$')
-    # plt.ylabel(r'T(E)')
-    # savename = filename.replace('.fdf', 'TE.eps')
-    # plt.savefig(savename, bbox_inches='tight')
-    # plt.show()
     GG[q, :] = G
     TT[q, :] = T.real
     q = q + 1
-#print('Plotting Greens functions')
-#plt.subplot(231)
-#Y = GG[0, :]
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.subplot(232)
-#Y = GG[1, :]
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.subplot(233)
-#Y = GG[2, :]
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.subplot(234)
-#Y = GG[3, :]
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.subplot(235)
-#Y = GG[4, :]
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.subplot(236)
-#G = np.average(GG, axis=0)
-#Y = G
-#X = En
-#Y1 = Y.real
-#Y2 = Y.imag
-#real, = plt.plot(X, Y1, label='real')
-#imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-#plt.ylim((-10, 20))
-#plt.grid(which='both', axis='both')
-#plt.legend(handles=[imag, real])
-#plt.xlabel('Energy E arb. unit')
-#plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-#plt.title('Greens function at 0th site')
-#savename = filename.replace('.fdf', 'AverageimrealTE.eps')
-#plt.savefig(savename, bbox_inches='tight')
-#plt.show()
+print('Plotting Greens functions')
+plt.subplot(231)
+Y = GG[0, :]
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.subplot(232)
+Y = GG[1, :]
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.subplot(233)
+Y = GG[2, :]
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.subplot(234)
+Y = GG[3, :]
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.subplot(235)
+Y = GG[4, :]
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.subplot(236)
+G = np.average(GG, axis=0)
+Y = G
+X = En
+Y1 = Y.real
+Y2 = Y.imag
+real, = plt.plot(X, Y1, label='real')
+imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
+# plt.ylim((-10, 20))
+plt.grid(which='both', axis='both')
+plt.legend(handles=[imag, real])
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.title('Greens function at 0th site')
+savename = filename.replace('.fdf', 'AverageimrealTE.eps')
+plt.savefig(savename, bbox_inches='tight')
+plt.show()
 print('Plotting Transmission')
 plt.subplot(231)
 T = TT[0]
