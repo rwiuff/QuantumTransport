@@ -1,8 +1,8 @@
 %!TEX root = ../Main.tex
 \subsection{Ballistic quantum transport}
-As graphene is a two dimensional material that consists of carbon atoms arranged in a hexagonal pattern, features in such a material can approach nanometer and sub nanometer scales. Because of the small scale the electrical properties and the electrical nature of the material is greatly changed. Normal drift-diffusion current models describe electric charges per area and current per area, but because the conductor is graphene, it can be considered one dimensional. This makes drift-diffusion models insufficient to describe the electrical transport and properties of graphene because the drift-diffusion model is based on scattering of multiple electrons and the mean free path between scattering. Because of the strong binding between atoms in graphene hardly any phonons are present in the material, even at room temperature. In the ballistic model, this means that electrons are not affected by phonons, i.e. no electrons will be excited by phonons, and that they move through the material as waves. Furthermore the model looks at only one electron at a time in the presence of an electron gas. This model has been used with big success for regular graphene and it seems the model also gives a good approximation for NPG.
+As graphene is a two dimensional material that consists of carbon atoms arranged in a hexagonal pattern, features in such a material can approach nanometer and sub nanometer scales. Because of the small scale the electrical properties and the electrical nature of the material is greatly changed. Normal drift-diffusion current models describe electric charges per area and current per area, but because the conductor is graphene, it can be considered one dimensional. This makes drift-diffusion models insufficient to describe the electrical transport and properties of graphene because the drift-diffusion model is based on scattering of multiple electrons and the mean free path between scattering. Therefore it is common to use what is called a ballistic model when working with graphene. Because of the strong binding between atoms in graphene hardly any phonons are present in the material, even at room temperature. Using the ballistic model, this means that electrons are not affected by phonons, i.e. no electrons will be excited by phonons, and that the electrons move through the material as waves. Furthermore the model looks at only one electron at a time in the presence of an electron gas. This model has been used with big success for regular graphene and it seems the model also gives a good approximation for NPG.
 \subsection{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
-\begin{wrapfigure}[7]{r}{.3\textwidth}
+\begin{wrapfigure}[8]{r}{.3\textwidth}
 	\vspace{-2.3em}
 	\centering
 	\begin{tikzpicture}
@@ -11,12 +11,18 @@ As graphene is a two dimensional material that consists of carbon atoms arranged
 	\caption{Graphene lattices consists of hexagonal arrangements of carbon atoms.}\label{ring}
 \end{wrapfigure}
 The main scope of this paper is dealing with electron transport in novel nanoporous graphene devices.
-When modeling such transport one needs to address the orbital structure of carbon lattices and later this will motivate the use of tightbinding and Green's functions.
+When modeling such transport one needs to address the orbital structure of carbon lattices and later this will motivate the use of tight binding approximation and Green's functions. The two concepts of Tight Binding approximation and Green's functions will elaborated further in the coming sections.
 In its basic form graphene can be divided into rings of carbon atoms as shown in \cref{ring}. In the (\(x,y\))-plane the carbon atoms are bound in \(sp^2\) orbitals as shown in \cref{sp2}.
+\vspace{-2\baselineskip}
+\begin{center}
 \begin{figure}[H]
 	\centering
 	\resizebox{.4\textwidth}{!}{
 		\begin{tikzpicture}
+		    \node (x) at (-1,-3) {x};
+		    \node (y) at (-2,-2) {y};
+		    \draw[->] (-2,-3) -- (x);
+		    \draw[->] (-2,-3) -- (y);
 			\satom[name=C, color=blue, pos={(0,0)}]{
 				blue/60/north east/2/1,
 				blue/180/west/1,
@@ -50,6 +56,8 @@ In its basic form graphene can be divided into rings of carbon atoms as shown in
 		\end{tikzpicture}}
 	\caption{Carbon atoms in a hexagonal lattice are \(sp^2\) hybridised in the (\(x,y\))-plane.}\label{sp2}
 \end{figure}
+\end{center}
+\vspace{-2\baselineskip}
 This hybridisation lock all but one valence electron for the carbon atoms. These electrons exists in a p-orbital in the \(z\)-direction.
 \cref{p} shows the valence orbitals of carbon.
 \begin{figure}[H]
@@ -68,7 +76,7 @@ This hybridisation lock all but one valence electron for the carbon atoms. These
 		\label{p}
 	\end{center}
 \end{figure}
-The last electron in the p\(_z\) orbital does not mix with the tightly bound s, p\(_x\) and p\(_y\) electrons and moves more freely. Thus these electrons have higher energies compared to the \(sp^2\) electrons and occupy states at the Fermi level. These electrons dominates transport in the graphene lattice. The p\(_z\) orbital is also known as the \(\pi\)-orbital and as such the electron lying there is called a \(\pi\)-electron. Through a carbon lattice the \(\pi\)-electrons will travel through \(\pi\)-orbitals, switching sign as they go as shown in \cref{sign}.
+The last electron in the p\(_z\) orbital does not mix with the tightly bound s, p\(_x\) and p\(_y\) electrons and moves more freely. Thus these electrons have higher energies compared to the \(sp^2\) electrons and occupy states at the Fermi level. These electrons dominates transport in the graphene lattice. The p\(_z\) orbital is also known as the \(\pi\)-orbital and as such the electron lying there is called a \(\pi\)-electron. Through a carbon lattice the \(\pi\)-electrons will travel through \(\pi\)-orbitals. For a benzene ring the \(\pi\)-electrons at the highest occupied molecular state will travel through the p\(_\pi\)-orbitals switching sign as they travel as shown in \cref{sign}.
 \begin{figure}[H]
 	\begin{center}
 		\pgfdeclarelayer{background}
@@ -99,7 +107,7 @@ The last electron in the p\(_z\) orbital does not mix with the tightly bound s, 
 			\draw[dashed, very thick] (6,3.46) -- (7,4.73);
 			\draw[dashed, very thick] (3,4.73) -- (4,3.46);
 		\end{tikzpicture}
-		\caption{When jumping from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\) and -p\(_\pi\). Such a jump is described by two matrix elements in the system's Hamiltonian.}
+		\caption{When jumping from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\)-orbitals. Such a jump is described by two matrix elements in the system's Hamiltonian.}
 		\label{sign}
 	\end{center}
 \end{figure}
@@ -114,7 +122,7 @@ The electrons' motion can be described with the hopping matrix of elements:
 \begin{align}
 	V_{pp\pi} = \bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(2)}\label{V}
 \end{align}
-Physically this means that there is a potential between the \(\pi\) orbitals of neighbouring atoms \(1\) and \(2\). The element
+Physically this means that there is a potential between the \(\pi\) orbitals of neighbouring atoms \(1\) and \(2\). In our tight-binding approximation we consider only hop between nearest neighbours. The element
 \begin{align}
 	\epsilon_0 = \bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)}
 \end{align}
