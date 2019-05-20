@@ -75,8 +75,8 @@ plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
 plt.title(filename)
 plt.ylim(-np.pi, np.pi)
-savename = filename + 'Bandstructures.eps'
-plt.savefig(savename, bbox_inches='tight')
+# savename = filename + 'Bandstructures.eps'
+# plt.savefig(savename, bbox_inches='tight')
 quit()
 # Get eigenvalues/vectors for degeneracy and stateplot
 e, v = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)
