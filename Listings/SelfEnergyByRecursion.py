@@ -60,10 +60,10 @@ if Show == 1:
 
 En = np.linspace(-3, 3, 100)
 # En = np.linspace(-1, 1, 3)
-
+eta= 1e-6j
 G00 = np.zeros((En.shape[0]), dtype=complex)
 for i in range(En.shape[0]):
-    G, SelfER, SelfEL = RecursionRoutine(En[i], h, V)
+    G, SelfER, SelfEL = RecursionRoutine(En[i], h, V, eta)
     G = np.diag(G)
     G00[i] = G[0]
 # print(G00)
@@ -81,8 +81,15 @@ plt.ylim((-2, 4))
 # plt.axis('equal')
 plt.grid(which='major', axis='both')
 plt.legend(handles=[imag, real])
-plt.show()
 plt.title('Greens function of a simple four-atom unit cell')
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G00(E)]/Im[G00(E)]')
 plt.savefig('imrealplot.eps', bbox_inches='tight')
+plt.show()
+
+for i in range(h[:, 0].shape[0]):
+        s = i
+        xy = (h[i, 0], h[i, 1])
+        plt.annotate(s, xy)
+plt.grid(b=True, which='both', axis='both')
+plt.show()
