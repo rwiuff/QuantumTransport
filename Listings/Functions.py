@@ -220,7 +220,7 @@ def PeriodicHamiltonian(xyz, UY, i):
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
     # plt.imshow(V.real)
     # plt.show()
-    print(np.sum(V))
+    print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))
     Ham = h + V * np.exp(1j*i) + np.transpose(V)*np.exp(-1j*i)
     return Ham
 

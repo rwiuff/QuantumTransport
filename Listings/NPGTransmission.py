@@ -5,6 +5,8 @@ import numpy as np                      # NumPy
 from Functions import Import, NPGElectrode
 from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
 import sys
+from fractions import Fraction
+from matplotlib.ticker import FormatStrFormatter
 
 np.set_printoptions(threshold=sys.maxsize)
 
@@ -89,62 +91,74 @@ nrow = int(nrow)
 ncol = int(ncol)
 q = int(0)
 numplot = int(numplot)
+axnames = ''
 print('Plotting Greens functions')
+for i in range(numplot):
+    a = 'ax{},'.format(i + 1)
+    axnames = axnames + a
+fig, (axnames) = plt.subplots(nrow, ncol, sharex=True)
 for i in range(nrow):
     for j in range(ncol):
         if q + 1 == numplot:
-            subplotn = "{}{}{}".format(nrow, ncol, numplot)
-            plt.subplot(int(subplotn))
             G = np.average(GG, axis=0)
             Y = G
             Y1 = Y.real
             Y2 = Y.imag
-            real, = plt.plot(X, Y1, label='real')
-            imag, = plt.fill(X, Y2, color='orange', alpha=0.8, label='imag')
-            plt.grid(which='both', axis='both')
-            plt.legend(handles=[imag, real])
-            plt.xlabel('Energy E arb. unit')
-            plt.ylabel('Re[G00(E)]/Im[G00(E)]')
-            plt.title('Greens function at 0th site')
+            fig.axes[numplot - 1].plot(X, Y1, label='real')
+            fig.axes[numplot - 1].fill_between(X, 0, Y2, color='orange', alpha=0.8, label='imag')
+            fig.axes[numplot - 1].grid(which='both', axis='both')
+            fig.axes[numplot - 1].legend(loc="upper right")
+            fig.axes[numplot - 1].set_title('Average over k-points')
+            fig.axes[numplot - 1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         else:
-            subplotn = "{}{}{}".format(nrow, ncol, int(q + 1))
-            plt.subplot(int(subplotn))
             Y = GG[q, :]
             Y1 = Y.real
             Y2 = Y.imag
-            real, = plt.plot(X, Y1, label='real')
-            imag, = plt.fill(X, Y2, color='orange', alpha=0.8, label='imag')
-            plt.grid(which='both', axis='both')
-            plt.legend(handles=[imag, real])
-            plt.xlabel('Energy E arb. unit')
-            plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+            fig.axes[q].plot(X, Y1, label='real')
+            fig.axes[q].fill_between(X, 0, Y2, color='orange', alpha=0.8, label='imag')
+            fig.axes[q].grid(which='both', axis='both')
+            fig.axes[q].legend(loc="upper right")
+            frac = Fraction(kP[q]*(1/np.pi))
+            pi = r'$\ \pi$'
+            fig.axes[q].set_title('{}'.format(frac)+pi)
+            fig.axes[q].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
             q = q + int(1)
+fig.add_subplot(111, frameon=False)
+plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G00(E)]/Im[G00(E)]')
 plt.show()
 
 q = int(0)
+axnames = ''
 print('Plotting Transmission')
+for i in range(numplot):
+    a = 'ax{},'.format(i + 1)
+    axnames = axnames + a
+fig, (axnames) = plt.subplots(nrow, ncol, sharex=True)
 for i in range(nrow):
     for j in range(ncol):
         if q + 1 == numplot:
-            subplotn = "{}{}{}".format(nrow, ncol, numplot)
-            plt.subplot(int(subplotn))
             T = np.average(TT, axis=0)
             Y = T.real
-            plt.plot(X, Y)
-            plt.grid(which='both', axis='both')
-            plt.xlabel(r'$E(V_{pp\pi})$')
-            plt.ylabel(r'T(E)')
-            plt.title('Average Transmission')
+            fig.axes[numplot - 1].plot(X, Y)
+            fig.axes[numplot - 1].grid(which='both', axis='both')
+            fig.axes[numplot - 1].set_title('Average over k-points')
+            fig.axes[numplot - 1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         else:
-            subplotn = "{}{}{}".format(nrow, ncol, int(q + 1))
-            plt.subplot(int(subplotn))
             T = TT[q]
             Y = T.real
-            plt.plot(X, Y)
-            plt.grid(which='both', axis='both')
-            plt.xlabel(r'$E(V_{pp\pi})$')
-            plt.ylabel(r'T(E)')
+            fig.axes[q].plot(X, Y)
+            fig.axes[q].grid(which='both', axis='both')
+            frac = Fraction(kP[q]*(1/np.pi))
+            pi = r'$\ \pi$'
+            fig.axes[q].set_title('{}'.format(frac)+pi)
+            fig.axes[q].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
             q = q + int(1)
+fig.add_subplot(111, frameon=False)
+plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.xlabel('E[eV]')
+plt.ylabel('T(E)')
 plt.show()
 
 input("Press any key to quit")
