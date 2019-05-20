@@ -12,7 +12,9 @@ nx = 1
 ny = 2
 contactrep = 1
 shiftx = 2.46
-En = np.linspace(-3, 3, 100)
+En = np.linspace(-3, 3, 102)
+En = np.delete(En,np.where(En==1))
+En = np.delete(En,np.where(En==-1))
 eta = 1e-6j
 kP = np.linspace(-np.pi, np.pi, 5)
 
