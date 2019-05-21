@@ -3,7 +3,7 @@ from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
 from Functions import Import, NPGElectrode
-from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
+from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian, Hkay
 import sys
 from fractions import Fraction
 from matplotlib.ticker import FormatStrFormatter
@@ -59,7 +59,7 @@ for i in kP:
     # plt.imshow(VR.real)
     # b.show()
     # input('Press any key to continue')
-
+    
     GD, GammaL, GammaR = EnergyRecursion(Ham, HL, HR, VL, VR, En, eta)
 
     G = np.zeros((En.shape[0]), dtype=complex)
@@ -160,6 +160,7 @@ plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=Fa
 plt.xlabel('E[eV]')
 plt.ylabel('T(E)')
 plt.show()
+
 
 input("Press any key to quit")
 quit()

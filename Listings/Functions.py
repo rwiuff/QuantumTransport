@@ -62,7 +62,7 @@ def Hkay(Ham, V1, V2, V3, x, y):
 
 def RecursionRoutine(En, h, V, eta):
     z = np.identity(h.shape[0]) * (En - eta)
-    a0 = np.transpose(V)
+    a0 = V.conj().transpose()
     b0 = V
     es0 = h
     e0 = h
@@ -96,7 +96,7 @@ def GrapheneSheet(nx, ny):
                             [1.85, 2.84, 25],
                             [1.85, 1.42, 25]], [Atom('C')], [2.46, 4.26, 0])
     Graphene = Graphene.tile(nx, 0).tile(ny, 1)
-    Graphene = Graphene.sort(axes=(1, 0, 2))
+    Graphene = Graphene#.sort(axes=(1, 0, 2))
     return Graphene
 
 
@@ -109,7 +109,7 @@ def ImportSystem(nx):
     # xyz = geom.xyz
     # xyz = np.round(xyz, decimals=2)
     # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
-    geom = geom.sort(axes=(2, 1, 0))
+    geom = geom#.sort(axes=(2, 1, 0))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
     UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
@@ -237,7 +237,7 @@ def Import(nx, contactrep):
     xyz = np.round(xyz, decimals=1)
 
     geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
-    geom = geom.sort(axes=(2,1,0))
+    geom = geom#.sort(axes=(2,1,0))
     LatticeVectors = fdf.get('LatticeVectors')
     UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
     UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
@@ -259,7 +259,7 @@ def Import(nx, contactrep):
 def NPGElectrode(xyz, dgeom, cellsize, nx):
     csize = cellsize * nx
     esize = cellsize
-    device = dgeom.sort(axes=(2, 1, 0))
+    device = dgeom#.sort(axes=(2, 1, 0))
     xyz = device.xyz
     print(xyz.shape)
     RestL = np.arange(0, esize)
