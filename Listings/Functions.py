@@ -237,7 +237,7 @@ def Import(nx, contactrep):
     xyz = np.round(xyz, decimals=1)
 
     geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
-    geom = geom#.sort(axes=(2,1,0))
+    # geom = geom.sort(axes=(2,1,0))
     LatticeVectors = fdf.get('LatticeVectors')
     UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
     UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
@@ -259,7 +259,12 @@ def Import(nx, contactrep):
 def NPGElectrode(xyz, dgeom, cellsize, nx):
     csize = cellsize * nx
     esize = cellsize
+<<<<<<< HEAD
     device = dgeom#.sort(axes=(2, 1, 0))
+=======
+    device = dgeom
+    # device = dgeom.sort(axes=(2, 1, 0))
+>>>>>>> e2b40774f9466e046cc4dfa7bff416167f80cec3
     xyz = device.xyz
     print(xyz.shape)
     RestL = np.arange(0, esize)
