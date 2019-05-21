@@ -3,7 +3,7 @@ from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
 from Functions import Import, NPGElectrode
-from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
+from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian, Hkay
 import sys
 from fractions import Fraction
 from matplotlib.ticker import FormatStrFormatter
@@ -105,26 +105,30 @@ for i in range(nrow):
             Y1 = Y.real
             Y2 = Y.imag
             fig.axes[numplot - 1].plot(X, Y1, label='real')
-            fig.axes[numplot - 1].fill_between(X, 0, Y2, color='orange', alpha=0.8, label='imag')
+            fig.axes[numplot - 1].fill_between(X, 0, Y2,
+                                               color='orange', alpha=0.8, label='imag')
             fig.axes[numplot - 1].grid(which='both', axis='both')
             fig.axes[numplot - 1].legend(loc="upper right")
             fig.axes[numplot - 1].set_title('Average over k-points')
-            fig.axes[numplot - 1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+            fig.axes[numplot -
+                     1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         else:
             Y = GG[q, :]
             Y1 = Y.real
             Y2 = Y.imag
             fig.axes[q].plot(X, Y1, label='real')
-            fig.axes[q].fill_between(X, 0, Y2, color='orange', alpha=0.8, label='imag')
+            fig.axes[q].fill_between(
+                X, 0, Y2, color='orange', alpha=0.8, label='imag')
             fig.axes[q].grid(which='both', axis='both')
             fig.axes[q].legend(loc="upper right")
-            frac = Fraction(kP[q]*(1/np.pi))
+            frac = Fraction(kP[q] * (1 / np.pi))
             pi = r'$\ \pi$'
-            fig.axes[q].set_title('{}'.format(frac)+pi)
+            fig.axes[q].set_title('{}'.format(frac) + pi)
             fig.axes[q].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
             q = q + int(1)
 fig.add_subplot(111, frameon=False)
-plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.tick_params(labelcolor='none', top=False,
+                bottom=False, left=False, right=False)
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
 plt.show()
@@ -144,22 +148,25 @@ for i in range(nrow):
             fig.axes[numplot - 1].plot(X, Y)
             fig.axes[numplot - 1].grid(which='both', axis='both')
             fig.axes[numplot - 1].set_title('Average over k-points')
-            fig.axes[numplot - 1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+            fig.axes[numplot -
+                     1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         else:
             T = TT[q]
             Y = T.real
             fig.axes[q].plot(X, Y)
             fig.axes[q].grid(which='both', axis='both')
-            frac = Fraction(kP[q]*(1/np.pi))
+            frac = Fraction(kP[q] * (1 / np.pi))
             pi = r'$\ \pi$'
-            fig.axes[q].set_title('{}'.format(frac)+pi)
+            fig.axes[q].set_title('{}'.format(frac) + pi)
             fig.axes[q].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
             q = q + int(1)
 fig.add_subplot(111, frameon=False)
-plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.tick_params(labelcolor='none', top=False,
+                bottom=False, left=False, right=False)
 plt.xlabel('E[eV]')
 plt.ylabel('T(E)', labelpad=15)
 plt.show()
+
 
 input("Press any key to quit")
 quit()

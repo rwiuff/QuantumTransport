@@ -109,7 +109,7 @@ def ImportSystem(nx):
     # xyz = geom.xyz
     # xyz = np.round(xyz, decimals=2)
     # geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
-    geom = geom.sort(axes=(2, 1, 0))
+    # geom = geom.sort(axes=(2, 1, 0))
     xyz = geom.xyz
     LatticeVectors = fdf.get('LatticeVectors')
     UX = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
@@ -221,7 +221,7 @@ def PeriodicHamiltonian(xyz, UY, i):
     # plt.imshow(V.real)
     # plt.show()
     print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))
-    Ham = h + V * np.exp(1j*i) + np.transpose(V)*np.exp(-1j*i)
+    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)
     return Ham
 
 

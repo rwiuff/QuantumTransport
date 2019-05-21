@@ -60,7 +60,7 @@ if Show == 1:
 
 En = np.linspace(-3, 3, 100)
 # En = np.linspace(-1, 1, 3)
-eta= 1e-6j
+eta = 1e-6j
 G00 = np.zeros((En.shape[0]), dtype=complex)
 for i in range(En.shape[0]):
     G, SelfER, SelfEL = RecursionRoutine(En[i], h, V, eta)
@@ -88,8 +88,8 @@ plt.savefig('imrealplot.eps', bbox_inches='tight')
 plt.show()
 
 for i in range(h[:, 0].shape[0]):
-        s = i
-        xy = (h[i, 0], h[i, 1])
-        plt.annotate(s, xy)
+    s = i
+    xy = (h[i, 0], h[i, 1])
+    plt.annotate(s, xy)
 plt.grid(b=True, which='both', axis='both')
 plt.show()
