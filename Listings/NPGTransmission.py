@@ -126,7 +126,7 @@ for i in range(nrow):
 fig.add_subplot(111, frameon=False)
 plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
 plt.xlabel('Energy E arb. unit')
-plt.ylabel('Re[G00(E)]/Im[G00(E)]')
+plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
 plt.show()
 
 q = int(0)
@@ -158,7 +158,7 @@ for i in range(nrow):
 fig.add_subplot(111, frameon=False)
 plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
 plt.xlabel('E[eV]')
-plt.ylabel('T(E)')
+plt.ylabel('T(E)', labelpad=15)
 plt.show()
 
 input("Press any key to quit")
