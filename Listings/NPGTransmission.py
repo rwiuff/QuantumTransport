@@ -59,7 +59,7 @@ for i in kP:
     # plt.imshow(VR.real)
     # b.show()
     # input('Press any key to continue')
-
+    
     GD, GammaL, GammaR = EnergyRecursion(Ham, HL, HR, VL, VR, En, eta)
 
     G = np.zeros((En.shape[0]), dtype=complex)
