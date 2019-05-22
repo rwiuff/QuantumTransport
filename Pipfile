@@ -14,8 +14,8 @@ jupyter = "*"
 pandas = "*"
 sympy = "*"
 nose = "*"
-sisl = "*"
-bar = "*"
+sisl = {extras = ["analysis"],version = "*"}
+progress = "*"
 
 [requires]
 python_version = "3.7"
