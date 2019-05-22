@@ -96,7 +96,7 @@ print('Plotting Greens functions')
 for i in range(numplot):
     a = 'ax{},'.format(i + 1)
     axnames = axnames + a
-fig, (axnames) = plt.subplots(nrow, ncol, sharex=True)
+fig, (axnames) = plt.subplots(nrow, ncol, sharex=True, figsize=(20, 20))
 for i in range(nrow):
     for j in range(ncol):
         if q + 1 == numplot:
@@ -139,7 +139,7 @@ print('Plotting Transmission')
 for i in range(numplot):
     a = 'ax{},'.format(i + 1)
     axnames = axnames + a
-fig, (axnames) = plt.subplots(nrow, ncol, sharex=True)
+fig, (axnames) = plt.subplots(nrow, ncol, sharex=True, figsize=(20, 20))
 for i in range(nrow):
     for j in range(ncol):
         if q + 1 == numplot:
