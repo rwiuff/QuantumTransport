@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt     # Pyplot for nice graphs
 # from matplotlib.gridspec import GridSpec
-# from progress.bar import Bar
+from progress.bar import Bar
 import numpy as np                      # NumPy
 from Functions import Hkay, Hop, Onsite, ImportSystem
 import sys
@@ -9,7 +9,7 @@ import sys
 
 np.set_printoptions(threshold=sys.maxsize)
 
-Vppi=-1
+Vppi = -1
 
 # Retrieve unit cell
 xyz, shiftx, shifty, filename = ImportSystem(1)
@@ -61,9 +61,12 @@ X = np.zeros((Ham.shape[0], k.size))
 # Array for Z-bands
 Z = np.zeros((Ham.shape[0], k.size))
 # Get bands from gamma to X and Z
+bar = Bar('Retrieving Eigenenergies', max=k.shape[0])
 for i in range(k.shape[0]):
-    X[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=-k[i], y=0)[0]*2.7
-    Z[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=k[i])[0]*2.7
+    X[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=-k[i], y=0)[0] * 2.7
+    Z[:, i] = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=k[i])[0] * 2.7
+    bar.next()
+bar.finish()
 # Get energies at k(0,0)
 zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)[0]
 # Renormalise distances according to lattice vectors

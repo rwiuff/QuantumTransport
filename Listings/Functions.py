@@ -96,15 +96,21 @@ def GrapheneSheet(nx, ny):
                             [1.85, 2.84, 25],
                             [1.85, 1.42, 25]], [Atom('C')], [2.46, 4.26, 0])
     Graphene = Graphene.tile(nx, 0).tile(ny, 1)
-    Graphene = Graphene#.sort(axes=(1, 0, 2))
+    # Graphene = Graphene.sort(axes=(1, 0, 2))
     return Graphene
 
 
 def ImportSystem(nx):
     filename = input('Enter filename: ')
     filename = filename + '.fdf'
-    fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
+    fdf = si.get_sile(filename)
     geom = fdf.read_geometry(output=False)
+    C_list = (geom.atoms.Z == 6).nonzero()[0]
+    O_list = (geom.atoms.Z == 8).nonzero()[0]
+    C_O_list = np.concatenate((C_list, O_list))
+    Subbed = geom.sub(C_O_list)
+    Subbed.reduce()
+    geom = Subbed
     geom = geom.tile(nx, 0)
     # xyz = geom.xyz
     # xyz = np.round(xyz, decimals=2)
@@ -228,8 +234,14 @@ def PeriodicHamiltonian(xyz, UY, i):
 def Import(nx, contactrep):
     filename = input('Enter filename: ')
     filename = filename + '.fdf'
-    fdf = si.io.siesta.fdfSileSiesta(filename, mode='r', base=None)
+    fdf = si.get_sile(filename)
     geom = fdf.read_geometry(output=False)
+    C_list = (geom.atoms.Z == 6).nonzero()[0]
+    O_list = (geom.atoms.Z == 8).nonzero()[0]
+    C_O_list = np.concatenate((C_list, O_list))
+    Subbed = geom.sub(C_O_list)
+    Subbed.reduce()
+    geom = Subbed
     cellsize = geom.xyz.shape[0]
     geom = geom.tile(nx + 4 * contactrep, 1)
     geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))
