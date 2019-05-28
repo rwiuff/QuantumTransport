@@ -1,0 +1,58 @@
+TBT.k [1 1 1]
+
+TBT.HS inside_HS_DEV.nc
+
+TBT.dH CAP.delta.nc
+TBT.dH.Current.Orb False
+
+%block TS.ChemPots
+  mesh
+%endblock TS.ChemPots
+%block TS.ChemPot.mesh
+  mu V/2
+  contour.eq
+    begin
+      C-tip
+      T-tip
+    end
+%endblock
+
+%block TBT.Elecs
+  SigmaGf
+  top
+  bottom
+%endblock TBT.Elecs
+%block TBT.Elec.SigmaGf
+  HS TBTGF_H.nc
+  semi-inf-direction +a3
+  electrode-position 3705
+  eta 1e-03 eV
+  out-of-core True
+  bulk true
+  GF Gamma.TBTGF
+%endblock
+%block TS.Elec.top
+  HS He.nc
+  chem-pot mesh
+  semi-inf-direction +a2
+  elec-pos end -1
+  Bloch 10 1 1
+%endblock 
+%block TS.Elec.bottom
+  HS He.nc
+  chem-pot mesh
+  semi-inf-direction -a2
+  elec-pos 1
+  Bloch 10 1 1
+%endblock 
+
+%block TBT.contour.line
+ from -2000. eV to 2000. eV  # write whatever
+   file contour.IN
+%endblock
+
+TBT.DOS.Elecs T
+TBT.DOS.A T
+TBT.DOS.A.All T
+TBT.Current.Orb T
+TBT.Symmetry.TimeReversal  F

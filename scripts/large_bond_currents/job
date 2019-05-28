@@ -1,0 +1,71 @@
+#!/bin/sh
+#PBS -N r_o2_paramTB
+#PBS -q fotonano
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=12:00:00
+#PBS -l mem=120gb
+#PBS -j oe
+#PBS -o out
+
+date
+source $PBS_O_HOME/.bashrc
+ulimit -s unlimited
+cd $PBS_O_WORKDIR
+
+for E in 3704 
+do
+
+echo "---- > Placing iGamma at site $E"
+module purge
+module load npa-cluster-setup
+module load python2.7.numerics/gnu-7.3.0
+export OMP_NUM_THREADS=$PBS_NUM_PPN
+export MKL_NUM_THREADS=$PBS_NUM_PPN
+which sgeom
+
+sed -i "/^a_tip = /c\a_tip = [$E]" run.py
+python run.py > py.out
+
+###############################################
+
+echo "---------------> Running TBtrans at site $E"
+module purge
+module load npa-cluster-setup
+module load siesta-trunk.latest/gnu-7.3.0
+which siesta
+
+sed -i "/^  electrode-position /c\  electrode-position $((E+1))" TBT.fdf
+
+rm tip$E/siesta.TBT.*
+#mpirun tbtrans -D tip$E TBT.fdf > TBT.out
+
+#Export Number of Threads
+SOCKETS=2
+THREADS=$((PBS_NP/SOCKETS))
+export OMP_NUM_THREADS=$THREADS
+mkdir tip$E
+mpirun --report-bindings \
+       -x OMP_NUM_THREADS \
+       -x OMP_PROC_BIND=true \
+       --map-by ppr:1:socket:pe=$OMP_NUM_THREADS tbtrans_omp -D tip$E TBT.fdf > TBT.out
+
+##############################################
+mv TBTGF_H.nc contour.IN Gamma.TBTGF TB_Gamma.nc geom_Gamma.xyz a_tip.xyz TBGammaTBTGF.out MESSAGES CLOCK TBT.out tip$E/
+cp INOUT.py TBGammaTBTGF.py run_0.* TBT.fdf tip$E/
+
+##############################################
+echo "-------------------------------------------------------- > Plotting bondcurrents"
+module purge
+module load npa-cluster-setup
+module load python2.7.numerics/gnu-7.3.0
+export OMP_NUM_THREADS=$PBS_NUM_PPN
+export MKL_NUM_THREADS=$PBS_NUM_PPN
+which sgeom
+
+python plot_bc.py $E > plot_bc.out
+
+#sgeom He.xyz He.fdf
+#python pr_x_vals.py > pr_x_vals.out
+
+done
+

@@ -1,0 +1,47 @@
+TBT.k [1 601 1]
+
+TBT.HS H.nc
+
+%block TS.ChemPots
+  mesh
+%endblock TS.ChemPots
+%block TS.ChemPot.mesh
+  mu V/2
+  contour.eq
+    begin
+      C-tip
+      T-tip
+    end
+%endblock
+
+%block TBT.Elecs
+  left
+  right
+%endblock TBT.Elecs
+%block TS.Elec.left
+  HS He.nc
+  chem-pot mesh
+  semi-inf-direction -a1
+  elec-pos 1
+%endblock 
+%block TS.Elec.right
+  HS He.nc
+  chem-pot mesh
+  semi-inf-direction +a1
+  elec-pos end -1
+%endblock 
+
+%block TBT.contour.line
+  part line
+   from -1.6 eV to 1.6 eV
+    points 300
+     method mid-rule
+%endblock
+
+#TBT.DOS.A T
+#TBT.DOS.A.All T
+#TBT.DOS.Elecs T
+#TBT.Current.Orb T
+#TBT.Symmetry.TimeReversal  F
+#TBT.DM.Gf T
+#TBT.DM.A T
