@@ -23,13 +23,13 @@ In the following sections various tests on the different systems will be conduct
 \subsection{Test 1}
 The first test will be manipulation of the system 'PS4O'. The basis structure is para-NPG where 4 carbon sites have been added, two on each benzene ring. Here the carbon atoms added, will be manipulated by lowering their on-site potential of the sites by a value relative to that given by a energy scale from a DFT calculation. This is to simulate adding oxygen. In \cref{PS4O} an overview of the structure can be seen along with the band structure for the system, obtained through DFT and TBtrans. 
 \begin{figure}[h]
-    \hspace{-2cm}
     \centering
     \begin{subfigure}[b]{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/p_O4.eps}
     \end{subfigure}
     \vskip\baselineskip
+    \hspace{2cm}
     \begin{subfigure}[b]{0.7\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4O.eps}
@@ -37,25 +37,26 @@ The first test will be manipulation of the system 'PS4O'. The basis structure is
     \caption{Figure showing the band structures obtained using DFT/TBtrans (above) and a potential map of the system (below)}
     \label{PS4O}
 \end{figure}
-Following, in \cref{PS4Odev} band plots obtained with the developed program is shown 
+Following, in \cref{PS4Odev} band plots obtained with the developed program is shown. Firstly a band plot without any changes to the on-site potential and next to it a band plot where the on-site potential of the added sites have been changed.
 \begin{figure}[h]
-    \hspace{-2cm}
     \centering
-    \begin{subfigure}[b]{0.5\textwidth}
+    \begin{subfigure}[b]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{Figures/p_O4.eps}
+    \includegraphics[width=\textwidth]{Figures/PS4Onomod.eps}
+    \label{PS4Odevnomod}
     \end{subfigure}
-    '
-    \begin{subfigure}[b]{0.7\textwidth}
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{Figures/PS4O.eps}
+    \includegraphics[width=\textwidth]{Figures/PS4Onomod.eps}
+    \label{PS4Odevmod}
     \end{subfigure}
-    \caption{Figure showing the band structures obtained using DFT/TBtrans (above) and a potential map of the system (below)}
-    \label{PS4O}
+    \caption{Figure showing band structures obtained using developed program. One with no on-site potential mods (left) and one with the on-site potential changed to \SI{-0.5}{\electronvolt} (right).} 
+    \label{PS4Odev}
 \end{figure}
-The results show that the first plot where no manipulation was done, has some qualitative agreement with the DFT/TBtrans plots. There is two bands at the Fermi level on top of each other showing quantum interference \textit{Where in the structures does these band belong?}. Furthermore  one can see spreading in the first two sets of valence/conduction bands \textit{Again unsure what this corresponds to in relation to the structure}. Note however that the band structure is symmetric around the Fermi level since..\textit{why? Maybe something with the whole thing actually being carbon atoms}. Now if the on-site potential for the added oxygen atom is changed to \(\SI{-0.2}{\electronvolt}\), the band structure changes to something very similar to the DFT/TBtrans plots. There is spreading of the bands at the Fermi level suggesting \textit{what?} and the spreading of the first two pair of valence/conduction bands are also larger. Notice that the Fermi level has had a shift downwards. This may be because of... 
+as seen \cref{PS4Odevnomod} the band structure produced does not give the right result right away. This is because that the script assumes the same potential everywhere in the system. But as seen on the potential map in \cref{PS4O} especially the potential of the added sites (dark blue) are lower than the rest of the system. To compensate for this, the on-site potential values of those specific sites have been changed by \(\SI{-0.5}{\electronvolt}\) in the script (\cref{PS4Odevmod}) and the result is much closer to that in \cref{PS4O}. 
 \subsection{Test 2}
-Next test will be with the 'xxxx' system. Here the test will show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system, again by using the energy scale given by the DFT overview. In \cref{somehydroxidefigure} the results of the test is shown. Multiple on-site potentials were tested to see which one came closest to that of the band structures given by DFT/TBtrans. It was found that using values closest to that given by the DFT calculation (\(\SI{xx}{\electronvolt}\)) yielded the best results. Again showing band structures qualitatively close to those obtained from DFT/TBtrans. One can see 
+Next test will be with the 'xxxx' system. Here the test will show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system, again by using the energy scale given by the DFT overview. In \cref{somehydroxidefigure} the results of the test is shown. Multiple on-site potentials were tested to see which one came closest to that of the band structures given by DFT/TBtrans. It was found that using values closest to that given by the DFT calculation (\SI{xx}{\electronvolt}) yielded the best results. Again showing band structures qualitatively close to those obtained from DFT/TBtrans. One can see 
 \subsection{Test 3}
 \subsection{Test 4}
 \subsection{Test 5}
