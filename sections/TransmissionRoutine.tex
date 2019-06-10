@@ -64,8 +64,8 @@ Now that a Hamiltonian, dependent of a variable \(k\) has been defined, it is no
 To get the transmission in 2D the function \textit{PeriodicHamiltonian} is nested in a for loop, looping over transverse k-points (See \cref{trans2dcode} line xx-xx). The function \textit{PeriodicHamiltonian} basically translates the device Hamiltonian in the transverse direction (See \cref{appfigs},\cref{} for the code piece). The Hamiltonian resulting from this function, is then used to get the left/right device Hamiltonian and left/right hopping matrix (See \cref{trans2dcode} line xx-xx. Still within the loop the \textit{EnergyRecursion} is used to get the device Greens function, and left/right rate matrices and lastly the transmission is done with the \textit{Transmission} function (\cref{trans2dcode} line xx). All these functions are used per k-point which effectively gives transmission in two dimensions.\im{Listings/NPGTransmission.py}{34}{72}
 \vspace{-1\baselineskip}
 \captionof{listing}{hahaah}{\label{trans2dcode}}\vspace{\baselineskip}
-Plots for transmission per k-point will be shown for NPG in then.
-\subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}
+Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
+\subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
 All the scripts necessary for calculation have been developed and they can now be used on a system of NPG.
 The following results are based on this structure similar to that of \cref{atomrepfig}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF and TBtrans calculations. 
 \begin{figure}[H]
