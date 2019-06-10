@@ -17,6 +17,7 @@ nose = "*"
 sisl = {extras = ["analysis"],version = "*"}
 progress = "*"
 future = "*"
+netcdf4 = "*"
 
 [requires]
 python_version = "3.7"
