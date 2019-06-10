@@ -1,20 +1,19 @@
 In this section a range of tests will be conducted on different NPG structures in order to uncover the effect of manipulation of the bridges between the GNR's in NPG. From an applied perspective, one of the main motivations is to find out how these bridges can be manipulated in order to control the current through the material. Some studies has already shown how one could possibly confine the current flow to a single GNR channel by manipulation of bridges between GNR's utilising \textit{Quantum Interference} effects, thus providing a solution to an important aspect in carbon-based nanocircuitry design, namely confinement of electron flow. The study was focused on the difference in effect of having \textit{meta} and \textit{para} bridges between the GNR's. Meta and para bridges are essentially benzene rings oriented in two different ways, see \cref{}. This section will be, in part, an attempt to reproduce some of the results of the study and also to see what happens if other species of atoms are added to these benzene rings in the meta and para bridges. In \cref{} the difference between the structures can be seen in relation to the bridges of the normal NPG. The bridges will be manipulated by insertion of either Oxygen atoms or Hydroxide molecules. The atoms/molecules will be inserted on each side of a GNR either in a symmetric or asymmetric fashion (see \cref{}). In \cref{testtable} a schematic overview of the different systems, subject to tests, can be seen. 
 \begin{table}[ht]
-\begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{1}{|l|}{Test no.} & \multicolumn{1}{l|}{Meta/Para} & \multicolumn{1}{l|}{Symmetric/Asymmetric} & No. of species & \multicolumn{1}{l|}{Added species} & \multicolumn{1}{l|}{Code name}      \\ \hline
-1                              & Meta                           &                                           &                              &                                                  & M                                   \\ \hline
-2                              & Para                           &                                           &                              &                                                   & P                                   \\ \hline
-3                              & Meta                           & Symmetric                                 & 2                       & Oxygen                                              & MS2O                        \\ \hline
-4                              & Meta                           & Symmetric                                 & 2                          & Hydroxide                                                 & MS2OH                              \\ \hline
-5                              & Meta                           & Asymmetric                                & 2                      & Oxygen                                            & MA2O                        \\ \hline
-6                             & Meta                           & Asymmetric                                & 2                         & Hydroxide                                                 & MA2OH                              \\ \hline
-7                             & Meta                           & Symmetric                                 & 4                         & Oxygen                                                 & MS4O                              \\ \hline
-8                             & Para                           & Symmetric                                 & 4                        & Hydroxide                                                 & PS4OH                              \\ \hline
-9                             & Para                           & Symmetric                                 & 4                       & Oxygen                                             & PS4O \\ \hline
-10                             & Para                           & Symmetric                               & 4 (2O,2OH)                       & Oxygen \& Hydroxide                                           & PS2O2OH                        \\ \hline
-\end{tabular}
-\caption{Table showing an overview of all the structures that will be tested in this section.  How the different species will be manipulated during the tests, will be stated in plots produced for results. The code names follow the table column-wise. In \cref{appfigs}, \cref{Strucow} a collection of figures showing each scenario stated in this table.}
+\begin{tabular}{cclcll}
+		\toprule
+		Test no. & Meta/Para & Symmetry   & No. of species & Added species & Name  \\ \midrule
+		1        & Meta      &            &                &               & M     \\
+		2        & Para      &            &                &               & P     \\
+		3        & Para      & Symmetric  & 4              & Oxygen        & PS4O  \\
+		4        & Para      & Symmetric  & 4              & Hydroxide     & PS4OH \\
+		5        & Meta      & Symmetric  & 2              & Oxygen        & MS2O  \\
+		6        & Meta      & Symmetric  & 2              & Hydroxide     & MS2OH \\
+		7        & Meta      & Asymmetric & 2              & Oxygen        & MA2O  \\
+		8        & Meta      & Asymmetric & 2              & Hydroxide     & MA2OH \\
+		\bottomrule
+	\end{tabular}
+	\caption{Table showing an overview of all the structures that will be tested in this section.  How the different species will be manipulated during the tests, will be stated in plots produced for results. The code names follow the table column-wise. In \cref{appfigs}, \cref{Strucow} a collection of figures showing each scenario stated in this table.}
 \label{testtable}
 \end{table}
 The results from these tests will be presented in the form of band structure plots and they will be compared to band plots produced with DFT and TBtrans. Additionally a schematic overview of the different systems, showing the on-site potentials of each atom will be presented in the figures as well. Following is a section introducing meta and para NPG in detail. 
