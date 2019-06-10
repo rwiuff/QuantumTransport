@@ -69,22 +69,22 @@ Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Figures/Flowchart.eps}
-    \caption{Caption}
-    \label{fig:my_label}
+    \caption{Flowchart depicting the routines run in python. SISL is used to import the geometry. Afterwards the coordinates are either used for bandstructure plots or for transmission plots. For the bandstructures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigenenergies. These energies are then plottet. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self energies in the transport direction (using the recursion algorithm). The selfenergies and the Greensfunctions retrieved here are then multiplied as to get the transmission.}
+    \label{Flowchart}
 \end{figure}
 \subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
 All the scripts necessary for calculation have been developed and they can now be used on a system of NPG.
 The following results are based on this structure similar to that of \cref{atomrepfig}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF and TBtrans calculations. 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=0.5\textwidth]{Figures/NPG-normalBandstructures.eps}
 		\caption{Figure showing the band structure for NPG with normal bridges obtained with the script described in \cref{FullHam}}
 		\label{bsscript}
 	\end{subfigure}
 	~  %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
 	%(or a blank line to force the subfigure onto a new line)
-	\begin{subfigure}[b]{0.45\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{Figures/bands.eps}
 		\caption{Figure showing the bands structures obtained from DFT and TBtrans calculations.}
 		\label{bsdfttbt}
