@@ -55,7 +55,40 @@ Following, in \cref{PS4Odev} band plots obtained with the developed program is s
 \end{figure}
 as seen \cref{PS4Odevnomod} the band structure produced does not give the right result right away. This is because that the script assumes the same potential everywhere in the system. But as seen on the potential map in \cref{PS4O} especially the potential of the added sites (dark blue) are lower than the rest of the system. To compensate for this, the on-site potential values of those specific sites have been changed by \(\SI{-0.5}{\electronvolt}\) in the script (\cref{PS4Odevmod}) and the result is much closer to that in \cref{PS4O}. 
 \subsection{Test 2}
-Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG, but instead of four oxygen atoms added it will by hydroxide group (see \cref{appfigs}, \cref{Strucow}, nr. x). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF/Tbtrans is shown first in \cref{somehydroxidefigure} and afterwards results from developed programs. Multiple on-site potentials were tested to see which one came closest to that of the band structures in \cref{}. It was found that using values closest to that given by the DFT calculation (\SI{xx}{\electronvolt}) yielded the best results. 
+Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG, but instead of four oxygen atoms added it will by hydroxide group (see \cref{appfigs}, \cref{Strucow}, nr. x). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF/Tbtrans is shown first in \cref{somehydroxidefigure} and afterwards results from developed programs. 
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/p_O4.eps}
+    \end{subfigure}
+    \vskip\baselineskip
+    \hspace{2cm}
+    \begin{subfigure}[b]{0.7\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4O.eps}
+    \end{subfigure}
+    \caption{Figure showing the band structures obtained using DFT/TBtrans (above) and a potential map of the system (below)}
+    \label{PS4O}
+\end{figure}
+Multiple on-site potentials were tested to see which one came closest to that of the band structures in \cref{}. 
+\textbf{\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4Onomod.eps}
+    \label{PS4Odevnomod}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4Omod.eps}
+    \label{PS4Odevmod}
+    \end{subfigure}
+    \caption{Figure showing band structures obtained using developed program. One with no on-site potential mods (left) and one with the on-site potential changed to \SI{-0.5}{\electronvolt} (right).} 
+    \label{PS4Odev}
+\end{figure}}
+It was found that using values closest to that given by the DFT calculation (\SI{xx}{\electronvolt}) yielded the best results. 
 \subsection{Test 3}
 \subsection{Test 4}
 \subsection{Test 5}
