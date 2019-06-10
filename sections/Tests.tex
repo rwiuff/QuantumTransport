@@ -4,14 +4,12 @@ In this section a range of tests will be conducted on different NPG structures i
 \begin{tabular}{cclcll}
 		\toprule
 		Test no. & Meta/Para & Symmetry   & No. of species & Added species & Name  \\ \midrule
-		1        & Meta      &            &                &               & M     \\
-		2        & Para      &            &                &               & P     \\
-		3        & Para      & Symmetric  & 4              & Oxygen        & PS4O  \\
-		4        & Para      & Symmetric  & 4              & Hydroxide     & PS4OH \\
-		5        & Meta      & Symmetric  & 2              & Oxygen        & MS2O  \\
-		6        & Meta      & Symmetric  & 2              & Hydroxide     & MS2OH \\
-		7        & Meta      & Asymmetric & 2              & Oxygen        & MA2O  \\
-		8        & Meta      & Asymmetric & 2              & Hydroxide     & MA2OH \\
+		1        & Para      & Symmetric  & 4              & Oxygen        & PS4O  \\
+		2        & Para      & Symmetric  & 4              & Hydroxide     & PS4OH \\
+		3        & Meta      & Symmetric  & 2              & Oxygen        & MS2O  \\
+		4        & Meta      & Symmetric  & 2              & Hydroxide     & MS2OH \\
+		5        & Meta      & Asymmetric & 2              & Oxygen        & MA2O  \\
+		6        & Meta      & Asymmetric & 2              & Hydroxide     & MA2OH \\
 		\bottomrule
 	\end{tabular}
 	\caption{Table showing an overview of all the structures that will be tested in this section.  How the different species will be manipulated during the tests, will be stated in plots produced for results. The code names follow the table column-wise. In \cref{appfigs}, \cref{Strucow} a collection of figures showing each scenario stated in this table.}
@@ -21,9 +19,40 @@ The results from these tests will be presented in the form of band structure plo
 \subsection{Differences in para and meta bridges}
 In broad terms the difference in the meta and para structures lies in the path an electron will travel through the benzene ring to get across the bridge. In the para bridge, the path across the aromatic ring is symmetric and so the electron will pass above or below with equal probability. Since the para bridge has three bonds in each direction across the ring, the path length in the para bridge is the same on each side (See \cref{}). This will cause constructive interference of the states once the waves meet on the other side of the ring, which results in spreading in the density of states from one GNR to the next. For the meta bridge the way across the aromatic ring is not symmetric in the sense that there is two bonds across the path below and four bonds across on the path above (see \cref{}). This will cause a shift by half a wavelength between the two paths and thus create destructive interference between waves meeting on the other side of the ring. The effect of this is confinement in the density of states in the GNR's. In \cref{appfigs},\cref{}
 \subsection{Tests}
-The various tests on the different systems will consist of three kind of manipulations. Firstly it will be manipulation of the on-site value for the added oxygen atoms. Secondly it will be by removal of Hydroxide sites and thirdly by manipulation of the on-site values of Hydroxide. These manipulations may be carried out separately or as a mix, depending on the structure tested. \\
+In the following sections various tests on the different systems will be conducted using the developed program. The motivation for these test is proposal that NPG can be "tuned" by addition or removal of hydrogen. Tuning with hydrogen is practically feasible, so by using the developed program, it will be possible to simulate different scenarios which will uncover what is going on, chemically as well as physically, in the different NPG system when manipulated. The tests consist of three kind of manipulations. Firstly it will be manipulation of the on-site value for the added oxygen atoms (Addition of Oxygen will be simulated by addition of another carbon site to the structure, effectively adding another pi-electron). Secondly it will be by removal of Hydroxide sites and thirdly by manipulation of the on-site values of Hydroxide. These manipulations may be carried out separately. \\
 \subsection{Test 1}
-The first test will be manipulation of the system 'MS2O'. Here the two oxygen atoms added, will be manipulated by lowering the on-site potential of the sites by a value relative to that given by the energy scale in DFT system overview. In \cref{MS2Ofig} the results can be seen. 
+The first test will be manipulation of the system 'PS4O'. The basis structure is para-NPG where 4 carbon sites have been added, two on each benzene ring. Here the carbon atoms added, will be manipulated by lowering their on-site potential of the sites by a value relative to that given by a energy scale from a DFT calculation. This is to simulate adding oxygen. In \cref{PS4O} an overview of the structure can be seen along with the band structure for the system, obtained through DFT and TBtrans. 
+\begin{figure}[h]
+    \hspace{-2cm}
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/p_O4.eps}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.7\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4O.eps}
+    \end{subfigure}
+    \caption{Figure showing the band structures obtained using DFT/TBtrans (above) and a potential map of the system (below)}
+    \label{PS4O}
+\end{figure}
+Following, in \cref{PS4Odev} band plots obtained with the developed program is shown 
+\begin{figure}[h]
+    \hspace{-2cm}
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/p_O4.eps}
+    \end{subfigure}
+    '
+    \begin{subfigure}[b]{0.7\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4O.eps}
+    \end{subfigure}
+    \caption{Figure showing the band structures obtained using DFT/TBtrans (above) and a potential map of the system (below)}
+    \label{PS4O}
+\end{figure}
 The results show that the first plot where no manipulation was done, has some qualitative agreement with the DFT/TBtrans plots. There is two bands at the Fermi level on top of each other showing quantum interference \textit{Where in the structures does these band belong?}. Furthermore  one can see spreading in the first two sets of valence/conduction bands \textit{Again unsure what this corresponds to in relation to the structure}. Note however that the band structure is symmetric around the Fermi level since..\textit{why? Maybe something with the whole thing actually being carbon atoms}. Now if the on-site potential for the added oxygen atom is changed to \(\SI{-0.2}{\electronvolt}\), the band structure changes to something very similar to the DFT/TBtrans plots. There is spreading of the bands at the Fermi level suggesting \textit{what?} and the spreading of the first two pair of valence/conduction bands are also larger. Notice that the Fermi level has had a shift downwards. This may be because of... 
 \subsection{Test 2}
 Next test will be with the 'xxxx' system. Here the test will show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system, again by using the energy scale given by the DFT overview. In \cref{somehydroxidefigure} the results of the test is shown. Multiple on-site potentials were tested to see which one came closest to that of the band structures given by DFT/TBtrans. It was found that using values closest to that given by the DFT calculation (\(\SI{xx}{\electronvolt}\)) yielded the best results. Again showing band structures qualitatively close to those obtained from DFT/TBtrans. One can see 
