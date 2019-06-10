@@ -1,75 +1,79 @@
 %!TEX root = ../Main.tex
-In order to calculate the transport of electrons in NPG as well as the local density of states, LDOS, one must obtain the Green's functions and self-energies related to the unit cells of the system. \textit{An attemp to briefly explain greens functions and self-energy. Might need rework as well} In very basic terms the Green's function is used as a solution to the Time Dependent Schr\"{o}dinger Equation. 
-\begin{align}
-\mathbf{H}\phi(t) &= i\pdv{t}\phi(t) \\
-\mathbf{H}\mathbf{G}(t) &= i\pdv{t}\mathbf{G}(t)
-\end{align}
-with specific boundary conditions, namely\begin{align}\label{boundary}
-    \phi(t=0) = f 
-\end{align}
-The Green's function has the additional property that \(\mathbf{G}(t=0)=\mathbf{1}\) which means the one can solve the TDSE for any initial value of \(t\)  if one has solved the equation for the Green's function first.\begin{align}\label{greenssolution}
-    \phi(t)=\mathbf{G}(t)f
-\end{align}
-From \cref{greenssolution} it can be seen that the Green's function propagates the value \(f\) at \(t=0\). Now, if the Hamiltonian is time independent one can also consider time independent solutions to the Schr\"{o}dinger Equation. All states will then be oscillating with the same complex phase, at a specific energy \(E\). This will be given by \(e^{-iEt}\). As such the Green's function can be expressed in terms of energy instead of time and it is the solution to the time independent Schr\"{o}dinger Equation 
-\begin{align}
+The Green's function and self energies play the central role when it comes to obtaining the LDOS as well as electron transport in a system. In fact, the imaginary part of the Green's function is the LDOS for a specific site in a system. What the Green's function and self energy actually is and how they come about will here be explained formally, to motivate the practical use in the following sections.\subsection{Green's functions and selfenergy}\label{greensandself} 
+Firstly on should note that some of the concepts in this section will be explained using a figure of NPG as an example (\cref{atomrepfig}). However, in the following section (\cref{recursionroutinesec}) the focus will revert back to the simple system from \cref{pointplot}. \begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/representativestructure2.eps}
+	\caption{Visual representation of the periodic NPG-structure. The atoms surrounded by the black box in the centre represents the unit cell. The neighbouring boxes are unit cells repeated periodically. Note that the two cells left and right with respect to the centre cell has been cut in half for figure space. The pink lines crossing the black box represents the link between the nearest neighbours in the adjacent cell.}
+	\label{atomrepfig}
+\end{figure}
+%\begin{align}
+%\mathbf{H}\phi(t) &= i\pdv{t}\phi(t) \\
+%\mathbf{H}\mathbf{G}(t) &= i\pdv{t}\mathbf{G}(t)
+%\end{align}
+%with specific boundary conditions, namely\begin{align}\label{boundary}
+%    \phi(t=0) = f 
+%\end{align}
+%The Green's function has the additional property that \(\mathbf{G}(t=0)=\mathbf{1}\) which means the one can solve the TDSE for any initial value of \(t\)  if one has solved the equation for the Green's function first.\begin{align}\label{greenssolution}
+%    \phi(t)=\mathbf{G}(t)f
+%\end{align}
+%From \cref{greenssolution} it can be seen that the Green's function propagates the value \(f\) at \(t=0\). Now, if the Hamiltonian is time independent one can also consider time independent solutions to the Schr\"{o}dinger Equation. All states will then be oscillating with the same complex phase, at a specific energy \(E\). This will be given by \(e^{-iEt}\). 
+Imagine a system like the one in \cref{atomrepfig}. It contains a unit cell in the centre, marked by a black border, surrounded by repeated unit cells in all directions. The aim is to explain how electrons move through this region. Suppose all cells surrounding the centre cell are considered "contacts" in the sense that they represent a semi-infinite chain of molecules and that they are the source of electrons (or states) that is injected in to the centre cell. What the Green's function is doing is that it "takes the states through" the centre region. It propagates the states in this particular area. In other words, the Green's function is the solution to the Schr\"{o}dinger Equation in this area and the equation has the form 
+\begin{align}\label{Greensunsolved}
     [(E+i\eta)\mathbf{1}-\mathbf{H}]\mathbf{G}(E) = \mathbf{1}
 \end{align}
-where \(\eta\) is considered an infinitesimal. Before an explanation of Green's function in relation to an actual system, three things which are valuable to keep in mind is that: The Green's function propagates \(f\) (which can be considered as states), that those states will be oscillating with the same complex phase \(e^{iEt}\) and that the Green's function can be solved with the solution \(\mathbf{G}(t) = e^{-i\mathbf{H}t}\). Within a piece of NPG, one can define a on-site Hamiltonian, just like the one in \cref{atomrepfig}. If one just considers the part surrounded by the black box and thinks of all the rest as a "contact region" from which the states are injected, then the density of states will go into the black box by some rate \(\Gamma\) (A more elaborate description of the different parts of the system and the rate matrix, will explained in \cref{transec}). Now the Green's function is what "takes the states through" the region in the black box. It propagates the states in this particular area. Therefore, the Green's function is the essential part in calculating the \textit{Transmission} of electrons through a material (more on transmission in \cref{transec}). Furthermore the probability of transmission through and area, say the black box in \cref{atomrepfig} is given by
-\begin{align}
-    P(t)_{mn} = \left|\mel{m}{e^{i\mathbf{H}t/\hbar}}{n}\right|^2
+From this equation one can also get the Green's function as 
+\begin{align}\label{Greenssolved}
+    \mathbf{G}(E) &= \mathbf{1}([(E+i\eta)\mathbf{1}-\mathbf{H}])^{-1}\\
+    & = [(E+i\eta)\mathbf{1}-\mathbf{H}]^{-1}
 \end{align}
-where \(m,n\) is the density of states in each side of the black box (states going in/out) and of course \(e^{i\mathbf{H}t/\hbar}\) the solution to the Green's function.
-The last important part of the Green's functions is that, as complex matrices, the imaginary part of the functions represent the local density of states LDOS. The LDOS is the amount of states that only exists around a certain energy \(E\) and around a certain state or place in f.ex. the NPG. Next is the self-energy. As explained before one can use the Green's functions to get transmission through a specific on-site Hamiltonian, but if the system contains a range of cells like in \cref{atomrepfig} there is a need for further describing how these cells interact with one another. This interaction is very important to incorporate and it gives rise to the actual recursion which will be explained shortly. The self-energy comes about as one solves the equation for the Green's of the first cell in a semi-infinite chain of molecules/cells. This requires that one already knows the Green's function for the chain as a whole and then solves it for the first site. Basically the Green's function at the first site reads as:
+The Green's functions in these equations are represented as matrices that contain all the individual Green's functions for the unit cell as well a the Green's functions for the rest of the chain. As seen in the equations, all that is needed to get the Green's function for a unit cell, in theory, is an energy and the Hamiltonian of the unit cell. Note that the solution to the Green's function matrix is a diagonal matrix with the two first off diagonals because of rules for nearest neighbour interaction dictated by the Thigh Binding approximation. As the Green's functions for the all unit cells in a potentially semi-infinite system are needed, in practice, one has to turn to more sophisticated methods to obtain all the Green's functions, namely recursion. More on that shortly. For now this is the introduction to the Green's function. How it relates to a unit cell in a system and that it is the source of the LDOS in a unit cell.\\
+As described  one can use the Green's functions to get the propagation of states through a specific on-site Hamiltonian. However, if the system contains a range of cells, possibly infinitely many, the Hamiltonian would be of infinite size and the inversion in \cref{Greenssolved} would be impossible to do practically. The solution to this, is to model a semi-infinite tight binding chain of atom/molecules and then use \textit{recursion} on this chain. The way the recursion is done is to remove every second cell in the chain. Because the chain is semi-infinite, the yield would just be a new semi-infinite chain. Continuing this way the system can be reduced to a finite size which can actually be worked on. Say one continues to remove every second element in the chain, then in the end, the cells would be too far apart to interact an no hopping between cells would occur. At this point the recursion should stop. More on how this is done practically later.  For now one just have to keep in mind that the removing cells in the chain effectively changes to coupling between them and this is where \textit{self energy} comes in. The self energy is what describes the effective coupling between a cell and the rest of the semi-infinite chain. And it can be derived by looking at a cell at the very end of the semi-infinite chain and see how it couples to the rest. First one needs the Green's functions. The Green's matrix for this single cell would be given by the equation in \cref{Greenssolved}. This is before when only one cell and thus one matrix had to be considered. But now, there is an semi-infinite amount of cells and an semi-infinite amount of matrices to consider. However, the cell in the end of the chain only interacts with the cell next to it and so on. Considering this one can write op an equation equivalent to that of \cref{Greensunsolved} but as system of matrix equations for the chain.
+\begin{align}\label{Greenssystem}
+\begin{pmatrix}
+    z\mathbf{1}-\mathbf{H}_c & -\mathbf{V}^{\dagger} \\ -\mathbf{V} & (z-\varepsilon')\mathbf{1} 
+\end{pmatrix}
+\begin{pmatrix}
+\mathbf{X} & \mathbf{G}_{0c}\\
+\mathbf{G}_{c0} & \mathbf{G}_{00}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\mathbf{1} & \mathbf{0} \\
+\mathbf{0} & \mathbf{1}
+\end{pmatrix}
+\end{align}
+where \(\varepsilon'\) is the on-site Hamiltonian of the first cell, \(z\) is \(E+i\eta\),  \(\mathbf{G}_{0c/c0}\) is the Green's matrices coupling the cell to the rest of the chain and \(\mathbf{X}\) is the Green's matrices for the rest of the chain. This is also assuming one knows the Green's function within the chain \(\mathbf{G}_c\) and that the chain has constant hopping and on-site elements \(\mathbf{H}_c,\mathbf{V},\mathbf{V}^{\dagger}\). 
+Solving this system for \(\mathbf{G}_{00}\) and eliminating \(\mathbf{G}_{0c}\), which is unknown, one gets
 \begin{align}\label{greenszero}
     \mathbf{G}_{00}(z) = (z-\varepsilon'-\Sigma(z))^{-1}
 \end{align}
-where \((z-\varepsilon')\) is the on-site \textit{of what?} of the first cell and \(\Sigma(z)\) is the self-energy. So from the equation (\cref{greenszero}) it can be seen that the Green's function at the first cell consist of a \textit{on-site} as well as self-energy correction. The self-energy thus describes how the coupling of the first site to the rest of the chain, affects the system. Using this fact, the self-energies can be utilised to obtain Green's functions for different parts of the chain i.e. at different on-site Hamiltonians. Exactly how this is done, will be described in the following sections. \\
-%\begin{align}
-%    \mathbf{H}\phi(t) = i\pdv{t}\phi(t)
-%\end{align}
-%with specific boundary conditions, %namely\begin{align}\label{boundary}
-%    \phi(t=0) = f 
-%\end{align}Where \(\mathbf{H}\) is the time \textit{independent} Hamiltonian and \(\phi\) is a vector consisting of wavefunctions. The Green's function matrix, which contains the solutions to the TDSE in form of vectors \(g_i\), can implemented to the TDSE as \begin{align}\label{greentdse}
-%  \mathbf{H}\mathbf{G}(t) &= i\pdv{t}\mathbf{G}(t)  \\
-%  \mathbf{H}g_i &= i\pdv{t}g_{i}(t)
-%\end{align} at \(t=0\), \(g_i\) is a vector with zeros with the exception of a 1 at the \(i'th\) place which means that \(\mathbf{G}(t=0)=\mathbf{1}\). And so one can solve the TDSE for any initial value of \(t\)  if one has solved the equation for the Green's function first.\begin{align}\label{greenssolution}
-%    \phi(t)=\mathbf{G}(t)f
-%\end{align}Again for the initial value of \(t=0\) we get %\cref{boundary} from \cref{greenssolution} which means that the %Green's function propagates \(f\) for the initial value of %\(t=0\). For this reason, the Green's function is sometimes the %propagator. The solution to \cref{greentdse} is \begin{align}
-%    \mathbf{G(t)} = e^{-i\mathbf{H}t} 
-%\end{align}One other important aspect of the Green's function is that how it can be transformed from the time to the energy domain by Fourier Transformation\begin{align}
-%    \mathbf{G}(E) = \lim_{\eta\to 0_+}\int_{-\infty}^{\infty} e^{i(E+i\eta)t}\mathbf{G}(t)dt 
-%\end{align}
-To get the self-energies and Green's functions, practically, a recursion algorithm must be implemented as calculations become too costly for the system, even if it is small. Especially the inversion of matrices required to obtain the Green's function can be very demanding computationally, when the system contains a lot of atoms. The recursion algorithm reduces the size of the system and thereby the amount of computational time required to obtain both the first cell Green's function, the Green's function within the chain (of repeated unit cells) sometimes called \(\mathbf{G}_{bulk}\) as well as the self-energies related to those Green's functions. By using a semi-infinite tight-binding chain of unit cells, the recursion works by utilising that one can remove every second cell in the chain. As the chain originally was infinite, removing every second cell will just yield a new infinite chain. Every cell has with it, its hopping matrices and Hamiltonian. The removal of every second cell is iterated, changing the effective interaction between the cells and thus the hopping matrices as well as the Hamiltonians of the system. In the end the recursion algorithm produces re-normalised Hamiltonians and hopping matrices, which can be used to obtain the Green's functions and self-energies.
-\subsection{Obtaining first cell self-energy and Green's function for a simple four-atom system}\label{recursionroutinesec}
-For simplicity and in order to check whether the routine would yield the expected results, the starting point is a simple system containing only 4 atoms in the unit cell (See \cref{appfigs}, \cref{Testcell}). The idea is to make a function that takes in an energy, a Hamiltonian (alternatively two in case there is a special site in the molecule) and a hopping matrix as arguments and in turn outputs the Green's function as well as the self-energies going left and right. Firstly all the necessary variables are defined. The first of these consists of a complex number matrix which has the value \(E + i\eta\) in the diagonal and dimension identical to that of the Hamiltonian given as argument (in the case of the four-atom system a 4x4). Here \(E\) is the energy which the function takes as an argument as well as \(\eta\) which is a small number (in this specific case \(1\times10^{-6}\)). Note that \(\eta\) should not be made too small as it will yield incorrect results. Generally one should adjust \(\eta\) until a satisfying result has been obtained. The rest of the variables are the Hamiltonian, hopping matrices and Green's function. They are defined as: \(a0 = V^{\dagger}, \ b0 = V, \ e0_{s} = h_s, \ e_{0} = h, \ g0 = (z-e0)^{-1}\). Note that the Hamiltonian \(h\), in this specific case, is the same for both \(e0_{s}\) and \(e0\) as the first cell is identical to those of the rest of the molecule. Now that the variables are defined, the actual recursion can begin. The function \textit{RecursionRoutine} has been developed. As the recursion is an algorithm that runs for an arbitrary amount of iterations, a while loop is chosen to run the iterations until a threshold has been reached. In \cref{recurfunc} the code for the routine is shown. Line 64-70 is the listing of variables, 71-78 is the while loop with the matrix multiplication, 80-84 is the redefinition of new variables in terms of the old and 86-89 is the definition of the outputs as per \cref{outputs}.\\
-\newpage
-\im{Listings/Functions.py}{62}{89}
-\vspace{-1\baselineskip}
-\captionof{listing}{The while loop in the recursion routine. The matrix elements are overwritten with the new variables until the resulting matrix is small enough to diagonalise\label{recurfunc}}\vspace{\baselineskip}\newpage
-The threshold is defined as the absolute maximum value element in the hopping matrix \(a0\) approaches zero. In this specific case it was set to \(1\times10^{-8} \). However, the value should be adjusted so that it is optimised for the specific system on which the calculation are made. Within this while loop a range matrix multiplications are computed. These constitutes the actual recursion and their order are of big importance for a correct result. Notice, however, that the code (\cref{recurfunc}) contains intermediate products of \(a0, b0\) and \(g0\). This is for run time optimisation. Following is a list of these matrix products:
-\begin{align*}
-	a1     & = a0 \times g0 \times a0                   \\
-	b1     & = b0\times g0\times b0                   \\
-	e1     & = e0 + a0\times g0\times b0 + b0\times g0\times a0 \\
-	e1_{s} & = e0_{s} + a0\times g0\times b0          \\
-	g1     & = (z - e1)^{-1}
-\end{align*}
-As stated above in the equations, the matrix product are defined as new variables with a \(+1\) variable name. This is all very well but the while loop would stop here because of the definition of new variables. It is therefore necessary to redefine the new variables in terms of the old ones (f.ex. \(a0 = a1\)) (see \cref{recurfunc} line 78-82) an as such the while loop will continue until the threshold has been reached. For the rest of the function the only thing left to do is to define the self-energies and the first cell Green's function using the variables obtained from the while loop. These are simply given as:
+where \(\Sigma(z)\) is the self-energy. One can isolate the self energy from the equations above to
+\begin{align}
+    \mathbf{\Sigma}(z) = \mathbf{V}[z\mathbf{1}-\mathbf{H}_c]^{-1}\mathbf{V}^{\dagger}
+\end{align}
+And this concludes the formal introduction to Green's functions and self energy.\subsection{Obtaining first cell self-energy and Green's matrix  for the simple system through programming}\label{recursionroutinesec}
+For simplicity and in order to check whether the routine would yield the expected results, the system in \cref{pointplot} is use as an example. The goal is to get the Green's functions for the centre unit cell in the semi-infinite chain and the self energies coupling to rest of the chain right and left. Specifically for the simple system one should imagine first having one centre unit cell like \cref{pointplot} and then repeating it infinitely in the left and right direction. The fact that there is a left \textit{and} right self energy is that the unit cell lies within the semi-infinite chain and not at the very end as described in \cref{greensandself}. To be assured, this does not conflict with any of the preciously mentioned formalism and the left and right self energies are quite easily obtained as one shall see shortly. As mentioned the goal is to get the Green's functions of a specific unit cell and the self energies related to it. If the Green's matrix \(\mathbf{G}\) represents the whole chain, then the equation of the whole system would be equivalent to that of \cref{Greensunsolved}. Considering the Green's functions for specific unit cell in question, it would correspond to one column in the system of equations, say the first. One can define the on-site Hamiltonian \(\mathbf{h}_0\) for the specific unit cell and its hopping matrices \(\mathbf{V},\mathbf{V}^{\dagger}\).  The two hopping matrices correspond to hopping left or right in the chain respectively. These can be obtained using the functions already developed in \cref{hamilsec}. Throughout this section they will be named \(a_0 = \mathbf{V}^{\dagger}, \ b_0 = \mathbf{V}, \ e_{s0} = \mathbf{h}_{s}\). The recursion is an iterative process and so the zero index indicates the starting point of the iterations and the \textit{s} index indicates that it is the Hamiltonian of the specific wanted cell. One can also define a Green's function for a single unit cell as \(g_0 = (z-e_{0})^{-1}\) just like \cref{Greensunsolved} where \(e_{0}=\mathbf{h}\) which is the on-site Hamiltonian of the other cells. With these elements a system of equations, similar to \cref{Greensunsolved} can be setup. The first difference being that the identity matrix is replaced by its first column, because the solution of interest is that one first column in the Green's matrix. The second is that the first element in the Hamiltonian matrix \(\mathbf{H}\) is related to the specific single unit cell \(\mathbf{h}_s\). Next a range of multiplications of the different elements stated so far will be shown, and afterwards it will be explained how these affect the system of equations to give recursion. The multiplications are:
+\begin{align}\label{matmulrec}
+	a_1     & = a_0 \times g_0 \times a_0                   \\ \nonumber
+	b_1     & = b_0\times g_0\times b_0                   \\ \nonumber
+	e_1     & = e_0 + a_0\times g_0\times b_0 + b_0\times g_0\times a_0 \\ \nonumber
+	e_{1s} & = e1_{0s} + a_0\times g_0\times b_0          \\ \nonumber
+	g_1     & = (z - e_1)^{-1}
+\end{align}
+These equations constitutes the first iteration in the recursion and they can be repeated indefinitely. In the matrix system of equations  these multiplications effectively shifts all elements in the matrix by one column and because the matrix is diagonal, it will leave the first column of the matrix empty. The column can then be removed and this is exactly what corresponds to removing a cell in the semi-infinite chain. Keeping on doing these multiplications, raising the index by +1 every time, one can move through reduce the system as a whole removing of columns (cells) in the system of equations. In the end one will obtain re-normalised Hamiltonians and hopping matrices which is then used to get the Green's functions and self energies through these simple equations: 
 \begin{align}\label{outputs}
 	\mathbf{\Sigma}_R & = e_s - h                   \\ \nonumber
 	\mathbf{\Sigma}_L & = e - h - \mathbf{\Sigma}_R \\ \nonumber
 	\mathbf{G00}      & = (z - e_s)^{-1}
 \end{align}
-Where \(e_s\) and \(e\) are the resulting matrices from the while loop (\(e0_s, e0\)). The first cell Green's function as well as the self-energies has now been obtained by recursion.
+Programming this recursion is fairly simple as all which is needed is a while loop which iterates over the equations in \cref{matmulrec} until a threshold has been reached. The threshold is determined by the value of the hopping matrix \(a_0\). As it reaches a value close to zero, there is no longer any effective interacting (hopping) between the cells because of removal of cells and the recursion should stop. 
+In \cref{recurfunc} the code for the routine is shown. Line xx-xx is the listing of elements before iteration, xx-xx is the while loop with the equations from \cref{matmulrec}. Note that some intermediate multiplications are made f.ex. \textit{ag = a0 @ b0}. This is for run-time optimisation only. In  line xx-xx the iteration indexed 0 gets redifned so that it corresponds to the most recent iteration. Finally in xx-xx the definition of the outputs as per \cref{outputs} is stated.\im{Listings/Functions.py}{62}{89}
+\vspace{-1\baselineskip}
+\captionof{listing}{The while loop in the recursion routine. The matrix elements are overwritten with the new variables until the resulting matrix is small enough to diagonalise\label{recurfunc}}\vspace{\baselineskip}
+This concludes how recursion works and how the first cell Green's function as well as the self-energies is obtained. 
 \subsection{Plotting the real and imaginary part of the first cell Green's function}
-As a good way to check whether the recursion routine has been implemented successfully, the real and imaginary part of the Green's function can be plotted. In addition these plots gives valuable information about the local density of states at specific sites in the molecule. With a relatively simple approach, the Green's function can be obtained as a function of energy, using a \textit{for loop}, looping over a range of energies which is then used as input in the \textit{RecursionRoutine} function (\cref{recurfunc}), see \cref{plotcode}:
+One of the results possible to obtain via the recursion routine is the Green's function of the centre unit cell in relation to the rest of the chain. As mentioned the imaginary part of the elements Green's matrix is the LDOS of the different sites in the unit cell. With a relatively simple approach, the Green's matrix elements can be obtained as a function of energy, using a \textit{for loop}, looping over a range of energies which is then used as input in the \textit{RecursionRoutine} function (\cref{recurfunc}), see \cref{plotcode}:
 \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \vspace{-1\baselineskip}
 \captionof{listing}{Code showing the loop which produces the complex Green's function (or y) values for a range of energies used in the plot.\label{plotcode}}\vspace{\baselineskip}
- The imaginary part of the complex output represents the local density of states LDOS. Note that the plot only represents the LDOS for a specific site on the molecule and that they may change radically from site to site (see \cref{appfigs}, \cref{siteLDOSplot} for an example using the same structure as \cref{interface}). The site can be changed by choosing another index in \cref{plotcode} line 68, which corresponds to the atom indices in \cref{Testcell}. A plot of the real and imaginary part of the first cell Green's function (index 0) obtained by the recursion routine for the simple four-atom unit cell described in \cref{recursionroutinesec} is shown in \cref{imrealplot}.
-\begin{figure}
-	\centering
-	\includegraphics[width = 0.5\textwidth]{Figures/imrealplot.eps}
-	\caption{A plot showing the real and imaginary part of the first cell Green's function resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
-	\label{imrealplot}
-\end{figure}
+This gives information about the LDOS at a specific energy and place in space, namely a specific atom in the unit cell. The resulting plot for the simple system (atom index 0) can be seen in \cref{LDOSsimple}. As seen in the plot... Note that the plot only represents the LDOS for a specific site on the molecule and that they may change radically from site to site (see \cref{appfigs}, \cref{siteLDOSplot} for an example using the same system as \cref{pointplot}). The site can be changed by choosing another index in \cref{plotcode} line 68, which corresponds to the atom indices in \cref{pointplot}. 

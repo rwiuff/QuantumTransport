@@ -152,10 +152,13 @@
 \homepage[Homepage of the Technical University of Denmark ]{http://www.dtu.dk/english/}
 \homepage[\\\faGithub \ Project Repository: ]{https://github.com/rwiuff/QuantumTransport}
 \maketitle
-
+%\centering
+%\includegraphics[width=0.7\textwidth]{Figures/illu.eps}
+\newpage
 \pagenumbering{arabic}
 \twocolumngrid
 \tableofcontents
+\newpage
 \onecolumngrid
 
 % ToC before List-ofs fix
@@ -167,19 +170,18 @@
 \thispagestyle{empty}
 %\newpage
 \setcounter{page}{1}
-
 %Text
 \section{Introduction}
 \input{sections/Intro}
-\section{Quantum transport}
+\section{Quantum transport}\label{theorysec}
 \input{sections/Theory.tex}
-\section{Hamiltonian for periodic systems}
+\section{Hamiltonian for periodic systems}\label{hamilsec}
 \input{sections/Hamil.tex}
-\section{Self Energy, Greens Functions and the Recursion Routine}
+\section{Greens Functions, Self Energy and the Recursion Routine}\label{greensec}
 \input{sections/RecursionRoutine.tex}
 \section{Transmission Routine}\label{transec}
 \input{sections/TransmissionRoutine.tex}
-\section{Exploring functionality of nano-ribbon bridges}
+\section{Exploring functionality of GNR bridges}
 \input{sections/Tests.tex}
 \newpage
 \begin{acknowledgments}
