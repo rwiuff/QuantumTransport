@@ -14,7 +14,7 @@ Vppi = -1
 # Retrieve unit cell
 xyz, shiftx, shifty, filename = ImportSystem(1)
 # Calculate onsite nearest neighbours
-Ham = Onsite(xyz, Vppi)
+Ham, p = Onsite(xyz, Vppi)
 
 #plt.imshow(Ham)
 #plt.colorbar()
@@ -73,7 +73,7 @@ zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)[0]
 Xspace = np.linspace(0, 1 / shifty, 1000)
 Zspace = np.linspace(0, 1 / shiftx, 1000)
 # Plot Bandstructures
-ax = plt.figure(figsize=(1, 6))
+ax = plt.figure(figsize=(3, 6))
 for i in range(X.shape[0]):
     plt.plot(np.flip(-Zspace, axis=0),
              np.flip(X[i, :], axis=0), 'k', linewidth=1)
@@ -82,9 +82,15 @@ xtick = np.array([-1 / shiftx, 0, 1 / shifty])
 plt.xticks(xtick, ('X', r'$\Gamma$', 'Y'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
-plt.title(filename)
+plt.suptitle(filename,fontsize=14,fontweight='bold')
+if p == 0:
+    plt.title('No on-site potential mod')
+else:
+    plt.title('On-site potential mod: {:.2f} eV'.format(p))
 plt.ylim(-1.5, 1.5)
-savename = filename + 'Bandstructures.eps'
-plt.savefig(savename, bbox_inches='tight')
+plt.ylabel(r'$E-E_{F}$(eV)')
+plt.margins(0,0)
+#savename = filename + 'Bandstructures.eps'
+#plt.savefig(savename, bbox_inches='tight')
 plt.show()
 
