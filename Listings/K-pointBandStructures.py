@@ -16,42 +16,42 @@ xyz, shiftx, shifty, filename = ImportSystem(1)
 # Calculate onsite nearest neighbours
 Ham = Onsite(xyz, Vppi)
 
-plt.imshow(Ham)
-plt.colorbar()
-plt.show()
+#plt.imshow(Ham)
+#plt.colorbar()
+#plt.show()
 # Shift unit cell
 xyz1 = xyz + np.array([shiftx, 0, 0])
 # Calculate offsite nearest neighbours
 V1 = Hop(xyz, xyz1, Vppi)
 
-plt.imshow(V1)
-plt.colorbar()
-plt.show()
-plt.imshow(np.transpose(V1))
-plt.colorbar()
-plt.show()
+#plt.imshow(V1)
+#plt.colorbar()
+#plt.show()
+#plt.imshow(np.transpose(V1))
+#plt.colorbar()
+#plt.show()
 # Shift unit cell
 xyz2 = xyz + np.array([0, shifty, 0])
 # Calculate offsite nearest neighbours
 V2 = Hop(xyz, xyz2, Vppi)
 
-plt.imshow(V2)
-plt.colorbar()
-plt.show()
-plt.imshow(np.transpose(V2))
-plt.colorbar()
-plt.show()
+#plt.imshow(V2)
+#plt.colorbar()
+#plt.show()
+#plt.imshow(np.transpose(V2))
+#plt.colorbar()
+#plt.show()
 # Shift unit cell
 xyz3 = xyz + np.array([shiftx, shifty, 0])
 # Calculate offsite nearest neighbours
 V3 = Hop(xyz, xyz3, Vppi)
 
-plt.imshow(V3)
-plt.colorbar()
-plt.show()
-plt.imshow(np.transpose(V3))
-plt.colorbar()
-plt.show()
+#plt.imshow(V3)
+#plt.colorbar()
+#plt.show()
+#plt.imshow(np.transpose(V3))
+#plt.colorbar()
+#plt.show()
 eta = 1e-6j
 
 # Define k-space range
@@ -79,11 +79,12 @@ for i in range(X.shape[0]):
              np.flip(X[i, :], axis=0), 'k', linewidth=1)
     plt.plot(Xspace, Z[i, :], 'k', linewidth=1)
 xtick = np.array([-1 / shiftx, 0, 1 / shifty])
-plt.xticks(xtick, ('X', r'$\Gamma$', 'Z'))
+plt.xticks(xtick, ('X', r'$\Gamma$', 'Y'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
 plt.title(filename)
 plt.ylim(-1.5, 1.5)
+savename = filename + 'Bandstructures.eps'
+plt.savefig(savename, bbox_inches='tight')
 plt.show()
-# savename = filename + 'Bandstructures.eps'
-# plt.savefig(savename, bbox_inches='tight')
+

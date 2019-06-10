@@ -36,6 +36,30 @@ def Onsite(xyz, Vppi):
             h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))
     h = np.where(h < 1.6, Vppi, 0)
     h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))
+    o = input('Change onsite? (y/n) ')
+    if o == 'y':
+        charr = np.array(['1: MS2O', '2: MSO2H', '3: MA2O', '4: MA2OH', '5: MS4O', '6: PS4OH', '7: PS4O', '8: PS2O2OH'])
+        for i in range(charr.shape[0]):
+            print(charr[i])
+        struct = input('Choose structure: ')
+        if struct == 1 or 2 or 3 or 4:
+            p1 = input('Potential for first site: ')
+            h[-1, -1] = p1
+            p2 = input('Potential for second site: ')
+            h[-2, -2] = p2
+        elif struct == 5 or 6 or 7 or 8:
+            p1 = input('Potential for first site: ')
+            h[-1, -1] = p1
+            p2 = input('Potential for second site: ')
+            h[-2, -2] = p2            
+            p3 = input('Potential for third site: ')
+            h[-1, -1] = p3
+            p4 = input('Potential for fourth site: ')
+            h[-2, -2] = p4
+#    h[92,92] = -2.5     
+#    h[93,93] = -2.5
+#    h[94,94] = -2.5
+#    h[95,95] = -2.5
     return h
 
 
@@ -161,14 +185,17 @@ def DefineDevice(xyz):
     plt.scatter(Rxyz[:, 0], Rxyz[:, 1], c='blue', label='R')
     plt.scatter(Restxyz[:, 0], Restxyz[:, 1], c='k')
     plt.legend()
+    plt.title('Point plot of the simple system')
     plt.axis('equal')
     for i in range(xyz[:, 0].shape[0]):
         s = i
         xy = (xyz[i, 0], xyz[i, 1])
         plt.annotate(s, xy)
     plt.grid(b=True, which='both', axis='both')
+#    savename = 'pointplot.eps'
+#    plt.savefig(savename, bbox_inches='tight')
     plt.show()
-    return RestL, L, R, C, RestR
+    return RestL, RestR, L, R, C
 
 
 def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):

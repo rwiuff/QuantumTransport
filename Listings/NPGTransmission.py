@@ -71,11 +71,13 @@ for i in kP:
 
     T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
 
+
     GG[q, :] = G
     TT[q, :] = T.real
     q = q + 1
 X = En * 2.7
 Y0 = 0
+
 numplot = numkP + 1
 if numplot % 2 == 0:
     if numplot % 3 == 0:

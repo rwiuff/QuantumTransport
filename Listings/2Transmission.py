@@ -14,8 +14,8 @@ shiftx = 2.46
 
 xyz, UX, UY, filename = ImportSystem(nx)
 
-L, R, Lxyz, Rxyz = DefineDevice(xyz)
-
+Lxyz, L, R, Rxyz = DefineDevice(xyz) 
+#RestL, L, R, C, RestR = DefineDevice(xyz)
 HD = Onsite(xyz=xyz, Vppi=-1)
 HL = HD[0:L.shape[0], 0:L.shape[0]]
 HR = HD[-R.shape[0]:, -R.shape[0]:]
@@ -64,8 +64,8 @@ plt.legend(handles=[imag, real])
 plt.title('Greens function at 0th site')
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G(E)]/Im[G(E)]')
-# savename = filename.replace('.fdf', 'imrealTE.eps')
-# plt.savefig(savename, bbox_inches='tight')
+#savename = filename.replace('.fdf', 'imrealTE7.eps')
+#plt.savefig(savename, bbox_inches='tight')
 plt.show()
 
 T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
@@ -78,6 +78,6 @@ plt.grid(which='both', axis='both')
 plt.title('Transmission')
 plt.xlabel(r'$E(V_{pp\pi})$')
 plt.ylabel(r'T(E)')
-# savename = filename.replace('.fdf', 'TE.eps')
-# plt.savefig(savename, bbox_inches='tight')
+#savename = filename.replace('.fdf', 'TE.eps')
+#plt.savefig(savename, bbox_inches='tight')
 plt.show()
