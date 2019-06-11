@@ -70,10 +70,11 @@ bar.finish()
 # Get energies at k(0,0)
 zero = Hkay(Ham=Ham, V1=V1, V2=V2, V3=V3, x=0, y=0)[0]
 # Renormalise distances according to lattice vectors
-Xspace = np.linspace(0, 1 / shifty, 1000)
-Zspace = np.linspace(0, 1 / shiftx, 1000)
+Xspace = np.linspace(0, 1 / shifty, k.shape[0])
+Zspace = np.linspace(0, 1 / shiftx, k.shape[0])
 # Plot Bandstructures
-ax = plt.figure(figsize=(3, 6))
+fig = plt.figure(figsize=(3, 6))
+ax = fig.add_subplot(111)
 for i in range(X.shape[0]):
     plt.plot(np.flip(-Zspace, axis=0),
              np.flip(X[i, :], axis=0), 'k', linewidth=1)
@@ -88,8 +89,9 @@ if p == 0:
 else:
     plt.title('On-site potential mod: {:.2f} eV'.format(p))
 plt.ylim(-1.5, 1.5)
-plt.ylabel(r'$E-E_{F}$(eV)')
-plt.margins(0, 0)
+plt.xlim(np.flip(-Zspace[-1]), Xspace[-1])
+plt.ylabel(r'$E-E_{F}$(eV)', labelpad=0)
+ax.set_aspect(0.12)
 # savename = filename + 'Bandstructures.eps'
 # plt.savefig(savename, bbox_inches='tight')
 plt.show()

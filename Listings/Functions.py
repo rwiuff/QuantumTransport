@@ -40,16 +40,15 @@ def Onsite(xyz, Vppi):
     if o == 'n':
         p = 0
     if o == 'y':
-        charr = np.array(['1: MS2O', '2: MSO2H', '3: MA2O', '4: MA2OH',
-                          '5: MS4O', '6: PS4OH', '7: PS4O', '8: PS2O2OH'])
+        charr = np.array(['PS4O', 'PS4OH', 'MS2O', 'MS2OH', 'MA2O', 'MA2OH'])
         for i in range(charr.shape[0]):
-            print(charr[i])
+            print('{}: {}'.format(i+1, charr[i]))
         struct = int(input('Choose structure: '))
-        if struct <= 4:
+        if struct >= 3:
             p = float(input('Potential: '))
             h[-1, -1] = p
             h[-2, -2] = p
-        if struct > 4:
+        if struct <= 2:
             p = float(input('Potential: '))
             h[-1, -1] = p
             h[-2, -2] = p
