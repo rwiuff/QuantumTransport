@@ -4,11 +4,7 @@ Employing Python and NumPy this project focusses on the development of nummerica
 Generally speaking the community uses DFT-based simulations through tools like those from the SIESTA project (TBtrans), whith results analysed using SISL\cite{zerothi_sisl}. The DFT results can then be extrapolated to larger scales\cite{calogero_electron_2019}. However DFT programs run complex calculations and might seem as a blackbox for non-physcisists. To get a better understanding of tigh-binding and electron transport, we avoid DFT and rely solely on tight-binding simulations, whilst confirming the validity of the developed products by comparing result to those from SIESTA.\newline
 The main scope is the development of the tight-binding scripts, comparing results with those of DFT calculations and discuss whether a clean tight-binding approach can sufficiently be used for the relatively simple NPGs.\newline
 To summarise:\newline
-\nth{1}: Apply quantum mechanics for electron transport in NPGs. \nth
-    \item Use numerical methods (recursion algorithms, linear algebra) with NumPy to implement tight-binding.
-    \item Calculate band structures and transmission plots for various devices.
-    \item Gather single-particle Green’s functions and LDOS of said devices.
-\end{itemize}
+\nth{1}: Apply quantum mechanics for electron transport in NPGs. \nth{2}: Use numerical methods (recursion algorithms, linear algebra) with NumPy to implement tight-binding. \nth{3}: Calculate band structures and transmission plots for various devices. \nth{4}: Gather single-particle Green’s functions and LDOS of said devices. \nth{5}: Compare the obtained results and discuss whether or not they sufficiently ressemble DFT based simulations.
 The report is organised on the following way:
 \begin{enumerate}
     \item \cref{theorysec,hamilsec,greensec,transec} deals with the development of our methodology. By introduction of basic theoretical concepts, followed by how these concepts are implemented practically through programming. 
