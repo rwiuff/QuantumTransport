@@ -1,3 +1,9 @@
 %!TEX root = ../Main.tex
-\lipsum[1]
-\cite{calogero_electron_2019}
+Ever since its isolation and initial characterisation, graphene has been widely researched for potential applications. [Insert litt.] On a more recent timescale so called nano-porous graphene devices (NPGs) has been proposed for various applications. [Insert litt.] These devices are made up of single layered graphene with periodic holes (hence the porous) with which the intact graphene constitutes ribbons and bridges in the structures. Because of graphenes electrical properties [Insert litt], one should be able to finely control the electron currents in the devices and thus create nanometer circuits for use as e.g. chemical detectors. Because of its novelty, the fabrication of such devices are limited. It is first considered for fabrication and practical testing when theoretical simulations shows promising results. Common simulation tools for the electron transport in simple devices (albeit in large scales) are those from the SIESTA project (TBtrans), whith results analysed using SISL\cite{zerothi_sisl}. SIESTA generally deal with DFT calculations, which can be extrapolated using tight-binding for larger scales\cite{calogero_electron_2019}. However DFT programs run complex calculations and might seem as a blackbox for non-physcisists. In order to better understand electron transport this project deals with a simpler approach to electron transport using only tight-binding by developing a set of tools in Python, using NumPy and numerical calculations. We utilise Greens functions and a very efficient recursion formula to gather transmission plots and band structure plots for various NPGs, whilst comparing our results with those obtained by classical DFT programs. The main scope is the development of the tight-binding scripts, comparing results with those of DFT calculations and discuss whether a clean tight-binding approach can sufficiently be used for the relatively simple NPGs.
+To summarise:
+\begin{enumerate}
+    \item Apply quantum mechanics for electron transport in NPGs.
+    \item Use numerical methods (recursion algorithms, linear algebra) with NumPy to implement tight-binding.
+    \item Calculate band structures and transmission plots for various devices.
+    \item Gather single-particle Green’s functions and LDOS of said devices.
+\end{enumerate}
