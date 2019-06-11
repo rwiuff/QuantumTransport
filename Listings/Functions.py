@@ -29,14 +29,17 @@ def xyzimport(path):
     return xyz
 
 
-def Onsite(xyz, Vppi):
+def Onsite(xyz, Vppi, f):
     h = np.zeros((xyz.shape[0], xyz.shape[0]))
     for i in range(xyz.shape[0]):
         for j in range(xyz.shape[0]):
             h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))
     h = np.where(h < 1.6, Vppi, 0)
     h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))
-    o = input('Change onsite? (y/n) ')
+    if f == 1:
+        o = 'n'
+    else:
+        o = input('Change onsite? (y/n) ')
     if o == 'n':
         p = 0
     if o == 'y':
@@ -243,7 +246,7 @@ def Transmission(GammaL, GammaR, GD, En):
 
 
 def PeriodicHamiltonian(xyz, UY, i):
-    h = Onsite(xyz=xyz, Vppi=-1)
+    h, p = Onsite(xyz=xyz, Vppi=-1, f=1)
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
     # plt.imshow(V.real)
     # plt.show()

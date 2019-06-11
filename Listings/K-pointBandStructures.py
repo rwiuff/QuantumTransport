@@ -14,7 +14,7 @@ Vppi = -1
 # Retrieve unit cell
 xyz, shiftx, shifty, filename = ImportSystem(1)
 # Calculate onsite nearest neighbours
-Ham, p = Onsite(xyz, Vppi)
+Ham, p = Onsite(xyz, Vppi, 0)
 
 # plt.imshow(Ham)
 # plt.colorbar()

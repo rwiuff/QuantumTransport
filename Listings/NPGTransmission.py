@@ -16,13 +16,15 @@ contactrep = 1
 shiftx = 2.46
 ev1 = -1.5
 ev2 = 1.5
-numkP = 5
+numkP = 3
+k1 = 0
+k2 = np.pi
 En = np.linspace(ev1 / 2.7, ev2 / 2.7, 200)
 En = np.delete(En, np.where(En == 1))
 En = np.delete(En, np.where(En == -1))
 
 eta = 1e-6j
-kP = np.linspace(-np.pi, np.pi, numkP)
+kP = np.linspace(k1, k2, numkP)
 
 xyz, UX, UY, filename, dgeom, cellsize = Import(nx, contactrep)
 
