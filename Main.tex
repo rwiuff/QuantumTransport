@@ -121,7 +121,7 @@
 \renewcommand{\listoflistingscaption}{Listings}
 %\renewcommand{\MintedPygmentize}{C:/Users/rwiuf/AppData/Roaming/Python/Python37/Scripts/pygmentize}
 \newcommand{\im}[3]{\inputminted[bgcolor=black, linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
-
+\newcommand{\latex}{\LaTeX \ }
 %Definitions and new commands
 \newcommand{\degr}{^{\circ}}
 \newcommand{\me}{\mathrm{e}}
@@ -152,12 +152,12 @@
 \homepage[Homepage of the Technical University of Denmark ]{http://www.dtu.dk/english/}
 \homepage[\\\faGithub \ Project Repository: ]{https://github.com/rwiuff/QuantumTransport}
 \maketitle
-%\centering
-%\includegraphics[width=0.7\textwidth]{Figures/illu.eps}
+
 \newpage
 \pagenumbering{arabic}
 \twocolumngrid
 \tableofcontents
+\thispagestyle{empty}
 \newpage
 \onecolumngrid
 
@@ -167,7 +167,6 @@
 \let\toc@post\relax
 \makeatother
 
-\thispagestyle{empty}
 %\newpage
 \setcounter{page}{1}
 %Text
@@ -181,7 +180,7 @@
 \input{sections/RecursionRoutine.tex}
 \section{Transmission Routine}\label{transec}
 \input{sections/TransmissionRoutine.tex}
-\section{Exploring functionality of GNR bridges}
+\section{Exploring functionality of GNR bridges}\label{testsec}
 \input{sections/Tests.tex}
 \newpage
 \begin{acknowledgments}
