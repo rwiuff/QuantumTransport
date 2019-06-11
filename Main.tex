@@ -113,13 +113,13 @@
 \usepackage{silence}
 \usepackage{todonotes}
 \WarningFilter{revtex4-2}{Repair the float package.}
+\usepackage[subtle]{savetrees}
 
 %Python
 \usepackage{minted}
 \setminted{fontsize=\small}
 \usemintedstyle{tango}
 \renewcommand{\listoflistingscaption}{Listings}
-%\renewcommand{\MintedPygmentize}{C:/Users/rwiuf/AppData/Roaming/Python/Python37/Scripts/pygmentize}
 \newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
 \newcommand{\latex}{\LaTeX \ }
 %Definitions and new commands
@@ -171,7 +171,7 @@
 \setcounter{page}{1}
 %Text
 \section{Introduction}
-\input{sections/Intro}\newpage
+\input{sections/Intro}
 \section{Quantum transport}\label{theorysec}
 \input{sections/Theory.tex}
 \section{Hamiltonian for periodic systems}\label{hamilsec}
