@@ -1,5 +1,5 @@
 %!TEX root = ../Main.tex
-In this section a range of tests will be conducted on different NPG structures in order to uncover the effect of manipulation of the bridges between the GNR's in the NPG. From an applied perspective, one of the main motivations is to find out how these bridges can be manipulated in order to control the current through the material. A recent study has shown how one could possibly confine current flow to a single GNR channel by manipulation of bridges between GNR's utilising \textit{Quantum Interference} effects, thus providing a solution to an important aspect in carbon-based nanocircuitry design, namely confinement of electron flow. The study was focused on the difference in effect of having \textit{meta} and \textit{para} bridges between GNR's. Meta and para bridges are essentially benzene rings oriented in two different ways (more on that in the following sections). The meta and para bridges are 'static' cases in the sense that once made, they are not responsive to any external environment. However, if the bridges are modified with oxygen they become sensitive to f.ex. hydrogenation because of oxygen's tendency to either reduce or oxidise in basic/acidic environments. Thus by hydrogenation it will be possible to tune the electrical properties of the material and make it sensitive to external environments and studies has show that hydrogenation of specific sites on nano meter scale is possible experimentally. This section will, in part, be an attempt to reproduce some of the results of the study and to see what happens when if oxygen is added to these benzene rings in the meta and para bridges as well as the effects of hydrogenation of the oxygen.  In \cref{testtable} a schematic overview of the different tests can be seen. The results from these tests will be presented in the form of band structure plots and they will be compared to band structure plots produced with DFT. Additionally a schematic overview of the different systems, showing the on-site potentials of each atom will be presented in the figures as well. Following is a section introducing meta and para NPG in detail. 
+In this section a range of tests will be conducted on different NPG structures in order to uncover the effect of manipulation of the bridges between the GNR's in the NPG. From an applied perspective, one of the main motivations is to find out how these bridges can be manipulated in order to control the current through the material. A recent study has shown how one could possibly confine current flow to a single GNR channel by manipulation of bridges between GNR's utilising \textit{Quantum Interference} effects (See \cref{studyfig2,studyfig3} for some of the results presented in the study). This provides a solution to an important aspect in carbon-based nanocircuitry design, namely confinement of electron flow. The study was focused on the difference in effect of having \textit{meta} and \textit{para} bridges between GNR's. Meta and para bridges are essentially benzene rings oriented in two different ways (more on that in the following sections). The meta and para bridges are 'static' cases in the sense that once made, they are not responsive to any external environment. However, if the bridges are modified with oxygen they become sensitive to f.ex. hydrogenation because of oxygen's tendency to either reduce or oxidise in basic/acidic environments. Thus by hydrogenation it will be possible to tune the electrical properties of the material and make it sensitive to external environments and studies show that hydrogenation of specific sites on nano meter scale is possible experimentally. This section will, in part, be an attempt to reproduce some of the results of the study and to see what happens when oxygen is added to these benzene rings in the meta and para bridges as well as the effects of subsequent hydrogenation of the oxygen.  In \cref{testtable} a schematic overview of the different tests can be seen. The results from these tests will be presented in the form of band structure plots and they will be compared to band structure plots produced with DFT. Additionally a schematic overview of the different systems, showing the on-site potentials of each atom will be presented in the figures as well. Following is a section introducing meta and para NPG in detail. 
 \begin{table}[ht]
 \begin{tabular}{cclcll}
 		\toprule
@@ -16,7 +16,32 @@ In this section a range of tests will be conducted on different NPG structures i
 \label{testtable}
 \end{table}
 \subsection{Differences in para and meta bridges}
-In broad terms the difference in the meta and para structures lies in the path an electron will travel through the benzene ring to get across the bridge. In the para bridge, the path across the aromatic ring is symmetric and so the electron will pass above or below with equal probability. Since the para bridge has three bonds in each direction across the ring, the path length in the para bridge is the same on each side (See \cref{}). This will cause constructive interference of the states once the waves meet on the other side of the ring, which results in spreading in the density of states from one GNR to the next. For the meta bridge the way across the aromatic ring is not symmetric in the sense that there is two bonds across the path below and four bonds across on the path above (See \cref{}). This will cause a shift by half a wavelength between the two paths and thus create destructive interference between waves meeting on the other side of the ring. The effect of this is confinement in the density of states in the GNR's. 
+In broad terms the difference in the meta and para structures lies in the path an electron will travel through the benzene ring to get across the bridge. In the para bridge, the path across the aromatic ring is symmetric and so the electron will pass above or below with equal probability. Since the para bridge has three bonds in each direction across the ring, the path length in the para bridge is the same on each side (See \cref{studyfig1}). This will cause constructive interference of the states once the waves meet on the other side of the ring, which results in spreading in the density of states from one GNR to the next. For the meta bridge the way across the aromatic ring is not symmetric in the sense that there is two bonds across the path below and four bonds across on the path above (See \cref{studyfig1}). This will cause a shift by half a wavelength between the two paths and thus create destructive interference between waves meeting on the other side of the ring. The effect of this is confinement in the density of states in the GNR's. 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Fig_1.eps}
+    \caption{Figure showing the some graphical representations of the para and meta bridges (b \& c) as well as some actual pictures taken of NPG showing the bridges (a \& d).}
+    \label{studyfig1}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Fig_2.eps}
+    \caption{Figure showing some band structures and transmission plots from the study obtained with DFT.}
+    \label{studyfig2}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width = \textwidth]{Figures/Fig_3.eps}
+    \caption{Figure showing the currents through the GNR's in a large peace of NPG. Note how the current is spread across GNR's with the para bridge (a) and confined to a single GNR with meta bridge (b).}
+    \label{studyfig3}
+    \end{subfigure}
+    \caption{Figures obtained from [cite] showing both the structures involved as well as some results obtained in the form of band structure and transmission plots.}
+    \label{metapara}
+\end{figure}
 \subsection{Tests with modified meta and para NPG}
 The tests consist of three kind of manipulations. Firstly it will be manipulation of the on-site value for the added oxygen atoms (Addition of Oxygen will be simulated by addition of another carbon site to the structure, effectively adding another pi-electron). Secondly simulations of hydrogenation will be done by having added hydroxide groups. By removing hydroxide sites entirely, the aim is to simulate the removal of the extra pi-electron which the oxygen originally provided, but now lost by hydrogenation. Thirdly by manipulation of the on-site potential values of hydroxide, the aim is again to simulate loss of the extra pi-electron. These manipulations will be carried out separately. \\
 \subsection{Test 1 para-NPG with added oxygen}
@@ -25,7 +50,7 @@ The first test will be manipulation of the system 'PS4O'. The basis structure is
     \centering
     \begin{subfigure}[b]{0.5\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{Figures/p_O4.eps}
+    \includegraphics[width=\textwidth]{Figures/PS4ODFT.eps}
     \end{subfigure}
     \vskip
     \hspace{50pt}
@@ -60,15 +85,33 @@ as seen \cref{PS4Odevnomod} the band structure produced does not give the right 
 Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups. (see \cref{appfigs}, \cref{Strucow}, no. 6). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF is shown first in \cref{PS4OH} and afterwards results from developed programs. 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.5\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{Figures/p_H4O4.eps}
+    \includegraphics[width=\textwidth]{Figures/PS4OHDFT.eps}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4OHSitesRemoved.eps}
+    \label{PS4OHremove}
     \end{subfigure}
     \vskip
     \hspace{50pt}
     \begin{subfigure}[b]{0.7\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OH.eps}
+    \end{subfigure}
+    \vskip
+    \begin{subfigure}[b]{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4OHmod1.eps}
+    \label{PS4OHmod1}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/PS4OHmod2.eps}
+    \label{PS4OHdevmod2}
     \end{subfigure}
     \vspace{-1\baselineskip}
     \caption{Figure showing the band structures obtained using DFT (above) and a potential map of the system (below)}
@@ -77,19 +120,19 @@ Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG
 Multiple on-site potentials as well as removal of the specific atomic sites were tested to see which one came closest to that of the band structures in \cref{PS4OH}. The removal was done by removing specific coordinates in the given files before it was run through the script. 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.25\textwidth}
+    \begin{subfigure}[b]{0.23\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHSitesRemoved.eps}
     \label{PS4OHremove}
     \end{subfigure}
     ~
-    \begin{subfigure}[b]{0.25\textwidth}
+    \begin{subfigure}[b]{0.23\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHmod1.eps}
     \label{PS4OHmod1}
     \end{subfigure}
     ~
-    \begin{subfigure}[b]{0.25\textwidth}
+    \begin{subfigure}[b]{0.23\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHmod2.eps}
     \label{PS4OHdevmod2}
