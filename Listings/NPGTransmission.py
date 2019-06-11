@@ -147,11 +147,9 @@ for i in range(numplot - 1):
         X, 0, Y2, color='orange', alpha=0.8, label='LDOS')
     plt.legend(loc="upper right")
     plt.grid(which='both', axis='both')
-    frac = Fraction(kP[i] * (1 / np.pi))
-    pi = r'$\ \pi$'
-    plt.title('{}'.format(frac) + pi)
     plt.xlabel('Energy E arb. unit')
     plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
+    plt.xlim(ev1, ev2)
     plt.show()
 
 fig = plt.figure()
@@ -163,9 +161,9 @@ plt.fill_between(
     X, 0, Y2, color='orange', alpha=0.8, label='LDOS')
 plt.legend(loc="upper right")
 plt.grid(which='both', axis='both')
-plt.title('Average over k-points')
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
+plt.xlim(ev1, ev2)
 plt.show()
 
 q = int(0)
@@ -208,11 +206,10 @@ for i in range(numplot - 1):
     Y = T.real
     plt.plot(X, Y)
     plt.grid(which='both', axis='both')
-    frac = Fraction(kP[i] * (1 / np.pi))
-    pi = r'$\ \pi$'
-    plt.title('{}'.format(frac) + pi)
     plt.xlabel('E[eV]')
     plt.ylabel('T(E)', labelpad=15)
+    plt.xlim(ev1, ev2)
+    plt.ylim(0, np.max(Y)+0.25)
     ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
     plt.show()
 
@@ -221,9 +218,10 @@ T = np.average(TT, axis=0)
 Y = T.real
 plt.plot(X, Y)
 plt.grid(which='both', axis='both')
-plt.title('Average over k-points')
 plt.xlabel('E[eV]')
 plt.ylabel('T(E)', labelpad=15)
+plt.xlim(ev1, ev2)
+plt.ylim(0, np.max(Y)+0.25)
 ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
 plt.show()
 
