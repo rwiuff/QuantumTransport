@@ -82,65 +82,48 @@ Following, in \cref{PS4Odev} band plots obtained with the developed program is s
 \end{figure}
 as seen \cref{PS4Odevnomod} the band structure produced does not give the right result right away. This is because that the script assumes the same potential everywhere in the system. But as seen on the potential map in \cref{PS4O} especially the potential of the added sites (dark blue) are lower than the rest of the system. To compensate for this, the on-site potential values of those specific sites have been changed by \(\SI{-0.5}{\electronvolt}\) in the script (\cref{PS4Odevmod}) and the result is much closer to that in \cref{PS4O}.
 \subsection{Test 2 simulating hydrogenation of para-NPG with added oxygen atoms}
-Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups. (see \cref{appfigs}, \cref{Strucow}, no. 6). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF is shown first in \cref{PS4OH} and afterwards results from developed programs. 
+Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups. (see \cref{appfigs}, \cref{Strucow}, no. 6). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF is shown in \cref{PS4OHDFT} and following the band plots from the developed scripts (\cref{PS4OHremove,PS4OHmod1,PS4OHmod2}). 
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHDFT.eps}
+    \caption{}
+    \label{PS4OHDFT}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHSitesRemoved.eps}
+    \caption{}
     \label{PS4OHremove}
     \end{subfigure}
     \vskip
     \begin{subfigure}[b]{0.7\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OH.eps}
+    \caption{}
+    \label{potmapPS4OH}
     \end{subfigure}
     \vskip
     \begin{subfigure}[b]{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHmod1.eps}
+    \caption{}
     \label{PS4OHmod1}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/PS4OHmod2.eps}
+    \caption{}
     \label{PS4OHdevmod2}
     \end{subfigure}
     \vspace{-2\baselineskip}
-    \caption{Figure showing the band structures obtained using DFT (above) and a potential map of the system (below)}
+    \caption{Figure showing the band structures obtained using DFT a), band plot where the added sites have been removed b), a potential map of the system c), band plot where the on-site potential has been changed by \(\SI{-2.5}{\electronvolt}\) d), and band plot where the on-site potential has been changed by \(\SI{-2.0}{\electronvolt}\) e).}
     \label{PS4OH}
 \end{figure}
-Multiple on-site potentials as well as removal of the specific atomic sites were tested to see which one came closest to that of the band structures in \cref{PS4OH}. The removal was done by removing specific coordinates in the given files before it was run through the script. 
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}[b]{0.23\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/PS4OHSitesRemoved.eps}
-    \label{PS4OHremove}
-    \end{subfigure}
-    ~
-    \begin{subfigure}[b]{0.23\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/PS4OHmod1.eps}
-    \label{PS4OHmod1}
-    \end{subfigure}
-    ~
-    \begin{subfigure}[b]{0.23\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/PS4OHmod2.eps}
-    \label{PS4OHdevmod2}
-    \end{subfigure}
-    \vspace{-2\baselineskip}
-    \caption{Figure showing band structures obtained using developed program. Left: band plot where the added sites have been removed, centre: band plot where the on-site potential has been changed by \(\SI{-2.5}{\electronvolt}\), right: band plot where the on-site potential has been changed by \(\SI{-2.0}{\electronvolt}\).} 
-    \label{PS4OHdev}
-\end{figure}
-A seen in \cref{PS4OHremove} the effect of removing the sites gives a plot, somewhat in agreement with \cref{PS4OH}. However the lowest and highest bands does not show. The two other plots in \cref{PS4OHdev} show how gradually changing the on-site potential gets better and better agreement with DFTs. A on-site potential of \(\SI{-2.5}{\electronvolt}\) proved to be a bit too high, though still showing good agreement. Lowering the potential to \(\SI{-2.0}{\electronvolt}\) which is the value similar to that given by the lowest potential in the potential map \cref{PS4OH}, yielded a result that is pretty much spot on, considering the valence bands, when compared with DFT. 
+Multiple on-site potentials as well as removal of the specific atomic sites were tested to see which one came closest to that of the band structures in \cref{PS4OHDFT}. The removal was done by removing specific coordinates in the given files before it was run through the script. A seen in \cref{PS4OHremove} the effect of removing the sites gives a plot, somewhat in agreement with \cref{PS4OHDFT}. However the lowest and highest bands does not show. The two other plots in \cref{PS4OHmod1,PS4OHmod2} show how gradually changing the on-site potential gets better and better agreement with DFT. A on-site potential of \(\SI{-2.5}{\electronvolt}\) proved to be a bit too high, though still showing good agreement. Lowering the potential to \(\SI{-2.0}{\electronvolt}\) which is the value similar to that given by the lowest potential in the potential map \cref{potmapPS4OH}, yielded a result that is pretty much spot on, considering the valence bands, when compared with DFT. 
 \subsection{Test 3}
 \subsection{Test 4}
 \subsection{Test 5}
