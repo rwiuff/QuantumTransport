@@ -69,7 +69,7 @@ Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Figures/Flowchart.eps}
-    \caption{Flowchart depicting the routines run in python. SISL is used to import the geometry. Afterwards the coordinates are either used for bandstructure plots or for transmission plots. For the bandstructures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigenenergies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self energies in the transport direction (using the recursion algorithm). The selfenergies and the Greensfunctions retrieved here are then multiplied as to get the transmission.}
+    \caption{Flowchart depicting the routines run in python. SISL is used to import the geometry. Afterwards the coordinates are either used for band structure plots or for transmission plots. For the band structures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigen energies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self energies in the transport direction (using the recursion algorithm). The self energies and the Green's functions retrieved here are then multiplied as to get the transmission.}
     \label{Flowchart}
 \end{figure}
 \subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
