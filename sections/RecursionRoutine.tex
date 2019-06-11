@@ -61,10 +61,10 @@ For simplicity and in order to check whether the routine would yield the expecte
 	g_1     & = (z - e_1)^{-1} \nonumber
 \end{align}
 These equations constitutes the first iteration in the recursion and they can be repeated indefinitely. In the matrix system of equations  these multiplications effectively shifts all elements in the matrix by one column and because the matrix is diagonal, it will leave the first column of the matrix empty. The column can then be removed and this is exactly what corresponds to removing a cell in the semi-infinite chain. Keeping on doing these multiplications, raising the index by +1 every time, one can move through reduce the system as a whole removing of columns (cells) in the system of equations. In the end one will obtain re-normalised Hamiltonians and hopping matrices which is then used to get the Green's functions and self energies through these simple equations: 
-\begin{align}\label{outputs}
-	\mathbf{\Sigma}_R & = e_s - h                   \\ \nonumber
-	\mathbf{\Sigma}_L & = e - h - \mathbf{\Sigma}_R \\ \nonumber
-	\mathbf{G00}      & = (z - e_s)^{-1}
+\begin{align}
+	\mathbf{\Sigma}_R & = e_s - h                   \nonumber \\ 
+	\mathbf{\Sigma}_L & = e - h - \mathbf{\Sigma}_R \label{outputs} \\
+	\mathbf{G00}      & = (z - e_s)^{-1} \nonumber
 \end{align}
 Programming this recursion is fairly simple as all which is needed is a while loop which iterates over the equations in \cref{matmulrec} until a threshold has been reached. The threshold is determined by the value of the hopping matrix \(a_0\). As it reaches a value close to zero, there is no longer any effective interacting (hopping) between the cells because of removal of cells and the recursion should stop. 
 In \cref{recurfunc} the code for the routine is shown. Line xx-xx is the listing of elements before iteration, xx-xx is the while loop with the equations from \cref{matmulrec}. Note that some intermediate multiplications are made f.ex. \textit{ag = a0 @ b0}. This is for run-time optimisation only. In  line xx-xx the iteration indexed 0 gets redifned so that it corresponds to the most recent iteration. Finally in xx-xx the definition of the outputs as per \cref{outputs} is stated.\im{Listings/Functions.py}{62}{89}
