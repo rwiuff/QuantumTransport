@@ -45,7 +45,7 @@ def Onsite(xyz, Vppi, f):
     if o == 'y':
         charr = np.array(['PS4O', 'PS4OH', 'MS2O', 'MS2OH', 'MA2O', 'MA2OH'])
         for i in range(charr.shape[0]):
-            print('{}: {}'.format(i+1, charr[i]))
+            print('{}: {}'.format(i + 1, charr[i]))
         struct = int(input('Choose structure: '))
         if struct >= 3:
             p = float(input('Potential: '))
