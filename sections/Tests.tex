@@ -80,7 +80,7 @@ The first test will be manipulation of the system 'PS4O'. The basis structure is
     \label{potmapPS4O}
     \end{subfigure}
     \vspace{-1\baselineskip}
-    \caption{Figure showing the band structure obtained using DFT a), band structures obtained using developed program with no on-site potential mods b) and one with the on-site potential changed to \SI{-0.5}{\electronvolt} c). Lastly a potential map of the system d)}
+    \caption{Figure showing the band structure obtained using DFT a), band structures obtained using developed program with no on-site potential mods b) and with the on-site potential changed to \SI{-0.5}{\electronvolt} c). Lastly a potential map of the system d)}
     \label{PS4O}
 \end{figure}
 In \cref{PS4Odevnomod,PS4Odevmod} band plots obtained with the developed program is shown. Firstly a band plot without any changes to the on-site potential and next to it a band plot where the on-site potential of the added sites have been changed. As seen \cref{PS4Odevnomod} the band structure produced does not give the right result right away. This is because that the script assumes the same potential everywhere in the system. But as seen on the potential map in \cref{potmapPS4O} especially the potential of the added sites (dark blue) are lower than the rest of the system. To compensate for this, the on-site potential values of those specific sites have been changed by \(\SI{-0.5}{\electronvolt}\) in the script (\cref{PS4Odevmod}) and the result is much closer to that in \cref{PS4ODFT}.
