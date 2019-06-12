@@ -44,7 +44,7 @@ In broad terms the difference in the meta and para structures lies in the path a
 \end{figure}
 \subsection{Tests with modified meta and para NPG}
 The tests consist of three kind of manipulations. Firstly it will be manipulation of the on-site value for the added oxygen atoms (Addition of Oxygen will be simulated by addition of another carbon site to the structure, effectively adding another pi-electron). Secondly simulations of hydrogenation will be done by having added hydroxide groups. By removing hydroxide sites entirely, the aim is to simulate the removal of the extra pi-electron which the oxygen originally provided, but now lost by hydrogenation. Thirdly by manipulation of the on-site potential values of hydroxide, the aim is again to simulate loss of the extra pi-electron. These manipulations will be carried out separately.
-\subsection{Test 1: para-NPG with added oxygen}
+\subsection{Test 1: Para-NPG with added oxygen}
 The first test will be manipulation of the system 'PS4O'. The basis structure is para-NPG where 4 oxygen sites have been added, two on each benzene ring (see \cref{appfigs}, \cref{Strucow}, no. 5). This is to see the effect of having an extra pi-electron in the system. Practically carbon atoms added instead of oxygen. They will be manipulated by lowering their on-site potential. This is to simulate adding oxygen. In \cref{PS4O} an overview of the system can be seen along with the band structures for the system, obtained through DFT and developed scripts. 
 \begin{figure}[h]
     \centering
@@ -84,7 +84,7 @@ The first test will be manipulation of the system 'PS4O'. The basis structure is
     \label{PS4O}
 \end{figure}
 In \cref{PS4Odevnomod,PS4Odevmod} band plots obtained with the developed program is shown. Firstly a band plot without any changes to the on-site potential and next to it a band plot where the on-site potential of the added sites have been changed. As seen \cref{PS4Odevnomod} the band structure produced does not give the right result right away. This is because that the script assumes the same potential everywhere in the system. But as seen on the potential map in \cref{potmapPS4O} especially the potential of the added sites (dark blue) are lower than the rest of the system. To compensate for this, the on-site potential values of those specific sites have been changed by \(\SI{-0.5}{\electronvolt}\) in the script (\cref{PS4Odevmod}) and the result is much closer to that in \cref{PS4ODFT}.
-\subsection{Test 2 simulating hydrogenation of para-NPG with added oxygen atoms}
+\subsection{Test 2: Simulating hydrogenation of para-NPG with added oxygen atoms}
 Next test will be with the 'PS4OH' system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups. (see \cref{appfigs}, \cref{Strucow}, no. 6). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF is shown in \cref{PS4OHDFT} and following the band plots from the developed scripts (\cref{PS4OHremove,PS4OHmod1,PS4OHdevmod2}). 
 \begin{figure}[h]
     \centering
