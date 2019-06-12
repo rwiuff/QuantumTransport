@@ -42,13 +42,17 @@
 
 %Figures
 \usepackage{float}
+\setlength{\textfloatsep}{5.0pt plus 2.0pt minus 4.0pt}
+\setlength{\intextsep}{5.0pt plus 2.0pt minus 2.0pt}
 \usepackage{xcolor} % Required to specify font color
 \usepackage{graphicx}
+\usepackage{setspace}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[format=plain,
             labelfont={bf,it,footnotesize},
             textfont={it,footnotesize}]{caption}
+\captionsetup{font={stretch=1}}
 \usepackage[verbose]{wrapfig}
 \usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=2.5cm]{geometry}
 \usepackage{etoolbox}
