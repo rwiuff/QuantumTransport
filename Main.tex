@@ -42,8 +42,6 @@
 
 %Figures
 \usepackage{float}
-%\setlength{\textfloatsep}{5.0pt plus 2.0pt minus 4.0pt}
-%\setlength{\intextsep}{5.0pt plus 2.0pt minus 2.0pt}
 \usepackage{xcolor} % Required to specify font color
 \usepackage{graphicx}
 \usepackage{setspace}
@@ -126,15 +124,18 @@
 \renewcommand{\listoflistingscaption}{Listings}
 \newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
 \newcommand{\latex}{\LaTeX \ }
+
 %Definitions and new commands
 \newcommand{\degr}{^{\circ}}
 \newcommand{\me}{\mathrm{e}}
 \newcommand*\mathinhead[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
 %PDFPages and RevTeX incompatability fix
 \makeatletter
 \AtBeginDocument{\let\LS@rot\@undefined}
 \makeatother
 
+%Changin
 \begin{document}
 %Titlepage herunder:
 \begin{abstract}
