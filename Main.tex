@@ -1,11 +1,11 @@
 %!TeX spellcheck = en-GB
 
-%Basics
+% Basics
 \documentclass[aps, prb, a4paper, english, 12pt, onecolumn, longbibliography, amsmath, amssymb, colorinlistoftodos, floatfix, svgnames]{revtex4-2}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
 
-%Symbols and scientifics
+% Symbols and scientifics
 \usepackage{amsmath, amsfonts, amssymb, bm}
 \numberwithin{equation}{section}
 \usepackage{physics}
@@ -25,7 +25,7 @@
 	range-phrase = -,
 	range-units =  single,
 	inter-unit-product = \ensuremath{{\cdot{}}},
-	number-unit-product = \ ,
+%	number-unit-product = \ ,
 	multi-part-units = single,
 	alsoload = synchem,
 	alsoload = addn
@@ -40,15 +40,17 @@
 %\usepackage[nottoc]{tocbibind}
 \usepackage[lastpage,user]{zref}
 
-%Figures
+% Figures
 \usepackage{float}
 \usepackage{xcolor} % Required to specify font color
 \usepackage{graphicx}
+\usepackage{setspace}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[format=plain,
             labelfont={bf,it,footnotesize},
             textfont={it,footnotesize}]{caption}
+\captionsetup{font={stretch=0.9}}
 \usepackage[verbose]{wrapfig}
 \usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=2.5cm]{geometry}
 \usepackage{etoolbox}
@@ -80,7 +82,7 @@
 }
 %
 
-%Header footer
+% Header footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{C. V. Sørensen \\ R. K. F. Wiuff}
@@ -90,7 +92,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-%Text tools
+% Text tools
 \usepackage{listings}
 \usepackage{parcolumns}
 \usepackage[super]{nth}
@@ -113,26 +115,32 @@
 \usepackage{silence}
 \usepackage{todonotes}
 \WarningFilter{revtex4-2}{Repair the float package.}
-\usepackage[subtle]{savetrees}
 
-%Python
+% Python
 \usepackage{minted}
 \setminted{fontsize=\small}
 \usemintedstyle{tango}
 \renewcommand{\listoflistingscaption}{Listings}
 \newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
 \newcommand{\latex}{\LaTeX \ }
-%Definitions and new commands
+
+% Definitions and new commands
 \newcommand{\degr}{^{\circ}}
 \newcommand{\me}{\mathrm{e}}
 \newcommand*\mathinhead[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
-%PDFPages and RevTeX incompatability fix
+
+% PDFPages and RevTeX incompatability fix
 \makeatletter
 \AtBeginDocument{\let\LS@rot\@undefined}
 \makeatother
 
+% Changing lengths
+\usepackage[subtle]{savetrees}
+\linespread{1}
+\raggedbottom
+
 \begin{document}
-%Titlepage herunder:
+% Titlepage
 \begin{abstract}
 	\vspace{5mm}
 	\centering
