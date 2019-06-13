@@ -2,6 +2,56 @@
 \appendix
 \appendixpage
 \addappheadtotoc
+\section{The benzene molecule}\label{benzex}
+\begin{wrapfigure}[7]{r}{.3\textwidth}
+	\vspace{-2.3em}
+	\centering
+	\begin{tikzpicture}
+		\chemfig{1*6(-2-3-4-5-6-)}
+	\end{tikzpicture}
+	\caption{Indices of a benzene molecule}\label{benz}
+\end{wrapfigure}
+As an example the Hamiltonian of benzene is considered. In \cref{benz} one can see the indices of a benzene molecule. Remember that \(\bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)} = 0\) and \cref{V}, the Hamiltonian reads:
+\begin{align}
+	\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
+		\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
+	1 & 0 & 1 & 0 & 0 & 0             \\
+	0 & 1 & 0 & 1 & 0 & 0             \\
+	0 & 0 & 1 & 0 & 1 & 0             \\
+	0 & 0 & 0 & 1 & 0 & 1             \\
+	1 & 0 & 0 & 0 & 1 & 0)}\label{BH}
+\end{align}
+As a helping aid, \cref{BH} shows the atomic indices of the atom on the top and to the left of the matrix. This will give an understanding of how to work with such matrices.
+The structure of the benzene molecule is rotationally symmetric and rotating the indices one sixth must yield the same Hamiltonian. Consider the energy eigenvector:
+\begin{align}
+	\phi = \mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
+\end{align}
+There must exist an operator that rotates the indices as such:
+\begin{align}
+	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1)
+\end{align}
+The rotated Hamiltonian is the same, and thus \(C_6\) and \(\vb{H}\) commute. The rotated vector must be an eigenvector with the same energy and it should be possible to find simultaneous eigenvectors to \(C_6\) and \(\vb{H}\).
+\begin{align}
+	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1) = \lambda\mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
+\end{align}
+This operator \(C_6\) is represented with the matrix:
+\begin{align}
+	\vb{C}_6 = \mqty*(0 & 1 & 0 & 0 & 0 & 0  \\
+	0                   & 0 & 1 & 0 & 0 & 0  \\
+	0                   & 0 & 0 & 1 & 0 & 0  \\
+	0                   & 0 & 0 & 0 & 1 & 0  \\
+	0                   & 0 & 0 & 0 & 0 & 1  \\
+	1                   & 0 & 0 & 0 & 0 & 0)
+\end{align}
+It can quickly be shown that the normalised eigenvectors to \(C_6\) are
+\begin{align}
+	\phi_n = \frac{1}{\sqrt{6}}\mqty(\lambda_n^0 & \lambda_n^1 & \lambda_n^2 & \lambda_n^3 & \lambda_n^4 & \lambda_n^5), \quad \lambda_n = \exp{-i2\pi n / 6}, \quad n = 0,1,2,3,4,5
+\end{align}
+These eigenvectors are also eigenvectors for \(\vb{H}\) with the eigenvalues:
+\begin{align}
+	\varepsilon_n = \lambda_n + \lambda_{n-1} = 2 \cos{n\pi/3}
+\end{align}
+Thus thanks to the rotational symmetry it was possible to find the eigenvectors and eigenenergies for the Hamiltonian.
 \section{Additional figures}\label{appfigs}
 \begin{figure}[h]
 	\centering

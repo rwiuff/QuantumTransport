@@ -1,8 +1,7 @@
 %!TEX root = ../Main.tex
 In this section, the basics of the tight-binding approximation for electron transport will be explained. This motivates the use of numerical routines using NumPy.
 \subsection{Ballistic quantum transport}
-As graphene is a two dimensional material that consists of carbon atoms arranged in a hexagonal pattern, features in such a material can approach nanometer and sub nanometer scales. Because of the small scale the electrical properties of the material is vastly different from normal materials. Usually when describing the electrical properties of a material, drift-diffusion current models are used. They describe electric charges per area and current per area. However graphene can be considered a one dimensional conductor. This makes drift-diffusion models insufficient because it is based on scattering of multiple electrons and the mean free path between scattering which occurs in 2- or 3-D materials and not graphene. \\
-Instead it is common to use the \textit{ballistic model} when working with graphene. In the ballistic model, electrons are not affected by phonons, i.e. no electrons will be excited by phonons. In this model the electrons move through the material as waves. This fits our case because of the strong binding between atoms in graphene, reducing the effect of phonons, even at room temperature. The fact that the electrons moves as waves will prove important later on because it gives rise to \textit{Quantum Interference} which is an essential tool to engineer graphene-based devices. Furthermore the model looks at only one electron at a time in the presence of an electron gas. This model has been used with big success for regular graphene and it seems that the ballistic model also gives a good approximation for NPGs.
+As graphene is a two dimensional material that consists of carbon atoms arranged in a hexagonal pattern, features in such a material can approach nanometer and sub nanometer scales. Because of the small scale the electrical properties of the material is vastly different from normal materials. Usually when describing the electrical properties of a material, drift-diffusion current models are used. They describe electric charges per area and current per area. This is usually a good description in systems where electron-electron and electron-atom scattering frequently occurs. The distance an electron travels before such a event is called its \textit{mean free path}. However, in small systems as those of NPG-devices, the mean free path is longer than the system itself. Experiments have shown that electrons can move ballistically in graphene and carbon nanotubes[litt], that is, without phonon scattering. Therefore, we model electron transport using the \textit{ballistic model}. In this model the electrons move through the material as waves. The fact that the electrons moves as waves will prove important later on because it gives rise to \textit{Quantum Interference} which can be exploited as a tool when engineering graphene-based devices. Furthermore the model looks at only one electron at a time in the presence of an electron gas. This model has been used with big success for regular graphene and it seems that the ballistic model also gives a good approximation for NPGs.
 \subsection{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
 When modelling the electron transport in graphene one needs to address the orbital structure of carbon lattices. The orbital structure is exactly what motivate the use of tight binding approximation and Green's functions. The two concepts of Tight-binding approximation and Green's functions will be elaborated further in the coming sections.
 In its basic form graphene can be divided into rings of carbon atoms as shown in \cref{ring}. In the (\(x,y\))-plane the carbon atoms are bound in \(sp^2\) orbitals as shown in \cref{sp2}.
@@ -112,7 +111,7 @@ The last electron in the p\(_z\) orbital does not mix with the tightly bound s, 
 	\end{center}
 \end{figure}
 \subsection{Tight-binding}\label{tbtheory}
-Now that the transport carrying electrons are defined the next step is describing the transport. Introducing: \textbf{``The Tight-Binding approximation''}. In this approximation the electrons are considered being tightly bound to the atoms. Contrary to a free electron gas approximation, the electrons does not spend time in between orbitals, but jump from orbital in atom \(a\) to orbital in atom \(b\). The Hamiltonian is represented as a matrix of hopping elements for a collection of neighbouring atomic orbitals, i.e. molecular orbitals, as well as the energy contained within each orbital (which will be addressed later on). This can be done by describing the orbitals as a Linear Combination of Atomic Orbitals (LCAO). The solution to the Schrödinger equation is then:
+Now that the transport carrying electrons are defined the next step is describing the transport itself. For this purpose we employ the \textit{tight-binding} approximation. In this approximation the electrons are considered being tightly bound to the atoms. Contrary to a free electron gas approximation, the electrons does not spend time in between orbitals, but jump from orbital in atom \(a\) to orbital in atom \(b\). The Hamiltonian is represented as a matrix of hopping elements for a collection of neighbouring atomic orbitals, i.e. molecular orbitals, as well as the energy contained within each orbital (which will be addressed later on). This can be done by describing the orbitals as a Linear Combination of Atomic Orbitals (LCAO). The solution to the Schrödinger equation is then:
 \begin{align}
 	\Psi_{\mathrm{MO}} = \sum_{\alpha,R}c_{\alpha,R}\phi_{\alpha}(R)
 \end{align}
@@ -126,54 +125,5 @@ Physically this means that there is a potential between the \(\pi\) orbitals of 
 	\epsilon_0 = \bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)}
 \end{align}
 is the average energy of the electron on atom \(1\) and, it is common to define the hopping energy relative to this, i.e. \(\epsilon_0 = 0\).
-If the atoms or their environment differs, so does the on-site potential.
-\subsection{The benzene molecule}
-\begin{wrapfigure}[7]{r}{.3\textwidth}
-	\vspace{-2.3em}
-	\centering
-	\begin{tikzpicture}
-		\chemfig{1*6(-2-3-4-5-6-)}
-	\end{tikzpicture}
-	\caption{Indices of a benzene molecule}\label{benz}
-\end{wrapfigure}
-As an example the Hamiltonian of benzene is considered. In \cref{benz} one can see the indices of a benzene molecule. Remember that \(\bra{\phi_{\pi}(1)}\hat{H}\ket{\phi_{\pi}(1)} = 0\) and \cref{V}, the Hamiltonian reads:
-\begin{align}
-	\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
-		\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
-	1 & 0 & 1 & 0 & 0 & 0             \\
-	0 & 1 & 0 & 1 & 0 & 0             \\
-	0 & 0 & 1 & 0 & 1 & 0             \\
-	0 & 0 & 0 & 1 & 0 & 1             \\
-	1 & 0 & 0 & 0 & 1 & 0)}\label{BH}
-\end{align}
-As a helping aid, \cref{BH} shows the atomic indices of the atom on the top and to the left of the matrix. This will give an understanding of how to work with such matrices.
-The structure of the benzene molecule is rotationally symmetric and rotating the indices one sixth must yield the same Hamiltonian. Consider the energy eigenvector:
-\begin{align}
-	\phi = \mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
-\end{align}
-There must exist an operator that rotates the indices as such:
-\begin{align}
-	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1)
-\end{align}
-The rotated Hamiltonian is the same, and thus \(C_6\) and \(\vb{H}\) commute. The rotated vector must be an eigenvector with the same energy and it should be possible to find simultaneous eigenvectors to \(C_6\) and \(\vb{H}\).
-\begin{align}
-	C_6\phi = \mqty(c_2 & c_3 & c_4 & c_5 & c_6 & c_1) = \lambda\mqty(c_1 & c_2 & c_3 & c_4 & c_5 & c_6)
-\end{align}
-This operator \(C_6\) is represented with the matrix:
-\begin{align}
-	\vb{C}_6 = \mqty*(0 & 1 & 0 & 0 & 0 & 0  \\
-	0                   & 0 & 1 & 0 & 0 & 0  \\
-	0                   & 0 & 0 & 1 & 0 & 0  \\
-	0                   & 0 & 0 & 0 & 1 & 0  \\
-	0                   & 0 & 0 & 0 & 0 & 1  \\
-	1                   & 0 & 0 & 0 & 0 & 0)
-\end{align}
-It can quickly be shown that the normalised eigenvectors to \(C_6\) are
-\begin{align}
-	\phi_n = \frac{1}{\sqrt{6}}\mqty(\lambda_n^0 & \lambda_n^1 & \lambda_n^2 & \lambda_n^3 & \lambda_n^4 & \lambda_n^5), \quad \lambda_n = \exp{-i2\pi n / 6}, \quad n = 0,1,2,3,4,5
-\end{align}
-These eigenvectors are also eigenvectors for \(\vb{H}\) with the eigenvalues:
-\begin{align}
-	\varepsilon_n = \lambda_n + \lambda_{n-1} = 2 \cos{n\pi/3}
-\end{align}
-Thus thanks to the rotational symmetry it was possible to find the eigenvectors and eigenenergies for the Hamiltonian.
+If the atoms or their environment differs, so does the on-site potential.\newline
+\cref{benzex} contains an illuminating example of how the tight-binding approximation can be used to describe simple carbon systems.
