@@ -14,11 +14,13 @@ shiftx = 2.46
 
 xyz, UX, UY, filename = ImportSystem(nx)
 
-Lxyz, L, R, Rxyz = DefineDevice(xyz)
-#RestL, L, R, C, RestR = DefineDevice(xyz)
-HD = Onsite(xyz=xyz, Vppi=-1)
+RestL, RestR, L, R, C = DefineDevice(xyz)
+
+HD = Onsite(xyz=xyz, Vppi=-1, f=1)[0]
 HL = HD[0:L.shape[0], 0:L.shape[0]]
 HR = HD[-R.shape[0]:, -R.shape[0]:]
+Lxyz = xyz[L]
+Rxyz = xyz[R]
 
 Lxyz1 = Lxyz - np.array([shiftx, 0, 0])
 Rxyz1 = Rxyz + np.array([shiftx, 0, 0])
@@ -44,11 +46,11 @@ En = np.linspace(-3, 3, 1000)
 eta = 1e-6j
 
 GD, GammaL, GammaR = EnergyRecursion(HD, HL, HR, VL, VR, En, eta)
-
+site = int(input('Choose site: '))
 G = np.zeros((En.shape[0]), dtype=complex)
 bar = Bar('Retrieving Greens function ', max=En.shape[0])
 for i in range(En.shape[0]):
-    G[i] = GD["GD{:d}".format(i)].diagonal()[0]
+    G[i] = GD["GD{:d}".format(i)].diagonal()[site]
     bar.next()
 bar.finish()
 
@@ -58,14 +60,20 @@ Y1 = Y.real
 Y2 = Y.imag
 real, = plt.plot(X, Y1, label='real')
 imag, = plt.fill(X, Y2, c='orange', alpha=0.8, label='imag')
-plt.ylim((-10, 20))
+plt.ylim((-4, 4))
 plt.grid(which='both', axis='both')
 plt.legend(handles=[imag, real])
-plt.title('Greens function at 0th site')
-plt.xlabel('Energy E arb. unit')
+if site == 1:
+    plt.title('Greens function at {:d}st site'.format(site))
+if site == 2:
+    plt.title('Greens function at {:d}nd site'.format(site))
+if site == 3:
+    plt.title('Greens function at {:d}rd site'.format(site))
+else:
+    plt.title('Greens function at {:d}th site'.format(site))
+plt.xlabel(r'$E(V_{pp\pi})$')
 plt.ylabel('Re[G(E)]/Im[G(E)]')
-#savename = filename.replace('.fdf', 'imrealTE7.eps')
-#plt.savefig(savename, bbox_inches='tight')
+
 plt.show()
 
 T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
