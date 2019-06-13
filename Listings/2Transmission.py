@@ -14,7 +14,7 @@ shiftx = 2.46
 
 xyz, UX, UY, filename = ImportSystem(nx)
 
-Lxyz, L, R, Rxyz = DefineDevice(xyz) 
+Lxyz, L, R, Rxyz = DefineDevice(xyz)
 #RestL, L, R, C, RestR = DefineDevice(xyz)
 HD = Onsite(xyz=xyz, Vppi=-1)
 HL = HD[0:L.shape[0], 0:L.shape[0]]

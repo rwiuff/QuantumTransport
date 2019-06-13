@@ -209,7 +209,7 @@ for i in range(numplot - 1):
     plt.xlabel('E[eV]')
     plt.ylabel('T(E)', labelpad=15)
     plt.xlim(ev1, ev2)
-    plt.ylim(0, np.max(Y)+0.25)
+    plt.ylim(0, np.max(Y) + 0.25)
     ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
     plt.show()
 
@@ -221,7 +221,7 @@ plt.grid(which='both', axis='both')
 plt.xlabel('E[eV]')
 plt.ylabel('T(E)', labelpad=15)
 plt.xlim(ev1, ev2)
-plt.ylim(0, np.max(Y)+0.25)
+plt.ylim(0, np.max(Y) + 0.25)
 ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
 plt.show()
 

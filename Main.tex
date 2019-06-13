@@ -25,7 +25,7 @@
 	range-phrase = -,
 	range-units =  single,
 	inter-unit-product = \ensuremath{{\cdot{}}},
-%	number-unit-product = \ ,
+	%	number-unit-product = \ ,
 	multi-part-units = single,
 	alsoload = synchem,
 	alsoload = addn
@@ -48,8 +48,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[format=plain,
-            labelfont={bf,it,footnotesize},
-            textfont={it,footnotesize}]{caption}
+	labelfont={bf,it,footnotesize},
+	textfont={it,footnotesize}]{caption}
 \captionsetup{font={stretch=0.9}}
 \usepackage[verbose]{wrapfig}
 \usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=2.5cm]{geometry}
@@ -75,10 +75,10 @@
 \stepcounter{myWeekNum}
 %
 \newcommand{\myWeek}{\themyWeekNum
-    \stepcounter{myWeekNum}
-    \ifnum\themyWeekNum=53
-         \setcounter{myWeekNum}{1}
-    \else\fi
+	\stepcounter{myWeekNum}
+	\ifnum\themyWeekNum=53
+		\setcounter{myWeekNum}{1}
+	\else\fi
 }
 %
 
@@ -213,6 +213,6 @@
 \listoflistings
 %\listoftodos
 \newpage
- %Appendicer herunder:
+%Appendicer herunder:
 \input{Appendix.tex}
 \end{document}
