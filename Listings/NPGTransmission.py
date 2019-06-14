@@ -169,6 +169,5 @@ plt.xlabel('E[eV]')
 plt.ylabel('T(E)', labelpad=15)
 plt.show()
 
-
 input("Press any key to quit")
 quit()
