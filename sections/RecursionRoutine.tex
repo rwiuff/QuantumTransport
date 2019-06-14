@@ -79,9 +79,9 @@ One of the results possible to obtain via the recursion routine is the Green's f
 \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \vspace{-1\baselineskip}
 \captionof{listing}{Code showing the loop which produces the complex Green's function (or y-values) for a range of energies used in the plot.\cref{LDOSsimple}\label{plotcode}}\vspace{\baselineskip}
-	\begin{figure}[ht]
-		\includegraphics[width=.45\textwidth]{Figures/BetaimrealTE.eps}
-		\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
-		\label{LDOSsimple}
-	\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=.45\textwidth]{Figures/BetaimrealTE.eps}
+	\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
+	\label{LDOSsimple}
+\end{figure}
 This gives information about the LDOS at a specific energy and place in space, namely a specific atom in the unit cell. The resulting plot for the simple system ( at atom index 4) can be seen in \cref{LDOSsimple}. Note that the plot only represents the LDOS for a specific site on the molecule and that they may change radically from site to site (see \cref{appfigs}, \cref{siteLDOSplot} for an example using the same system as \cref{inlinepointplot}). The site can be changed by choosing another index in \cref{plotcode} line 68, which corresponds to the atom indices in \cref{inlinepointplot}.

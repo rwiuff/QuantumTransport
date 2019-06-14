@@ -208,8 +208,8 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
     bar = Bar('Running Recursion          ', max=En.shape[0])
     q = 0
     for i in En:
-        gl, crap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
-        gr, SER, crap = RecursionRoutine(i, HR, VR, eta=eta)
+        gl, scrap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
+        gr, SER, scrap = RecursionRoutine(i, HR, VR, eta=eta)
         SS = SEL.shape[0]
         Matrix = np.zeros((HD.shape), dtype=complex)
         Matrix[0:SS, 0:SS] = SEL
@@ -239,7 +239,8 @@ def Transmission(GammaL, GammaR, GD, En):
     bar = Bar('Calculating Transmission   ', max=En.shape[0])
     for i in range(En.shape[0]):
         T[i] = np.trace((GammaR["GammaR{:d}".format(i)] @ GD["GD{:d}".format(
-            i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj().transpose()).todense())
+            i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj(
+        ).transpose()).todense())
         bar.next()
     bar.finish()
     return T

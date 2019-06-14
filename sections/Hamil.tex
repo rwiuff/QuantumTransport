@@ -38,10 +38,10 @@ The first and most essential parts needed for calculations is the \textit{on-sit
 % \end{figure}
 The on-site Hamiltonian represents the interaction of atoms within the unit cell and the hopping matrices represents the interaction of atoms between periodically repeated unit cells.
 \begin{figure}[ht]
- \centering
- \includegraphics[width=.7\textwidth]{Figures/atomreffig.eps}
- \caption{Visual representation of the periodic simple system. The atoms surrounded by the black box in the centre represents the unit cell. The neighbouring boxes are unit cells repeated periodically once in every direction. Blue connections are onsite hops. Yellow are offsite hops.}
- \label{atomrepfig}
+	\centering
+	\includegraphics[width=.7\textwidth]{Figures/atomreffig.eps}
+	\caption{Visual representation of the periodic simple system. The atoms surrounded by the black box in the centre represents the unit cell. The neighbouring boxes are unit cells repeated periodically once in every direction. Blue connections are onsite hops. Yellow are offsite hops.}
+	\label{atomrepfig}
 \end{figure}
 In \cref{atomrepfig} a visual representation of the simple systems with periodically repeated unit cells can be seen. For the rest of the report, the on-site Hamiltonian will all ways be the centre cell while the hopping matrices will be the cells surrounding the on-site Hamiltonian (See \cref{repfig} for a generalised visual representation of the concept).\newline
 In order to find these hop we start off with a set of coordinates for the unit cell atoms as well with the lattice unit vectors. In order to get the onsite hop matrix we use what is called the vector outer product. This means that every coordinate set is compared to every other coordinate set. In our case, we want to find the nearest neighbours. Every two atoms within a distance of \SI{1.6}{\angstrom} is considered nearest neighbours. A function called \textit{Onsite} have been developed to do just this. In \cref{npouter} the function can be seen.
@@ -67,7 +67,7 @@ In practice this is done by shifting the original \(x_0,y_0\) coordinates by the
 Now that the on-site Hamiltonian along with its hopping matrices have been created, the next step is to create the full Hamiltonian in order to solve the Schr\"{o}dinger equation for the system as a whole. This is an eigen-value/vector problem. The Schr\"{o}dinger equation needs to be solved to get the eigen energies for the system as they will be used to produce band structure plots later on. In essence the full Hamiltonian denoted \(\vb{H}\) is a sum of the on-site Hamiltonian and its corresponding hopping matrices multiplied by a complex exponential function that has the appropriate phase relative to the hopping matrix. Remember that the electrons moves as waves in the periodic system. Because of the periodicity it is practical to use the reciprocal space. Here the electron can move from \textit{k}-point to \textit{k}-point, where \(k\) represents a continuous variable between 0 and \(\pi\) along the \(\dfrac{1}{x}\)- and \(\dfrac{1}{y}\)-axis (hence the term ``reciprocal space'').
 This means that when moving from one  \textit{k}-point to another, one needs to multiply the appropriate parts with a Bloch phase:
 \begin{align}\label{hamileq}
-	\vb{H}(k_x,k_y) = \vb{h}_0 & + (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x}                   \nonumber   \\
+	\vb{H}(k_x,k_y) = \vb{h}_0 & + (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x}                   \nonumber  \\
 	                           & + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}                               \\
 	                           & + \vb{V}_{xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_x}e^{ik_y}) \nonumber
 \end{align}

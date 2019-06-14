@@ -61,52 +61,52 @@ This hybridisation lock all but one valence electron for the carbon atoms. These
 \cref{p} shows the valence orbitals of carbon.
 \begin{figure}[H]
 	\centering
-		\begin{tikzpicture}
-			\orbital[pos = {(0,3)}] {s}
-			\node[above] at (0,4) {s};
-			\orbital[pos = {(2,3)}]{px}
-			\node[above] at (2,4) {p$_x$};
-			\orbital[pos = {(4,3)}]{py}
-			\node[above] at (4,4) {p$_y$};
-			\orbital[pos = {(6,3)}]{pz}
-			\node[above] at (6,4) {p$_z$};
-		\end{tikzpicture}
-		\caption{The valence orbitals of carbon.}
-		\label{p}
+	\begin{tikzpicture}
+		\orbital[pos = {(0,3)}] {s}
+		\node[above] at (0,4) {s};
+		\orbital[pos = {(2,3)}]{px}
+		\node[above] at (2,4) {p$_x$};
+		\orbital[pos = {(4,3)}]{py}
+		\node[above] at (4,4) {p$_y$};
+		\orbital[pos = {(6,3)}]{pz}
+		\node[above] at (6,4) {p$_z$};
+	\end{tikzpicture}
+	\caption{The valence orbitals of carbon.}
+	\label{p}
 \end{figure}
 The last electron in the p\(_z\) orbital does not mix with the tightly bound s, p\(_x\) and p\(_y\) electrons and moves freely. Thus these electrons have higher energies compared to the \(sp^2\) electrons and occupy states at the Fermi level. These electrons dominates transport in the graphene lattice. The p\(_z\) orbital is also known as the \(\pi\)-orbital and as such the electron lying there is called a \(\pi\)-electron. Through a carbon lattice the \(\pi\)-electrons will travel through \(\pi\)-orbitals. For a benzene ring the \(\pi\)-electrons at the highest occupied molecular state will travel through the \(\pi\)-orbitals switching sign as they travel as shown in \cref{sign}.
 \begin{figure}[H]
 	\centering
-		\pgfdeclarelayer{background}
-		\pgfdeclarelayer{middle}
-		\pgfdeclarelayer{foreground}
-		\pgfsetlayers{background,middle,main,foreground}
-		\begin{tikzpicture}
-			\begin{pgfonlayer}{background}
-				\orbital[pos = {(6,6)}]{-pz}
-				\node[above] at (6,7) {-p$_\pi$};
-				\orbital[pos = {(4,6)}]{pz}
-				\node[above] at (4,7) {p$_\pi$};
-				\draw[dashed, very thick] (6,6) -- (4,6);
-				\draw[dashed, very thick] (7,4.73) -- (6,6);
-				\draw[dashed, very thick] (4,6) -- (3,4.73);
-			\end{pgfonlayer}
-			\orbital[pos = {(7,4.73)}]{pz}
-			\node[above] at (7,5.73) {p$_\pi$};
-			\orbital[pos = {(3,4.73)}]{-pz}
-			\node[above] at (3,5.73) {-p$_\pi$};
-			\begin{pgfonlayer}{foreground}
-				\orbital[pos = {(4,3.46)}]{pz}
-				\node[above] at (4,4.46) {p$_\pi$};
-				\orbital[pos = {(6,3.46)}]{-pz}
-				\node[above] at (6,4.46) {-p$_\pi$};
-				\draw[dashed, very thick] (4,3.46) -- (6,3.46);
-			\end{pgfonlayer}
-			\draw[dashed, very thick] (6,3.46) -- (7,4.73);
-			\draw[dashed, very thick] (3,4.73) -- (4,3.46);
-		\end{tikzpicture}
-		\caption{When jumping from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\)-orbitals. Such a jump is described by two matrix elements in the system's Hamiltonian.}
-		\label{sign}
+	\pgfdeclarelayer{background}
+	\pgfdeclarelayer{middle}
+	\pgfdeclarelayer{foreground}
+	\pgfsetlayers{background,middle,main,foreground}
+	\begin{tikzpicture}
+		\begin{pgfonlayer}{background}
+			\orbital[pos = {(6,6)}]{-pz}
+			\node[above] at (6,7) {-p$_\pi$};
+			\orbital[pos = {(4,6)}]{pz}
+			\node[above] at (4,7) {p$_\pi$};
+			\draw[dashed, very thick] (6,6) -- (4,6);
+			\draw[dashed, very thick] (7,4.73) -- (6,6);
+			\draw[dashed, very thick] (4,6) -- (3,4.73);
+		\end{pgfonlayer}
+		\orbital[pos = {(7,4.73)}]{pz}
+		\node[above] at (7,5.73) {p$_\pi$};
+		\orbital[pos = {(3,4.73)}]{-pz}
+		\node[above] at (3,5.73) {-p$_\pi$};
+		\begin{pgfonlayer}{foreground}
+			\orbital[pos = {(4,3.46)}]{pz}
+			\node[above] at (4,4.46) {p$_\pi$};
+			\orbital[pos = {(6,3.46)}]{-pz}
+			\node[above] at (6,4.46) {-p$_\pi$};
+			\draw[dashed, very thick] (4,3.46) -- (6,3.46);
+		\end{pgfonlayer}
+		\draw[dashed, very thick] (6,3.46) -- (7,4.73);
+		\draw[dashed, very thick] (3,4.73) -- (4,3.46);
+	\end{tikzpicture}
+	\caption{When jumping from one carbon atom to another, the \(\pi\)-electron goes between p\(_\pi\)-orbitals. Such a jump is described by two matrix elements in the system's Hamiltonian.}
+	\label{sign}
 \end{figure}
 \subsection{Tight-binding}\label{tbtheory}
 Now that the transport carrying electrons are defined the next step is describing the transport itself. For this purpose we employ the \textit{tight-binding} approximation. In this approximation the electrons are considered being tightly bound to the atoms. Contrary to a free electron gas approximation, the electrons does not spend time in between orbitals, but jump from orbital in atom \(a\) to orbital in atom \(b\). The Hamiltonian is represented as a matrix of hopping elements for a collection of neighbouring atomic orbitals, i.e. molecular orbitals, as well as the energy contained within each orbital (which will be addressed later on). This can be done by describing the orbitals as a Linear Combination of Atomic Orbitals (LCAO). The solution to the Schrödinger equation is then:
