@@ -65,7 +65,7 @@ G00 = np.zeros((En.shape[0]), dtype=complex)
 for i in range(En.shape[0]):
     G, SelfER, SelfEL = RecursionRoutine(En[i], h, V, eta)
     G = np.diag(G)
-    G00[i] = G[0]
+    G00[i] = G[4]
 # print(G00)
 Y = G00
 X = En
