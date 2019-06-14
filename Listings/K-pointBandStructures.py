@@ -83,7 +83,7 @@ xtick = np.array([-1 / shiftx, 0, 1 / shifty])
 plt.xticks(xtick, ('X', r'$\Gamma$', 'Y'))
 plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
-plt.suptitle(filename, fontsize=14, fontweight='bold')
+# plt.suptitle(filename, fontsize=14, fontweight='bold')
 if p == 0:
     Rm = input('Sites removed? (y/n)')
     if Rm == 'n':
