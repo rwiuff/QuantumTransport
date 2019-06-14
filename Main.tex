@@ -1,33 +1,33 @@
 %!TeX spellcheck = en-GB
-
-%Basics
+\RequirePackage[l2tabu, orthodox]{nag}
+% Basics
 \documentclass[aps, prb, a4paper, english, 12pt, onecolumn, longbibliography, amsmath, amssymb, colorinlistoftodos, floatfix, svgnames]{revtex4-2}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
 
-%Symbols and scientifics
+% Symbols and scientifics
 \usepackage{amsmath, amsfonts, amssymb, bm}
 \numberwithin{equation}{section}
 \usepackage{physics}
 \usepackage{mathtools}
 \usepackage{siunitx}
 \sisetup{
-	per-mode = power ,
-	round-mode = figures ,
-	round-precision = 3 ,
-	scientific-notation = false ,
-	output-decimal-marker = {.} ,
-	exponent-product = \times ,
-	separate-uncertainty = true ,
-	uncertainty-separator = \ ,
-	output-product = \cdot ,
-	quotient-mode = fraction ,
-	range-phrase = - ,
-	range-units =  single ,
-	inter-unit-product = \ensuremath{{\cdot{}}} ,
-	number-unit-product = \ ,
-	multi-part-units = single ,
-	alsoload = synchem ,
+	per-mode = power,
+	round-mode = figures,
+	round-precision = 3,
+	scientific-notation = false,
+	output-decimal-marker = {.},
+	exponent-product = \times,
+	separate-uncertainty = true,
+	% uncertainty-separator = \ ,
+	output-product = \cdot,
+	quotient-mode = fraction,
+	range-phrase = -,
+	range-units =  single,
+	inter-unit-product = \ensuremath{{\cdot{}}},
+	%	number-unit-product = \ ,
+	multi-part-units = single,
+	alsoload = synchem,
 	alsoload = addn
 }
 \DeclareSIUnit\atm{atm}
@@ -40,15 +40,17 @@
 %\usepackage[nottoc]{tocbibind}
 \usepackage[lastpage,user]{zref}
 
-%Figures
+% Figures
 \usepackage{float}
 \usepackage{xcolor} % Required to specify font color
 \usepackage{graphicx}
+\usepackage{setspace}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[format=plain,
-            labelfont={bf,it,footnotesize},
-            textfont={it,footnotesize}]{caption}
+	labelfont={bf,it,footnotesize},
+	textfont={it,footnotesize}]{caption}
+\captionsetup{font={stretch=0.9}}
 \usepackage[verbose]{wrapfig}
 \usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=2.5cm]{geometry}
 \usepackage{etoolbox}
@@ -73,24 +75,24 @@
 \stepcounter{myWeekNum}
 %
 \newcommand{\myWeek}{\themyWeekNum
-    \stepcounter{myWeekNum}
-    \ifnum\themyWeekNum=53
-         \setcounter{myWeekNum}{1}
-    \else\fi
+	\stepcounter{myWeekNum}
+	\ifnum\themyWeekNum=53
+		\setcounter{myWeekNum}{1}
+	\else\fi
 }
 %
 
-%Header footer
+% Header footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{C. V. Sørensen \\ R. K. F. Wiuff}
 \chead{Quantum Transport in NPG\\DTU Department of Physics}
-\rhead{May \nth{1}\\2019}
+\rhead{June \nth{17}\\2019}
 \cfoot{Page \thepage\, of \zpageref{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-%Text tools
+% Text tools
 \usepackage{listings}
 \usepackage{parcolumns}
 \usepackage[super]{nth}
@@ -114,36 +116,47 @@
 \usepackage{todonotes}
 \WarningFilter{revtex4-2}{Repair the float package.}
 
-%Python
+% Python
 \usepackage{minted}
 \setminted{fontsize=\small}
-\usemintedstyle{monokai}
+\usemintedstyle{tango}
 \renewcommand{\listoflistingscaption}{Listings}
-%\renewcommand{\MintedPygmentize}{C:/Users/rwiuf/AppData/Roaming/Python/Python37/Scripts/pygmentize}
-\newcommand{\im}[3]{\inputminted[bgcolor=black, linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
+\newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
+\newcommand{\latex}{\LaTeX \ }
 
-%Definitions and new commands
+% Definitions and new commands
 \newcommand{\degr}{^{\circ}}
 \newcommand{\me}{\mathrm{e}}
 \newcommand*\mathinhead[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
-%PDFPages and RevTeX incompatability fix
+
+% PDFPages and RevTeX incompatability fix
 \makeatletter
 \AtBeginDocument{\let\LS@rot\@undefined}
 \makeatother
 
+% Changing lengths
+\usepackage[subtle]{savetrees}
+\linespread{1}
+\raggedbottom
+
+\usepackage{titlesec}
+\definecolor{DTUred}{cmyk}{0,.91,.72,.23}
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\color{DTUred}\filcenter\uppercase}{\thesection.}{1em}{}
+
 \begin{document}
-%Titlepage herunder:
+% Titlepage
 \begin{abstract}
 	\vspace{5mm}
 	\centering
 	\begin{description}
-		\item[Abstract] Abstract... \vspace{3\baselineskip}
+		\item[Abstract] Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.\footnote{\url{https://slipsum.com/}} \vspace{3\baselineskip}
 	\end{description}
 	\includegraphics[width=1cm]{Figures/DTU3CMYK.eps}
 \end{abstract}
 
 \title{Quantum Transport in Nanoporous Graphene}
-\date{May \nth{1} 2019}
+\date{June \nth{17} 2019}
 \author{Rasmus Kronborg Finnemann Wiuff (s163977)}
 \email[E-mail at ]{rwiuff@dtu.dk}
 \author{Christoffer Vendelbo Sørensen (163965)}
@@ -152,12 +165,12 @@
 \homepage[Homepage of the Technical University of Denmark ]{http://www.dtu.dk/english/}
 \homepage[\\\faGithub \ Project Repository: ]{https://github.com/rwiuff/QuantumTransport}
 \maketitle
-%\centering
-%\includegraphics[width=0.7\textwidth]{Figures/illu.eps}
+
 \newpage
 \pagenumbering{arabic}
 \twocolumngrid
 \tableofcontents
+\thispagestyle{empty}
 \newpage
 \onecolumngrid
 
@@ -167,7 +180,6 @@
 \let\toc@post\relax
 \makeatother
 
-\thispagestyle{empty}
 %\newpage
 \setcounter{page}{1}
 %Text
@@ -181,8 +193,12 @@
 \input{sections/RecursionRoutine.tex}
 \section{Transmission Routine}\label{transec}
 \input{sections/TransmissionRoutine.tex}
-\section{Exploring functionality of GNR bridges}
+\section{Exploring functionality of GNR bridges}\label{testsec}
 \input{sections/Tests.tex}
+\section{Discussion}
+\input{sections/Discussion.tex}
+\section{Conclusion}
+\input{sections/Conclusion.tex}
 \newpage
 \begin{acknowledgments}
 	The authors would like to thank...
@@ -201,6 +217,6 @@
 \listoflistings
 %\listoftodos
 \newpage
- %Appendicer herunder:
+%Appendicer herunder:
 \input{Appendix.tex}
 \end{document}

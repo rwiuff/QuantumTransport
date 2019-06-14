@@ -16,13 +16,15 @@ contactrep = 1
 shiftx = 2.46
 ev1 = -1.5
 ev2 = 1.5
-numkP = 5
+numkP = 3
+k1 = 0
+k2 = np.pi
 En = np.linspace(ev1 / 2.7, ev2 / 2.7, 200)
 En = np.delete(En, np.where(En == 1))
 En = np.delete(En, np.where(En == -1))
 
 eta = 1e-6j
-kP = np.linspace(-np.pi, np.pi, numkP)
+kP = np.linspace(k1, k2, numkP)
 
 xyz, UX, UY, filename, dgeom, cellsize = Import(nx, contactrep)
 
@@ -71,7 +73,6 @@ for i in kP:
 
     T = Transmission(GammaL=GammaL, GammaR=GammaR, GD=GD, En=En)
 
-
     GG[q, :] = G
     TT[q, :] = T.real
     q = q + 1
@@ -106,21 +107,22 @@ for i in range(nrow):
             Y = G
             Y1 = Y.real
             Y2 = Y.imag
-            fig.axes[numplot - 1].plot(X, Y1, label='real')
+            fig.axes[numplot - 1].plot(X, Y1, label='Greens function')
             fig.axes[numplot - 1].fill_between(X, 0, Y2,
-                                               color='orange', alpha=0.8, label='imag')
+                                               color='orange',
+                                               alpha=0.8, label='LDOS')
             fig.axes[numplot - 1].grid(which='both', axis='both')
             fig.axes[numplot - 1].legend(loc="upper right")
             fig.axes[numplot - 1].set_title('Average over k-points')
-            fig.axes[numplot -
-                     1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+            fig.axes[numplot - 1].yaxis.set_major_formatter(
+                FormatStrFormatter('%.2f'))
         else:
             Y = GG[q, :]
             Y1 = Y.real
             Y2 = Y.imag
-            fig.axes[q].plot(X, Y1, label='real')
+            fig.axes[q].plot(X, Y1, label='Greens function')
             fig.axes[q].fill_between(
-                X, 0, Y2, color='orange', alpha=0.8, label='imag')
+                X, 0, Y2, color='orange', alpha=0.8, label='LDOS')
             fig.axes[q].grid(which='both', axis='both')
             fig.axes[q].legend(loc="upper right")
             frac = Fraction(kP[q] * (1 / np.pi))
@@ -133,6 +135,35 @@ plt.tick_params(labelcolor='none', top=False,
                 bottom=False, left=False, right=False)
 plt.xlabel('Energy E arb. unit')
 plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
+plt.show()
+
+for i in range(numplot - 1):
+    fig = plt.figure()
+    Y = GG[i, :]
+    Y1 = Y.real
+    Y2 = Y.imag
+    plt.plot(X, Y1, label='Greens function')
+    plt.fill_between(
+        X, 0, Y2, color='orange', alpha=0.8, label='LDOS')
+    plt.legend(loc="upper right")
+    plt.grid(which='both', axis='both')
+    plt.xlabel('Energy E arb. unit')
+    plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
+    plt.xlim(ev1, ev2)
+    plt.show()
+
+fig = plt.figure()
+Y = np.average(GG, axis=0)
+Y1 = Y.real
+Y2 = Y.imag
+plt.plot(X, Y1, label='Greens function')
+plt.fill_between(
+    X, 0, Y2, color='orange', alpha=0.8, label='LDOS')
+plt.legend(loc="upper right")
+plt.grid(which='both', axis='both')
+plt.xlabel('Energy E arb. unit')
+plt.ylabel('Re[G(E)]/Im[G(E)]', labelpad=15)
+plt.xlim(ev1, ev2)
 plt.show()
 
 q = int(0)
@@ -150,8 +181,8 @@ for i in range(nrow):
             fig.axes[numplot - 1].plot(X, Y)
             fig.axes[numplot - 1].grid(which='both', axis='both')
             fig.axes[numplot - 1].set_title('Average over k-points')
-            fig.axes[numplot -
-                     1].yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+            fig.axes[numplot - 1].yaxis.set_major_formatter(
+                FormatStrFormatter('%.2f'))
         else:
             T = TT[q]
             Y = T.real
@@ -167,6 +198,31 @@ plt.tick_params(labelcolor='none', top=False,
                 bottom=False, left=False, right=False)
 plt.xlabel('E[eV]')
 plt.ylabel('T(E)', labelpad=15)
+plt.show()
+
+for i in range(numplot - 1):
+    fig, ax = plt.subplots()
+    T = TT[i]
+    Y = T.real
+    plt.plot(X, Y)
+    plt.grid(which='both', axis='both')
+    plt.xlabel('E[eV]')
+    plt.ylabel('T(E)', labelpad=15)
+    plt.xlim(ev1, ev2)
+    plt.ylim(0, np.max(Y) + 0.25)
+    ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+    plt.show()
+
+fig, ax = plt.subplots()
+T = np.average(TT, axis=0)
+Y = T.real
+plt.plot(X, Y)
+plt.grid(which='both', axis='both')
+plt.xlabel('E[eV]')
+plt.ylabel('T(E)', labelpad=15)
+plt.xlim(ev1, ev2)
+plt.ylim(0, np.max(Y) + 0.25)
+ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
 plt.show()
 
 input("Press any key to quit")
