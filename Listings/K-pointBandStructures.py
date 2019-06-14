@@ -85,7 +85,11 @@ plt.axvline(x=0, linewidth=1, color='k', linestyle='--')
 filename = filename.replace('.fdf', '')
 plt.suptitle(filename, fontsize=14, fontweight='bold')
 if p == 0:
-    plt.title('No on-site potential mod')
+    Rm = input('Sites removed? (y/n)')
+    if Rm == 'n':
+        plt.title('No on-site potential mod')
+    if Rm == 'y':
+        plt.title('Sites removed')
 else:
     plt.title('On-site potential mod: {:.2f} eV'.format(p))
 plt.ylim(-1.5, 1.5)
