@@ -1,11 +1,6 @@
 %!TEX root = ../Main.tex
 The Green's function and self energies play the central role when it comes to obtaining the LDOS as well as electron transport in a system. In fact, the imaginary part of the Green's function is the LDOS for a specific site in a system. What the Green's function and self energy actually is and how they come about will here be explained formally, to motivate the practical use in the following sections.\subsection{Green's functions and self-energy}\label{greensandself}
-Firstly on should note that some of the concepts in this section will be explained using a figure of NPG as an example (\cref{atomrepfig}). However, in the following section (\cref{recursionroutinesec}) the focus will revert back to the simple system from \cref{pointplot}. \begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{Figures/representativestructure2.eps}
-	\caption{Visual representation of the periodic NPG-structure. The atoms surrounded by the black box in the centre represents the unit cell. The neighbouring boxes are unit cells repeated periodically. Note that the two cells left and right with respect to the centre cell has been cut in half for figure space. The pink lines crossing the black box represents the link between the nearest neighbours in the adjacent cell.}
-	\label{atomrepfig}
-\end{figure}
+Firstly on should note that some of the concepts in this section will be explained using a figure of NPG as an example (\cref{atomrepfig}). However, in the following section (\cref{recursionroutinesec}) the focus will revert back to the simple system from \cref{pointplot}.
 %\begin{align}
 %\mathbf{H}\phi(t) &= i\pdv{t}\phi(t) \\
 %\mathbf{H}\mathbf{G}(t) &= i\pdv{t}\mathbf{G}(t)
