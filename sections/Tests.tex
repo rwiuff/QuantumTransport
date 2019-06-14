@@ -7,7 +7,7 @@ In this section a range of tests will be conducted on different NPG structures i
 		\label{studyfig3}
 	\end{figure}
 \subsection{Differences in para and meta bridges}\label{metaparasection}
-In broad terms the difference in the \textit{meta} and \textit{para} structures lies in the path an electron will travel through the benzene ring to get across the bridge between GNR's in NPG. In the para bridge, the path across the aromatic ring is symmetric and so the electron will pass above or below with equal probability. Since the para bridge has three bonds in each direction across the ring, the path length in the para bridge is the same on each side (See \cref{Metaparastructfig} a)). This will cause constructive QI of the states once the waves meet on the other side of the ring. Which for para NPG causes electronic coupling between the GNR channels. For the meta bridge the way across the aromatic ring is not symmetric in the sense that there is two bonds across the path below and four bonds across on the path above (See \cref{Metaparastructfig} b)). This will cause a shift by half a wavelength between the two paths and thus create destructive QI between waves meeting on the other side of the ring. In the meta NPG, this causes electronic decoupling between GNR channels, allowing for confinement of injected currents in a single GNR channel\cite{unpub}. In \cref{metapara} band plots as well as transmission plots are shown for para and meta NPG. In the band plots the two sets of valence/conduction bands around the fermi level shows separation for para and interference for meta NPG. Looking at the transmission plots directly below one can see there is transmission  and thus coupling of the states between the GNR's for para. The area between the two peaks at \SI{0.5}{\electronvolt} and  \SI{1.2}{\electronvolt} show transport between the GNR's. In the transmission plot for meta the transmission is confined. In the transmission plot the area between the two peaks is now pretty much 0. This means that  states occurs between GNR's are decoupled in meta system. To summarise these results qualitatively: Separations of the bands in the band plots, corresponds to effective coupling of the states between the GNR's. Bands on top of each other, showing QI, corresponds decoupling of the states to a single GNR thus decoupling states between GNR's. In the following sections, band plots will mainly be used to show results. Therefore one should keep in mind how the band structures, qualitatively, relate to transmission. In \cref{appfigs}, \cref{allbands} a figure obtained from the developed functions with band plots of normal, para and meta NPG can be seen.
+In broad terms the difference in the \textit{meta} and \textit{para} structures lies in the path an electron will travel through the benzene ring to get across the bridge between GNR's in NPG. In the para bridge, the path across the aromatic ring is symmetric and so the electron will pass above or below with equal probability. Since the para bridge has three bonds in each direction across the ring, the path length in the para bridge is the same on each side (See \cref{Metaparastructfig} a)). This will cause constructive QI of the states once the waves meet on the other side of the ring. Which for para NPG causes electronic coupling between the GNR channels. For the meta bridge the way across the aromatic ring is not symmetric in the sense that there is two bonds across the path below and four bonds across on the path above (See \cref{Metaparastructfig} b)). This will cause a shift by half a wavelength between the two paths and thus create destructive QI between waves meeting on the other side of the ring. In the meta NPG, this causes electronic decoupling between GNR channels, allowing for confinement of injected currents in a single GNR channel\cite{unpub}. In \cref{metapara} band plots as well as transmission plots are shown for para and meta NPG. In the band plots the two sets of valence/conduction bands around the fermi level shows a shift for para and interference for meta NPG. Looking at the transmission plots directly below one can see there is transmission  and thus coupling of the states between the GNR's for para. The area between the two peaks at \SI{0.5}{\electronvolt} and  \SI{1.2}{\electronvolt} show transport between the GNR's. In the transmission plot for meta the transmission is confined. In the transmission plot the area between the two peaks is now pretty much 0. This means that  states occurs between GNR's are decoupled in meta system. To summarise these results qualitatively: Shifts of the bands in the band plots, corresponds to effective coupling of the states between the GNR's. Bands on top of each other, showing QI, corresponds decoupling of the states to a single GNR thus decoupling states between GNR's. In the following sections, band plots will mainly be used to show results. Therefore one should keep in mind how the band structures, qualitatively, relate to transmission. In \cref{appfigs}, \cref{allbands} a figure obtained from the developed functions with band plots of normal, para and meta NPG can be seen.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{Figures/Metaparagraphic.eps}
@@ -22,14 +22,14 @@ In broad terms the difference in the \textit{meta} and \textit{para} structures 
 \end{figure}
 \newpage
 \subsection{Tests with modified meta and para NPG}\label{test1}
-The tests consist of two kinds of chemical modification. Firstly it will be adding oxygen sites to the meta and para NPG (Addition of Oxygen will be simulated by addition of another carbon site to the structure, effectively adding another pi-electron). Secondly simulations of hydrogenation will be done by having added hydroxide groups. By removing hydroxide sites entirely, the aim is to simulate the removal of the extra pi-electron which the oxygen originally provided, but now lost by hydrogenation. These modifications will be carried out separately. The aim is then to show that using the methods developed, based on Tight Binding models, it is possible to reproduce bands structures calculated from DFT. If successful, it will provide a much easier way to understand the effect of the implemented chemical modification compared to the DFT approach. Band plots, as well as some on-site potential maps, calculated with DFT has been provided by \textit{Isaac} for comparison. The geometries, on which the calculations are used, are optimized by DFT. They will also be provided by \textit{ISAAC}.
+The tests consist of two kinds of chemical modification. Firstly it will be adding oxygen sites to the meta and para NPG (Addition of Oxygen will be simulated by addition of another carbon site to the structure, effectively adding another pi-electron). Secondly simulations of hydrogenation will be done by having added hydroxide groups. By removing hydroxide sites entirely, the aim is to simulate the removal of the extra pi-electron which the oxygen originally provided, but now lost by hydrogenation. These modifications will be carried out separately. The band plots obtained via DFT makes it hard to understand what is actually going on in the system chemically. Therefore the aim is to show that using the methods developed, based on Tight Binding models, it is possible to reproduce bands structures calculated from DFT. If successful, it will provide a much easier way to understand the effect of the implemented chemical modification compared to the DFT approach. Band plots, as well as some on-site potential maps, calculated with DFT has been provided by \textit{Isaac} for comparison. The geometries, on which the calculations are used, are optimised by DFT. They will also be provided by \textit{ISAAC}.
 \subsection{Test 1: Para-O\mathinhead{_4}{_4}-NPG}
 In the first test is considering the Para-O\(_4\)-NPG. The basis structure is para-NPG where 4 oxygen sites are bonded, two on each benzene ring (See \cref{PS4OOW} ). The fist thing to notice is that in \cref{PS4ODFT} the valence band show QI and thus decouples the GNR's. So in spite having a para bridge, decoupling occurs when oxygen in bonded to the ring. To simulate this practically, the developed method considers the bonded oxygen as carbon atoms. It does not differentiate between the type of atoms only the distance between them. As a baseline the potential of these atoms are thus the same. Moreover, the hydrogen, included in the provided optimised geometries, will be removed before any calculations take place. In \cref{PS4Odevnomod} one can see the resulting band structure plot, where calculations have been carried out, using only the provided geometry. No modifications where made. The band plot does not show much resemblance with the one obtained, using DFT. It is pretty much symmetric around the fermi level and it is hard to make out whether there is coupling or decoupling between GNR's. This is expected. As seen in the potential map of \cref{potmapPS4O}, the sites where the oxygen is bonded, have a potential much different from that of the rest of the system (the four dark blue spots). As mentioned, the baseline of the method does not take into account differentiating on-site potentials within a cell. So to compensate for this, the on-site potential of the four bonded oxygen is changed. In \cref{PS4Odevmod} one can see the resulting band plot after the on-site potential of the bonded oxygen has been change to \SI{-0.50}{\electronvolt}. The resulting band plot resembles the DFT calculations much more. There is now QI in the valence bands which means decopling of the GNR's.
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.8\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{Figures/PS4O.eps}
+		\includegraphics[width=0.8\textwidth]{Figures/para_O4.png}
 		\vspace{-1\baselineskip}
 		\caption{}
 		\label{PS4OOW}
@@ -68,18 +68,18 @@ In the first test is considering the Para-O\(_4\)-NPG. The basis structure is pa
 	\label{PS4O}
 \end{figure}
 \subsection{Test 2: P-(OH)\mathinhead{_4}{_4}-NPG}\label{test2}
-Next test will be with the P-(OH)\(_4\)-NPG system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups (See \cref{appfigs}, \cref{Strucow}, no. 4). Here the test is to show the difference between removing a OH site entirely (effectively the hydrogen in hydroxide removes the extra pi-electron in oxygen from the system, which can be simulated by removing the atoms entirely) and lowering the on-site potential of the oxygen in the OH group significantly in relation to the rest of the system. Again the results from DTF is shown in \cref{PS4OHDFT} and following the band plots from the developed scripts (\cref{PS4OHremove,PS4OHmod1,PS4OHdevmod2}).
+Next test will be with the P-(OH)\(_4\)-NPG system. Again the basis structure is para-NPG with added oxygen, but here the aim is to simulate hydrogenation, so therefore the oxygen atoms added will become hydroxide groups (See \cref{PS4OHOW}). The DFT plot in \cref{PS4OHDFT} shows a shift in the valence/conduction bands, so the GNR's have been coupled again. Here the approach is to try use the applied on-site potential for the bonded oxygen from the previous test (\cref{test1}) as a baseline. This is on the assumption that oxygen still contribute to the pi-conjugated system. In \cref{} the resulting band plot can be seen. 
 \begin{figure}[ht]
 	\centering
 		\begin{subfigure}[b]{0.8\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{Figures/PS4OH.eps}
+		\includegraphics[width=0.8\textwidth]{Figures/para_OH4.png}
 		\vspace{-1\baselineskip}
 		\caption{}
 		\label{PS4OHOW}
 	\end{subfigure}
 	\vskip
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{Figures/PS4OHDFT.eps}
 		\vspace{-1\baselineskip}
@@ -87,19 +87,26 @@ Next test will be with the P-(OH)\(_4\)-NPG system. Again the basis structure is
 		\label{PS4OHDFT}
 	\end{subfigure}
 	\hspace{-30pt}
-	\begin{subfigure}[b]{0.3\textwidth}
+	\begin{subfigure}[b]{0.25\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{Figures/PS4OHSitesRemoved.eps}
+		\includegraphics[width=0.8\textwidth]{Figures/PS4OHmod2.eps}
 		\vspace{-2\baselineskip}
 		\caption{}
 		\label{PS4OHremove}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
+		\begin{subfigure}[b]{0.25\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{Figures/PS4OHmod.eps}
 		\vspace{-2\baselineskip}
 		\caption{}
 		\label{PS4OHdevmod2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.25\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{Figures/PS4OHSitesRemoved.eps}
+		\vspace{-2\baselineskip}
+		\caption{}
+		\label{PS4OHremove}
 	\end{subfigure}
 	\vskip
 	\begin{subfigure}[b]{0.8\textwidth}
@@ -118,7 +125,7 @@ This test is done in the same manner as \cref{test1}. The only difference being 
 \begin{figure}[ht]
 	\centering
 		\begin{subfigure}[b]{0.8\textwidth}
-		\includegraphics[width=0.8\textwidth]{Figures/MS2Opotmap.eps}
+		\includegraphics[width=0.8\textwidth]{Figures/meta_O4.png}}
 		\vspace{-1\baselineskip}
 		\caption{}
 		\label{MS2OOW}
@@ -164,7 +171,7 @@ The fourth and final test will be with the same approach as \cref{test2} only he
 	\centering
 		\begin{subfigure}[b]{0.8\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{Figures/MS2OH.eps}
+		\includegraphics[width=0.8\textwidth]{Figures/meta_OH4.png}}
 		\vspace{-1\baselineskip}
 		\caption{}
 		\label{MS2OHOW}
