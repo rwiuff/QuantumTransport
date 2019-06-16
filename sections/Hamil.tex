@@ -65,7 +65,7 @@ In practice this is done by shifting the original \(x_0,y_0\) coordinates by the
 \end{figure}
 \subsection{Defining the full Hamiltonian and solving the Schr\"{o}dinger equation}\label{FullHam}
 Now that the on-site Hamiltonian along with its hopping matrices have been created, the next step is to create the full Hamiltonian in order to solve the Schr\"{o}dinger equation for the system as a whole. This is an eigen-value/vector problem. The Schr\"{o}dinger equation needs to be solved to get the eigen energies for the system as they will be used to produce band structure plots later on. In essence the full Hamiltonian denoted \(\vb{H}\) is a sum of the on-site Hamiltonian and its corresponding hopping matrices multiplied by a complex exponential function that has the appropriate phase relative to the hopping matrix. Remember that the electrons moves as waves in the periodic system. Because of the periodicity it is practical to use the reciprocal space. Here the electron can move from \textit{k}-point to \textit{k}-point, where \(k\) represents a continuous variable between 0 and \(\pi\) along the \(\dfrac{1}{x}\)- and \(\dfrac{1}{y}\)-axis (hence the term ``reciprocal space'').
-This means that when moving from one  \textit{k}-point to another, one needs to multiply the appropriate parts with a Bloch phase:
+This means that when moving from one  \textit{k}-point to another, one needs to multiply the appropriate parts with a Bloch phase\cite{simon2013oxford}:
 \begin{align}\label{hamileq}
 	\vb{H}(k_x,k_y) = \vb{h}_0 & + (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x}                   \nonumber  \\
 	                           & + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}                               \\
