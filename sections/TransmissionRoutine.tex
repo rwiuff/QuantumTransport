@@ -51,7 +51,7 @@ This ultimately leads to transmission because transmission is in essence an expr
 \end{align}
 \subsection{Transmission in 1D}
 Again the developed routine in this section will be used on the simple system (\cref{inlinepointplot}) as an example and in order to make sure that the obtained results are as expected. Thereafter it will be generalised to suit all kinds and sizes of system. First thing is to define the device in the same manner as \cref{systemillu} so that the device Hamiltonian \(\textbf{H}_D\) can be obtained through the already defined function \textit{Onsite}. The left and right Hamiltonian \(\textbf{H}_{L,R}\) are thus picked out as described earlier. An implementation has been made to the script to allow the user to see the left and right contact cells graphically as red and blue marked atom indices in the plot of the unit cell (See \cref{inlinepointplot}).
-This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). From \(\vb{H}_{L,R}\) the corresponding hopping matrices are defined using the \textit{Hop} function. Then the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert these to sparse matrices as shown in \cref{sparse}. This is, however, a tradeoff as numerical computations will take more time.
+This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). From \(\vb{H}_{L,R}\) the corresponding hopping matrices are defined using the \textit{Hop} function. Then the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert these to compressed sparse row matrices as shown in \cref{sparse}. This is, however, a tradeoff as numerical computations will take more time.
 \im{Listings/Functions.py}{199}{203}
 \vspace{-.5\baselineskip}
 \captionof{listing}{By using SciPy, \textit{EnergyRecursion} converts all matrices to the more memory efficient ``Compressed Sparse Row matrix''.\label{sparse}}\vspace{\baselineskip}
@@ -66,29 +66,65 @@ The device Green's function \(\textbf{G}_D\) as well as the left and right rate 
 The output of the \textit{EnergyRecursion} function is the two rate matrices \(\vb{\Gamma}_{L/R}\) as well as the device Green's function \(\vb{G}_D\) and as per \cref{transeq} the matrices needed for transmission have been obtained. As seen in \cref{transfunc} the function \textit{Transmission} simply carries out the matrix product and subsequent trace of the matrices resulting from \textit{EnergyRecursion} and outputs a range of transmission probabilities which is then plotted against an energy range. Do mind that this is still just 1D in the sense that the transmission only moves in one direction. A plot of the transmission for the simple 1D system (the one in \cref{inlinepointplot}) can be seen in \cref{Transsimple}.
 \im{Listings/Functions.py}{240}{243}
 \vspace{-.5\baselineskip}
-\captionof{listing}{Code showing how the transmission probabilities are created. Taking in the rate matrices, device Green's function and a range of energies it takes the trace of the matrix product of for a range of energies as in \cref{transeq}. \label{transfunc}}\vspace{\baselineskip}
-The transmission-function also transform the transmission and Green's function to normal ``dense'' matrices, as theese are no longer exessively large.
+\captionof{listing}{Code showing how the transmission probabilities are calculated. Taking rate matrices, device Green's function and a range of energies as inputs, it takes the trace of the matrix product for a range of energies as in \cref{transeq}. \label{transfunc}}\vspace{\baselineskip}
+The transmission-function also transform the transmission and Green's function to normal ``dense'' matrices, as theese are no longer exessively large, nor sparse.
 \begin{figure}[ht]
 	\includegraphics[width=0.45\textwidth]{Figures/BetaTE.eps}
 	\caption{Figure showing the resulting transmission through the simple system}\label{Transsimple}
 \end{figure}
 \subsection{Development of transmission to 2D}\label{trans2d}
-Lastly the transmission routine needs to be generalised so it can handle transport in two directions. The most convenient approach is to work with five real space unit cells as a starting point. One centre cell, a right and a left cell representing the contacts and then two additional cells on the left and right, representing the rest of the contact region. This would be the minimum amount of cells needed to generalise the transmission. One might have more centre cells if the structure changes from one of those cells to the other. First these five unit cells will be defined using already developed tools. Then a big Hamiltonian, including all coordinates from the five cells representing real space are created, again using existing functions. One could call this big Hamiltonian \(\textbf{H}_{\text{Bigreal}}(x_0y_0z_0,x_0y_0z_0)\). It is a function of two sets of identical coordinates, namely the ones used to create the Hamiltonian itself. This has also been the case for all previous calculations, but the following steps will make it clear why it is explicitly stated here. The left/right on-site Hamiltonians and hopping matrices can thus be picked out of \(\textbf{H}_{\text{Bigreal}}(x_0y_0z_0,x_0y_0z_0)\) as before to get the Green's functions, self-energies for transmission in real space, just as in the previous section. However, before the Green's function, self-energies and transmission are calculated, the full left/right on-site Hamiltonian as well as their hopping matrices are defined as functions of a variable \(k\) which is added as a Bloch phase to the hopping matrices. As an example the following is the equation for the full right side Hamiltonian using the right on-side Hamiltonian with its hopping matrices: \(\textbf{H}_R(k) = \textbf{V}_Re^{ik}+\textbf{V}^{\dagger}_Re^{-ik}+\textbf{h}_R\). This added k-variable Bloch phase corresponds to transmission in the direction transverse to that in real space and it has \(2\pi\) periodic boundary conditions. This means that transport of electrons in the transverse direction in only dependent on a Bloch phase. However, one still needs the interaction between the centre on-site Hamiltonian (or device Hamiltonian) and the cells repeated in the transverse direction. Firstly the hopping between \(\textbf{H}_{\text{Bigreal}}(x_0y_0z_0,x_0y_0z_0)\) and a transversely shifted Hamiltonian is defined as \(\textbf{W} = \textbf{H}_{\text{Bigtrans}}(x_0y_0z_0,x_1y_1z_1)\) (Here using \textbf{W} as not to confuse it with \textbf{V} which is hopping between cells in real space). The  index of 1 in the second set of coordinates in \(\vb{W}\) is to mark that the original coordinates have been shifted in the transverse direction. With the hopping matrices \(\vb{W}\) for the transverse direction defined a Hamiltonian dependent on \(k\)-point values can be defined as:\begin{flalign}
-	\textbf{H}(k) &= \textbf{h}+\textbf{W}e^{ik}+\textbf{W}^{\dagger}e^{-ik}\\ \nonumber
-	&= \textbf{H}_{\text{Bigreal}}(x_0y_0z_0,x_0y_0z_0)+\textbf{H}_{\text{Bigtrans}}(x_0y_0z_0,x_1y_1z_1)e^{ik}+\textbf{H}_{\text{Bigtrans}}^{\dagger}(x_0y_0z_0,x_1y_1z_1)e^{-ik}
-\end{flalign}
-Now that a Hamiltonian, dependent of a variable \(k\) has been defined, it is possible to get self-energies, Green's functions that is \(k\)-dependent as well. This means that the transmission will also \(k\)-dependent. Thus transmission in 2D is essentially defined by a continuous variable in a range energies in real space and a continuous variable between \(-\pi,\pi\) in inverse space (transverse direction). This hereby concludes the all the initial effort to explain the formalism needed to get transmission in a two dimensional material such as NPG. Following is a walk through as to how this last step has been implemented through code programming.\\
-To get the transmission in 2D the function \textit{PeriodicHamiltonian} is nested in a for loop, looping over transverse k-points (See \cref{trans2dcode} line xx-xx). The function \textit{PeriodicHamiltonian} basically translates the device Hamiltonian in the transverse direction (See \cref{appfigs}, \cref{periodichamilcode} for the code piece). Picked out from the resulting Hamiltonian is the left/right device Hamiltonian and left/right hopping matrix (See \cref{trans2dcode} line xx-xx). Still within the loop the \textit{EnergyRecursion} is used to get the device Greens function, and left/right rate matrices. Lastly the transmission is done with the \textit{NPGTransmission} script (\cref{trans2dcode} line xx). The function \textit{Transmission} basically computes \cref{transeq} as it stands, it can be seen in \cref{appfigs}, \cref{transmissioncode}. All these functions are used per k-point which effectively gives transmission in two dimensions.\im{Listings/NPGTransmission.py}{34}{72}
+Lastly the transmission routine needs to be generalised so it can handle transport in two directions. The most convenient approach is to work with five real space unit cells as a starting point. One centre cell, a right and a left cell representing the contacts and then two additional cells on the left and right, representing the rest of the semi-infinite chain. This would be the minimum amount of cells needed to generalise the transmission. One might have more centre cells if the structure changes from one of those cells to the other. First these five unit cells will be defined using already developed tools. Again working with the simple system, \cref{2DTranssys} shows such a 2D system.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.7\textwidth]{Figures/2DTrans.eps}
+	\caption{The simple system repeated in 2D. The k-points perpendicular to the transport direction are shifted with a Bloch phase. This practically packs the system to just one row of cells, which in turn is dealt with using the \textit{EnergyRecursion} routine.}
+	\label{2DTranssys}
+\end{figure}
+This system contains the 1D semi-infinite chain of cells however, when describing cells in the added direction, one simply needs to shift the system by a phase shift. There are two considerations: Firstly the range of \textit{k}-points exists between \(-\pi\) and \(\pi\). Secondly these are periodic boundraries. One really needs to pick a range of perpendicular \textit{k}-points of interest and then the idea is to construct a Hamiltonian for the 1D chain, located at that point. The recusion routine then calculates Green's functions and transmission. The Hamiltonian is constructed using the function \textit{PeriodicHamiltonian}. This function uses the equation:
+\begin{align}
+	\vb{H} = \vb{h} + \vb{V}\me^{1ik_{\perp}} + \vb{V}^{\dagger}\me^{1i-k_{\perp}}\label{PBHEQ}
+\end{align}
+The function is shown in \cref{PBH}.
+\im{Listings/Functions.py}{250}{253}
 \vspace{-.5\baselineskip}
-\captionof{listing}{Code piece showing the transmission routine.}{\label{trans2dcode}}\vspace{\baselineskip}
+\captionof{listing}{The function calculating the periodic Hamiltonian for a given \textit{k}-point using \cref{PBHEQ}.}{\label{PBH}}\vspace{\baselineskip}
+As seen in \cref{PBH}, the onsite and hop matrices are calculated in the usual way but for all of the atoms in the 5 cells. In order to understand why, first consider \cref{2DHammil}.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.7\textwidth]{Figures/2DHam.eps}
+	\caption{All onsite on offsite hop elements and contact Hamiltonians can be extracted from the matrix produced by \textit{PeriodicHamiltonian} because of the 5-cell setup. \(H_D\) is the device Hamiltonian, \(H_L\) and \(H_R\) are contact Hamiltonians; \(V_L\) and \(V_R\) are hopping matrices.}
+	\label{2DHammil}
+\end{figure}
+Because of the 5-cell setup it is possible to extract all hop elements and Hamiltonians from the output matrix of \textit{PeriodicHamiltonian}. The contact Hamiltonians exists in the ends of the diagonal and some off diagonal elements contains the hop elements. These are extracted in the 2D transmission routine as shown in \cref{MatrixEx}.
+\im{Listings/NPGTransmission.py}{39}{47}
+\vspace{-.5\baselineskip}
+\captionof{listing}{All required matrices for the recursion routine can be picked from the periodic Hamiltonian.}{\label{MatrixEx}}\vspace{\baselineskip}
+To get the transmission in 2D the function \textit{PeriodicHamiltonian} is nested in a for loop, looping over transverse k-points. Still within the loop the \textit{EnergyRecursion} is used to get the device Greens function, and left/right rate matrices. Lastly the transmission is calculated with the function \textit{Transmission} using \cref{transeq}.
 Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
-\subsection{Summary of Methodology}
-\begin{figure}
+\subsection{Summary of developed scripts}
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{Figures/Flowchart.eps}
 	\caption{Flowchart depicting the routines run in python. SISL is used to import the geometry. Afterwards the coordinates are either used for band structure plots or for transmission plots. For the band structures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigen energies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self-energies in the transport direction (using the recursion algorithm). The self-energies and the Green's functions retrieved here are then multiplied as to get the transmission.}
 	\label{Flowchart}
 \end{figure}
+The final algorithm is shown in \cref{Flowchart}. It is laid our here:
+\begin{enumerate}
+	\item Import geometry and unit vectors with SISL.
+	\item For bandstructure plots
+	      \begin{enumerate}
+		      \item Find the Hamiltonian described in \cref{hamilsec}
+		      \item Calculate the eigen energies, iterating over the desired k-points.
+		      \item Plot the gathered k-points.
+	      \end{enumerate}
+	\item For transmission plots.
+	      \begin{enumerate}
+		      \item Hamiltonian at a specific \(k_{\perp}\)-point is generated.
+		      \item Iterating over the energies, the (at least 5-cell) system is reduced using the recursion routine.
+		      \item Iterating over the energies, the self-energies and Green's functions are used to calculate transmission.
+		      \item Transmission, Green's functions and LDOS are plottet.
+	      \end{enumerate}
+\end{enumerate}
 \subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
 All the scripts necessary for calculation have been developed and they can now be used on a system of NPG.
 The following results are based on this structure similar to that of \cref{introGraphic}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF\cite{} and TBtrans calculations.
