@@ -44,7 +44,7 @@ Here the trace of the product is taken as all states besides the one in the left
 \begin{align}\label{lilletrans}
 	\text{Tr}[\vb{A}_L\vb{\Gamma}_R]=\text{Tr}[\vb{A}_R\vb{\Gamma}_L]
 \end{align}
-This ultimately leads to transmission because transmission is in essence an expression of how much of the density of states passes trough the device and as explained, \cref{spectraltrace} is exactly the density of states, coming from the left (or right) and then passes through the right (left) by rate \(\vb{\Gamma}_{L,R}(E)\). So using the Green's function, left/right self energies as well as the left/right rate matrices, the transmission, as a function of energy, can be obtained via the following equation:
+This ultimately leads to transmission because transmission is in essence an expression of how much of the density of states passes trough the device and as explained, \cref{spectraltrace} is exactly the density of states, coming from the left (or right) and then passes through the right (left) by rate \(\vb{\Gamma}_{L,R}(E)\). So using the Green's function, left/right self-energies as well as the left/right rate matrices, the transmission, as a function of energy, can be obtained via the following equation:
 \begin{align}
 	T(E) = \text{Tr}[\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}_D^{\dagger}](E)
 	\label{transeq}
@@ -55,11 +55,11 @@ This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). From 
 \im{Listings/Functions.py}{199}{203}
 \vspace{-.5\baselineskip}
 \captionof{listing}{By using SciPy, \textit{EnergyRecursion} converts all matrices to the more memory efficient ``Compressed Sparse Row matrix''.\label{sparse}}\vspace{\baselineskip}
-The next step is to calculate the self energies for the left and right cells (\(\vb{\Sigma}_{L/R}\)) and the Green's functions for the left and right cells (\(\vb{g}_{L/R}\)) using the \textit{RecursionRoutine} as shown in \cref{ERR}.
+The next step is to calculate the self-energies for the left and right cells (\(\vb{\Sigma}_{L,R}\)) and the Green's functions for the left and right cells (\(\vb{g}_{L,R}\)) using the \textit{RecursionRoutine} as shown in \cref{ERR}.
 \im{Listings/Functions.py}{210}{212}
 \vspace{-.5\baselineskip}
 \captionof{listing}{The Green's functions and self-energies are calculated, first from left and then from right. This is done for each energy in a selected energy range (\textit{En})\label{ERR}}\vspace{\baselineskip}
-The device Green's function \(\textbf{G}_D\) as well as the left and right rate matrices \(\vb{\Gamma}_{L/R}\), are then calculated using \cref{devicegreenseq,rateeq}, as shown in \cref{GGG}.
+The device Green's function \(\textbf{G}_D\) as well as the left and right rate matrices \(\vb{\Gamma}_{L,R}\), are then calculated using \cref{devicegreenseq,rateeq}, as shown in \cref{GGG}.
 \im{Listings/Functions.py}{225}{228}
 \vspace{-.5\baselineskip}
 \captionof{listing}{The device' Green's functions and the left and right rate matrices are calculated in \textit{EnergyRecursion} as shown.\label{GGG}}\vspace{\baselineskip}
