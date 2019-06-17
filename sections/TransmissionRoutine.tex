@@ -80,9 +80,9 @@ Lastly the transmission routine needs to be generalised so it can handle transpo
 	\caption{The simple system repeated in 2D. The k-points perpendicular to the transport direction are shifted with a Bloch phase. This practically packs the system to just one row of cells, which in turn is dealt with using the \textit{EnergyRecursion} routine.}
 	\label{2DTranssys}
 \end{figure}
-This system contains the 1D semi-infinite chain of cells however, when describing cells in the added direction, one simply needs to shift the system by a phase shift. There are two considerations: Firstly the range of \textit{k}-points exists between \(-\pi\) and \(\pi\). Secondly these are periodic boundraries. One really needs to pick a range of perpendicular \textit{k}-points of interest and then the idea is to construct a Hamiltonian for the 1D chain, located at that point. The recusion routine then calculates Green's functions and transmission. The Hamiltonian is constructed using the function \textit{PeriodicHamiltonian}. This function uses the equation:
+This system contains the 1D semi-infinite chain of cells however, when describing cells in the added dimension, one simply needs to shift the system by a phase shift. There are two considerations: Firstly the range of \textit{k}-points exists between \(-\pi\) and \(\pi\). Secondly these are periodic boundraries. One really needs to pick a range of perpendicular \textit{k}-points of interest and then the idea is to construct a Hamiltonian for the 1D chain, located at that point. The recusion routine then calculates Green's functions and transmission. The Hamiltonian is constructed using the function \textit{PeriodicHamiltonian}. This function uses the equation:
 \begin{align}
-	\vb{H} = \vb{h} + \vb{V}\me^{1ik_{\perp}} + \vb{V}^{\dagger}\me^{1i-k_{\perp}}\label{PBHEQ}
+	\vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger}\me^{i-k_{\perp}}\label{PBHEQ}
 \end{align}
 The function is shown in \cref{PBH}.
 \im{Listings/Functions.py}{250}{253}
