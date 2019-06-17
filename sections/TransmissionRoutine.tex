@@ -51,7 +51,7 @@ This ultimately leads to transmission because transmission is in essence an expr
 \end{align}
 \subsection{Transmission in 1D}
 Again the developed routine in this section will be used on the simple system (\cref{inlinepointplot}) as an example and in order to make sure that the obtained results are as expected. Thereafter it will be generalised to suit all kinds and sizes of system. First thing is to define the device in the same manner as \cref{systemillu} so that the device Hamiltonian \(\textbf{H}_D\) can be obtained through the already defined function \textit{Onsite}. The left and right Hamiltonian \(\textbf{H}_{L,R}\) are thus picked out as described earlier. An implementation has been made to the script to allow the user to see the left and right contact cells graphically as red and blue marked atom indices in the plot of the unit cell (See \cref{inlinepointplot}).
-This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). From \(\vb{H}_{L,R}\) the corresponding hopping matrices are defined using the \textit{Hop} function. Then the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert these to compressed sparse row matrices as shown in \cref{sparse}. This is, however, a tradeoff as numerical computations will take more time.
+This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). From \(\vb{H}_{L,R}\) the corresponding hopping matrices are defined using the \textit{Hop} function. Then the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert these to compressed sparse row matrices as shown in \cref{sparse}. This is, however, a trade-off as numerical computations will take more time.
 \im{Listings/Functions.py}{199}{203}
 \vspace{-.5\baselineskip}
 \captionof{listing}{By using SciPy, \textit{EnergyRecursion} converts all matrices to the more memory efficient ``Compressed Sparse Row matrix''.\label{sparse}}\vspace{\baselineskip}
@@ -67,7 +67,7 @@ The output of the \textit{EnergyRecursion} function is the two rate matrices \(\
 \im{Listings/Functions.py}{240}{243}
 \vspace{-.5\baselineskip}
 \captionof{listing}{Code showing how the transmission probabilities are calculated. Taking rate matrices, device Green's function and a range of energies as inputs, it takes the trace of the matrix product for a range of energies as in \cref{transeq}. \label{transfunc}}\vspace{\baselineskip}
-The transmission-function also transform the transmission and Green's function to normal ``dense'' matrices, as theese are no longer exessively large, nor sparse.
+The transmission-function also transform the transmission and Green's function to normal ``dense'' matrices, as these are no longer excessively large, nor sparse.
 \begin{figure}[ht]
 	\includegraphics[width=0.45\textwidth]{Figures/BetaTE.eps}
 	\caption{Figure showing the resulting transmission through the simple system}\label{Transsimple}
@@ -80,7 +80,7 @@ Lastly the transmission routine needs to be generalised so it can handle transpo
 	\caption{The simple system repeated in 2D. The k-points perpendicular to the transport direction are shifted with a Bloch phase. This practically packs the system to just one row of cells, which in turn is dealt with using the \textit{EnergyRecursion} routine.}
 	\label{2DTranssys}
 \end{figure}
-This system contains the 1D semi-infinite chain of cells however, when describing cells in the added dimension, one simply needs to shift the system by a phase shift. There are two considerations: Firstly the range of \textit{k}-points exists between \(-\pi\) and \(\pi\). Secondly these are periodic boundraries. One really needs to pick a range of perpendicular \textit{k}-points of interest and then the idea is to construct a Hamiltonian for the 1D chain, located at that point. The recusion routine then calculates Green's functions and transmission. The Hamiltonian is constructed using the function \textit{PeriodicHamiltonian}. This function uses the equation:
+This system contains the 1D semi-infinite chain of cells however, when describing cells in the added dimension, one simply needs to shift the system by a phase shift. There are two considerations: Firstly the range of \textit{k}-points exists between \(-\pi\) and \(\pi\). Secondly these are periodic boundaries. One really needs to pick a range of perpendicular \textit{k}-points of interest and then the idea is to construct a Hamiltonian for the 1D chain, located at that point. The recursion routine then calculates Green's functions and transmission. The Hamiltonian is constructed using the function \textit{PeriodicHamiltonian}. This function uses the equation:
 \begin{align}
 	\vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger}\me^{i-k_{\perp}}\label{PBHEQ}
 \end{align}
@@ -111,7 +111,7 @@ Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
 The final algorithm is shown in \cref{Flowchart}. It is laid our here:
 \begin{enumerate}
 	\item Import geometry and unit vectors with SISL.
-	\item For bandstructure plots
+	\item For band structure plots
 	      \begin{enumerate}
 		      \item Find the Hamiltonian described in \cref{hamilsec}
 		      \item Calculate the eigen energies, iterating over the desired k-points.
@@ -122,7 +122,7 @@ The final algorithm is shown in \cref{Flowchart}. It is laid our here:
 		      \item Hamiltonian at a specific \(k_{\perp}\)-point is generated.
 		      \item Iterating over the energies, the (at least 5-cell) system is reduced using the recursion routine.
 		      \item Iterating over the energies, the self-energies and Green's functions are used to calculate transmission.
-		      \item Transmission, Green's functions and LDOS are plottet.
+		      \item Transmission, Green's functions and LDOS are plotted.
 	      \end{enumerate}
 \end{enumerate}
 \subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
