@@ -105,7 +105,7 @@ Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{Figures/Flowchart.eps}
-	\caption{Flowchart depicting the routines run in python. SISL is used to import the geometry. Afterwards the coordinates are either used for band structure plots or for transmission plots. For the band structures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigen energies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self-energies in the transport direction (using the recursion algorithm). The self-energies and the Green's functions retrieved here are then multiplied as to get the transmission.}
+	\caption{Flowchart depicting the routines run in Python. SISL is used to import the geometry. Afterwards the coordinates are either used for band structure plots or for transmission plots. For the band structures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigen energies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self-energies in the transport direction (using the recursion algorithm). The self-energies and the Green's functions retrieved here are then multiplied as to get the transmission.}
 	\label{Flowchart}
 \end{figure}
 The final algorithm is shown in \cref{Flowchart}. It is laid our here:
@@ -125,9 +125,9 @@ The final algorithm is shown in \cref{Flowchart}. It is laid our here:
 		      \item Transmission, Green's functions and LDOS are plotted.
 	      \end{enumerate}
 \end{enumerate}
-\subsection{Comparing Tight Binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
+\subsection{Comparing tight-binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
 All the scripts necessary for calculation have been developed and they can now be used on a system of NPG.
-The following results are based on this structure similar to that of \cref{introGraphic}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF\cite{} and TBtrans calculations.
+The following results are based on this structure similar to that of \cref{introGraphic}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF and TBtrans calculations.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
@@ -186,5 +186,5 @@ The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence wit
 	\end{subfigure}
 	\caption{Figure showing the comparison between plots of transmission through NPG obtained using the developed scripts (left/blue) and obtained using DFT (right/green).}\label{transmissionplots}
 \end{figure}
-As one can see in \cref{transmissionplots} The plots show very good correspondence with the DFT calculation. Again proving that the scripts developed on the basis of the Tight Binding approximation can produce valid results, when it comes to band structure and transmission through NPG.\\
-This concludes the preliminary work. The tools for calculation of band structures, LDOS and transmission has been successfully developed, using \textit{python}-programming and the Tight Binding approximation. Following will be a range of tests on different NPG systems, using the developed tools.
+As one can see in \cref{transmissionplots} The plots show very good correspondence with the DFT calculation. Again proving that the scripts developed on the basis of the tight-binding approximation can produce valid results, when it comes to band structure and transmission through NPG.\\
+This concludes the preliminary work. The tools for calculation of band structures, LDOS and transmission has been successfully developed, using \textit{Python}-programming and the tight-binding approximation. Following will be a range of tests on different NPG systems, using the developed tools.
