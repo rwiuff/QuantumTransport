@@ -30,8 +30,8 @@ As described  one can use the Green's functions to get the propagation of states
 where \(\varepsilon'\) is the on-site Hamiltonian of the first cell, \(z\) is \(E+i\eta\),  \(\mathbf{G}_{0c/c0}\) is the Green's matrices coupling the cell to the rest of the chain and \(\mathbf{X}\) is the Green's matrices for the rest of the chain. This is also assuming one knows the Green's function within the chain \(\mathbf{G}_c\) and that the chain has constant hopping and on-site elements \(\mathbf{H}_c,\mathbf{V},\mathbf{V}^{\dagger}\).
 Solving this system for \(\mathbf{G}_{00}\) and eliminating \(\mathbf{G}_{0c}\), which is unknown, one gets
 \begin{align}\label{greenszero}
-    \mathbf{G}_{00}(z) &= \left[(z-\varepsilon')-\vb{V}(z\vb{1}-\vb{H}_c)\vb{V}^{\dagger}\right]^{-1}\\
-	 &= (z-\varepsilon'-\Sigma(z))^{-1}
+	\mathbf{G}_{00}(z) & = \left[(z-\varepsilon')-\vb{V}(z\vb{1}-\vb{H}_c)\vb{V}^{\dagger}\right]^{-1} \\
+	                   & = (z-\varepsilon'-\Sigma(z))^{-1}
 \end{align}
 where \(\Sigma(z)\) is the self-energy. One can isolate the self energy from the equations above to
 \begin{align}\label{selfformal}
@@ -64,11 +64,17 @@ These are calculated out of the Python function's while loop as such:
 \captionof{listing}{Self-energies from left and right as well as a normalised Green's functions-matrix are calculated at the end of the recursion loop.\label{RecurOutputs}}\vspace{\baselineskip}
 This concludes how recursion works and how the first cell Green's function as well as the self-energies are obtained.
 \subsection{Plotting the real and imaginary part of the first cell Green's function}
+% \begin{wrapfigure}[10]{r}{.45\textwidth}
+% 	\vspace{-2em}
+% 	\includegraphics[width=0.45\textwidth]{Figures/BetaimrealTE.eps}
+% 	\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}\label{LDOSsimple}
+% \end{wrapfigure}
 One of the results possible to obtain via the recursion routine is the Green's function of the centre unit cell in relation to the rest of the chain. As mentioned the imaginary part of the elements Green's matrix is the LDOS of the different sites in the unit cell. With a relatively simple approach, the Green's matrix elements can be obtained as a function of energy, using a \textit{for loop}, looping over a range of energies which is then used as input in the \textit{RecursionRoutine} function (\cref{recurfunc}), see \cref{plotcode}:
 \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \vspace{-1\baselineskip}
-\captionof{listing}{Code showing the loop which produces the complex Green's function (or y-values) for a range of energies used in the plot.\cref{LDOSsimple}\label{plotcode}}\vspace{\baselineskip}
-\begin{figure}[ht]
+\captionof{listing}{Code showing the loop which produces the complex Green's function (or y-values) for a range of energies used in the plot in \cref{LDOSsimple}\label{plotcode}}\vspace{\baselineskip}
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=.45\textwidth]{Figures/BetaimrealTE.eps}
 	\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
 	\label{LDOSsimple}

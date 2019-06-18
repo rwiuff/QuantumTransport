@@ -1,5 +1,5 @@
 %!TEX root = ../Main.tex
-This section will mark the conclusion of the preliminary work done in \cref{theorysec,hamilsec,greensec}. All the functions producing on-site Hamiltonians, hopping matrices, full Hamiltonians, band structures as well as self-energy and Green's functions by recursion, will be used to get the transmission through the material.\\
+This section will mark the conclusion of the preliminary work done in \cref{theorysec,hamilsec,greensec}. All the functions producing on-site Hamiltonians, hopping matrices, full Hamiltonians, band structures as well as self-energy and Green's functions by recursion, will be used to get the transmission through the material.
 \subsection{Left-right device geometry, rate matrices and spectral functions}
 First of all a sentence as to what transmission is: Transmission is the probability of an electron being transported trough a specific region for a specific range of energies and thus how the region affects the overall current flow of electrons through the system as a whole. Below is an equation stating it formally
 \begin{align}\label{transformal}
@@ -54,15 +54,16 @@ Again the developed routine in this section will be used on the simple system (\
 This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). The hop matrices are then defined using the \textit{Hop} function. This requires at least a five cell system as shown in \cref{2DHammil}.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.7\textwidth]{Figures/2DHam.eps}
+	\includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
 	\caption{All onsite on offsite hop elements and contact Hamiltonians can be extracted from the matrix produced by \textit{PeriodicHamiltonian} because of the 5-cell setup. \(H_D\) is the device Hamiltonian, \(H_L\) and \(H_R\) are contact Hamiltonians; \(V_L\) and \(V_R\) are hopping matrices (here shown as arrows).}
 	\label{2DHammil}
 \end{figure}
-The device itself consists of two contacts and everything in between. An extra cell on each contact represent the semi-infinite chain.\newline
-Now that the Hamiltonians and hop matrices are found, the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert them to compressed sparse row matrices as shown in \cref{sparse}. This is, however, a trade-off as numerical computations will take more time.
+The device itself consists of two contacts and everything in between. An extra cell on each contact represent the semi-infinite chain.
+Now that the Hamiltonians and hop matrices are found, the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert them to compressed sparse row matrices as shown in \cref{sparse}.
 \im{Listings/Functions.py}{199}{203}
 \vspace{-.5\baselineskip}
 \captionof{listing}{By using SciPy, \textit{EnergyRecursion} converts all matrices to the more memory efficient ``Compressed Sparse Row matrix''.\label{sparse}}\vspace{\baselineskip}
+This is, however, a trade-off as numerical computations will take more time.
 The next step is to calculate the self-energies for the left and right cells (\(\vb{\Sigma}_{L,R}\)) and the Green's functions for the left and right cells (\(\vb{g}_{L,R}\)) using the \textit{RecursionRoutine} as shown in \cref{ERR}.
 \im{Listings/Functions.py}{210}{212}
 \vspace{-.5\baselineskip}
@@ -72,7 +73,7 @@ The device Green's function \(\textbf{G}_D\) as well as the left and right rate 
 \vspace{-.5\baselineskip}
 \captionof{listing}{The device' Green's functions and the left and right rate matrices are calculated in \textit{EnergyRecursion} as shown.\label{GGG}}\vspace{\baselineskip}
 The output of the \textit{EnergyRecursion} function is the two rate matrices \(\vb{\Gamma}_{L/R}\) as well as the device Green's function \(\vb{G}_D\) and as per \cref{transeq} the matrices needed for transmission have been obtained.
-Notice how the data is saved in dicts (\textit{GD}, \textit{GammaL}, \textit{GammaR}). This makes it easier to index later on, compared to, at this point, 3-dimensional arrays. Dicts uses strings as lookupkeys, and this can for example be seen in line 225 as:
+Notice how the data is saved in dicts (\textit{GD}, \textit{GammaL}, \textit{GammaR}). This makes it easier to index later on, compared to, at this point, 3-dimensional arrays. Dicts uses strings as lookup keys, and this can for example be seen in line 225 as:
 \mint{python}|GD["GD{:d}".format(q)] =|
 As seen in \cref{transfunc} the function \textit{Transmission} simply carries out the matrix product and subsequent trace of the matrices resulting from \textit{EnergyRecursion} and outputs a range of transmission probabilities which is then plotted against an energy range. Do mind that this is still just 1D in the sense that the transmission only moves in one direction. A plot of the transmission for the simple 1D system (the one in \cref{inlinepointplot}) can be seen in \cref{Transsimple}.
 \im{Listings/Functions.py}{240}{243}
@@ -134,7 +135,7 @@ The final algorithm is shown in \cref{Flowchart}. It is laid our here:
 \end{enumerate}
 \subsection{Comparing tight-binding with DFT and TBtrans for transmission and band structure calculations in NPG}\label{CompTB}
 All the scripts necessary for calculation have been developed and they can now be used on a system of NPG.
-The following results are based on this structure similar to that of \cref{introGraphic}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DTF and TBtrans calculations.
+The following results are based on this structure similar to that of \cref{introGraphic}. Firstly the band structure obtained using the script described in \cref{FullHam} is shown together with  band plots obtained from DFT and TBtrans calculations.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
@@ -153,7 +154,7 @@ The following results are based on this structure similar to that of \cref{intro
 	\end{subfigure}
 	\caption{Figure showing how the band plots compare for DFT, TBtrans and the developed script.}\label{bandcompare}
 \end{figure}
-The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence with the plot obtained using TBtrans \cref{bsdfttbt} (right) and is also very similar to the plot obtained from DFT \cref{bsdfttbt} (left), proving that the script is capable of creating band structures for NPG-systems. Next is a comparison of the transmission in NPG for different k-points in reciprocal space. The plots are made for transmission through NPG in real space (x-direction) for each three different k-points in the reciprocal space (\(\dfrac{1}{y}\)-direction). The three k-points are \(0,\ \dfrac{\pi}{2},\ \pi\). Additionally an average over these k-points is plotted as well. In \cref{transmissionplots} transmission plots obtained with the script described in \cref{trans2d} is compared with transmission plot obtained through DTF, using the same k-points.
+The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence with the plot obtained using TBtrans \cref{bsdfttbt} (right) and is also very similar to the plot obtained from DFT \cref{bsdfttbt} (left), proving that the script is capable of creating band structures for NPG-systems. Next is a comparison of the transmission in NPG for different k-points in reciprocal space. The plots are made for transmission through NPG in real space (x-direction) for each three different k-points in the reciprocal space (\(\dfrac{1}{y}\)-direction). The three k-points are \(0,\ \dfrac{\pi}{2},\ \pi\). Additionally an average over these k-points is plotted as well. In \cref{transmissionplots} transmission plots obtained with the script described in \cref{trans2d} is compared with transmission plot obtained through DFT, using the same k-points.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
