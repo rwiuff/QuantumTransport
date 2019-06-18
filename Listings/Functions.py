@@ -34,7 +34,7 @@ def Onsite(xyz, Vppi, f):
     for i in range(xyz.shape[0]):  # Take an atomic coordinate
         for j in range(xyz.shape[0]):  # Take another atomic coordinate
             h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))  # Measure distances
-    h = np.where(h < 1.6, Vppi, 0)  # Replace distances under 1.6 with Vppi
+    h = np.where(h < 1.6, Vppi, 0)  # Replace distances under 1.6 angstrom with Vppi
     h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))  # Remove the diagonal
     if f == 1:
         o = 'n'
@@ -91,19 +91,19 @@ def RecursionRoutine(En, h, V, eta):
     q = 1
     while np.max(np.abs(a0)) > 1e-6:  # Loop with hop matrix as threshold
         ag = a0 @ g0  # Product defined here and used multiple times
-        a1 = ag @ a0
+        a1 = ag @ a0  # New hop matrix (transposed)
         bg = b0 @ g0  # Product defined here and used multiple times
-        b1 = bg @ b0
-        e1 = e0 + ag @ b0 + bg @ a0
-        es1 = es0 + ag @ b0
-        g1 = LA.inv(z - e1)
-        a0 = a1
-        b0 = b1
-        e0 = e1
-        es0 = es1
-        g0 = g1
-        q = q + 1
-    e, es = e0, es0
+        b1 = bg @ b0  # New hop matrix
+        e1 = e0 + ag @ b0 + bg @ a0  # New onsite for "other cells"
+        es1 = es0 + ag @ b0  # New onsite
+        g1 = LA.inv(z - e1)  # New Green's function
+        a0 = a1  # Overwrite old variable
+        b0 = b1  # Overwrite old variable
+        e0 = e1  # Overwrite old variable
+        es0 = es1  # Overwrite old variable
+        g0 = g1  # Overwrite old variable
+        q = q + 1  # Counter (for diagnostic purposes)
+    e, es = e0, es0  # Define the onsite Hamiltonians
     SelfER = es - h  # Self-energy from the right
     SelfEL = e - h - SelfER  # Self-energy from the left
     G00 = LA.inv(z - es)  # Green's functions
@@ -208,8 +208,8 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
     bar = Bar('Running Recursion          ', max=En.shape[0])
     q = 0
     for i in En:  # Iteration over each energy
-        gl, scrap, SEL = RecursionRoutine(i, HL, VL, eta=eta)  # Green's functions, Self-energy from the left
-        gr, SER, scrap = RecursionRoutine(i, HR, VR, eta=eta)  # Green's functions, Self-energy from the left
+        gl, scrap, SEL = RecursionRoutine(i, HL, VL, eta=eta)  # From the left
+        gr, SER, scrap = RecursionRoutine(i, HR, VR, eta=eta)  # From the right
         SS = SEL.shape[0]
         Matrix = np.zeros((HD.shape), dtype=complex)
         Matrix[0:SS, 0:SS] = SEL
@@ -222,10 +222,10 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
 
         SEL = scp.csr_matrix(SEL)
         SER = scp.csr_matrix(SER)
-        GD["GD{:d}".format(q)] = scp.linalg.inv(  # Device Green's functions are saved in a dictionary.
-            scp.identity(HD.shape[0]) * (i + eta) - HD - SEL - SER)
-        GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())  # Rate matrices are saved in a dictionary.
-        GammaR["GammaR{:d}".format(q)] = 1j * (SER - SER.conj().transpose())  # Rate matrices are saved in a dictionary.
+        GD["GD{:d}".format(q)] = scp.linalg.inv(  # Device Green's functions are saved
+            scp.identity(HD.shape[0]) * (i + eta) - HD - SEL - SER)  # in a dictionary.
+        GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())  # Rate matrices are
+        GammaR["GammaR{:d}".format(q)] = 1j * (SER - SER.conj().transpose())  # likewise saved.
         q = q + 1
         bar.next()
     bar.finish()
@@ -240,7 +240,7 @@ def Transmission(GammaL, GammaR, GD, En):
     for i in range(En.shape[0]):  # Iteration for every energy point.
         T[i] = np.trace((GammaR["GammaR{:d}".format(i)] @ GD["GD{:d}".format(
             i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj(
-        ).transpose()).todense())  # Calculate transmission according to equation V.9 and convert to dense matrix
+        ).transpose()).todense())  # Calculate transmission (equation V.9).
         bar.next()
     bar.finish()
     return T
@@ -249,8 +249,8 @@ def Transmission(GammaL, GammaR, GD, En):
 def PeriodicHamiltonian(xyz, UY, i):
     h, p = Onsite(xyz=xyz, Vppi=-1, f=1)  # Calculate onsite hops
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)  # Calculate hops
-    print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))  # Printing number of hops
-    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)  # Generate a Hamiltonian for ith k-point
+    print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))  # Number of hops
+    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)  # Hamiltonian for ith k-point
     return Ham
 
 

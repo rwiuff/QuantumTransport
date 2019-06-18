@@ -64,7 +64,7 @@ eta = 1e-6j
 G00 = np.zeros((En.shape[0]), dtype=complex)  # Empty data matrix for Green's functions
 for i in range(En.shape[0]):  # Loop iterating over energies
     G, SelfER, SelfEL = RecursionRoutine(En[i], h, V, eta)  # Invoking the RecursionRoutine
-    G = np.diag(G)  # The Green's functions for each site is in the diagonal
+    G = np.diag(G)  # The Green's functions for each site is in the diagonal of the G matrix
     G00[i] = G[4]  # Chosen Green's function (here the 4th site)
 # print(G00)
 Y = G00

@@ -560,10 +560,10 @@
                 "analysis"
             ],
             "hashes": [
-                "sha256:e97f0549ec4f1b088ec547c8171b3a5793e0e656fe891c1f577a427f15299d63"
+                "sha256:26c6bd8171adf34e0628256d869836e48988ec1139da36a183423d1603078496"
             ],
             "index": "pypi",
-            "version": "==0.9.5"
+            "version": "==0.9.6"
         },
         "six": {
             "hashes": [
