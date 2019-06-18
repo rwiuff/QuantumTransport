@@ -12,14 +12,14 @@
 # -------------------------------------------------------------------- #
 
 
-from matplotlib import pyplot as plt     # Pyplot for nice graphs
-import numpy as np                      # NumPy
-from numpy import linalg as LA
-import sisl as si
-from sisl import Atom
-from progress.bar import Bar
-import time
-import scipy.sparse as scp
+from matplotlib import pyplot as plt  # Pyplot for nice graphs
+import numpy as np                    # NumPy
+from numpy import linalg as LA        # Linalg module
+import sisl as si                     # SISL for importing geometries
+from sisl import Atom                 # The atom class for recreating geoms.
+from progress.bar import Bar          # Progress bars in CLI
+import time                           # Insight in execution times
+import scipy.sparse as scp            # SciPy's sparse matrices
 
 
 def xyzimport(path):
@@ -30,12 +30,12 @@ def xyzimport(path):
 
 
 def Onsite(xyz, Vppi, f):
-    h = np.zeros((xyz.shape[0], xyz.shape[0]))
-    for i in range(xyz.shape[0]):
-        for j in range(xyz.shape[0]):
-            h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))
-    h = np.where(h < 1.6, Vppi, 0)
-    h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))
+    h = np.zeros((xyz.shape[0], xyz.shape[0]))                   # Empty matrix
+    for i in range(xyz.shape[0]):                   # Take an atomic coordinate
+        for j in range(xyz.shape[0]):          # Take another atomic coordinate
+            h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))  # Measure distances
+    h = np.where(h < 1.6, Vppi, 0)      # Replace distances under 1.6 with Vppi
+    h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))  # Remove the diagonal
     if f == 1:
         o = 'n'
     else:
@@ -254,28 +254,28 @@ def PeriodicHamiltonian(xyz, UY, i):
     return Ham
 
 
-def Import(nx, contactrep):
-    filename = input('Enter filename: ')
-    filename = filename + '.fdf'
-    fdf = si.get_sile(filename)
-    geom = fdf.read_geometry(output=False)
-    C_list = (geom.atoms.Z == 6).nonzero()[0]
-    O_list = (geom.atoms.Z == 8).nonzero()[0]
-    C_O_list = np.concatenate((C_list, O_list))
-    Subbed = geom.sub(C_O_list)
-    Subbed.reduce()
+def Import(nx, contactrep):  # Function takes in number of device and contact repitition
+    filename = input('Enter filename: ')  # Filename of fdf structure
+    filename = filename + '.fdf'  # Add file ending
+    fdf = si.get_sile(filename)  # Import the system
+    geom = fdf.read_geometry(output=False)  # Load geometry from fdf file
+    C_list = (geom.atoms.Z == 6).nonzero()[0]  # List of carbon atoms
+    O_list = (geom.atoms.Z == 8).nonzero()[0]  # List of oxygen atoms
+    C_O_list = np.concatenate((C_list, O_list))  # Add lists
+    Subbed = geom.sub(C_O_list)  # Keep only C or O atoms in geometry
+    Subbed.reduce()  # Remove "empty" atom places
     geom = Subbed
-    cellsize = geom.xyz.shape[0]
-    geom = geom.tile(nx + 4 * contactrep, 1)
-    geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))
+    cellsize = geom.xyz.shape[0]  # Determine number of atoms
+    geom = geom.tile(nx + 4 * contactrep, 1)  # Repeat structure
+    geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))  # Rotate structure
     xyz = geom.xyz
-    xyz = np.round(xyz, decimals=1)
+    xyz = np.round(xyz, decimals=1)  # Round off coordinates
 
-    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
+    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])  # Create geometry based on coordinates
     # geom = geom.sort(axes=(2,1,0))
-    LatticeVectors = fdf.get('LatticeVectors')
-    UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]
-    UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]
+    LatticeVectors = fdf.get('LatticeVectors')  # Gather lattice vectors
+    UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]  # ... in Y
+    UX = np.fromstring(LatticeVectors[1], dtype=float, sep=' ')[1]  # ... in X
     print('Unit Cell x: {}'.format(UX))
     print('Unit Cell y: {}'.format(UY))
     xyz = geom.xyz
