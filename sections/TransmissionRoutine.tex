@@ -1,5 +1,5 @@
 %!TEX root = ../Main.tex
-This section will mark the conclusion of the preliminary work done in \cref{theorysec,hamilsec,greensec}. All the functions producing on-site Hamiltonians, hopping matrices, full Hamiltonians, band structures as well as self-energy and Green's functions by recursion, will be used to get the transmission through the material.\\
+This section will mark the conclusion of the preliminary work done in \cref{theorysec,hamilsec,greensec}. All the functions producing on-site Hamiltonians, hopping matrices, full Hamiltonians, band structures as well as self-energy and Green's functions by recursion, will be used to get the transmission through the material.
 \subsection{Left-right device geometry, rate matrices and spectral functions}
 First of all a sentence as to what transmission is: Transmission is the probability of an electron being transported trough a specific region for a specific range of energies and thus how the region affects the overall current flow of electrons through the system as a whole. Below is an equation stating it formally
 \begin{align}\label{transformal}
@@ -54,15 +54,16 @@ Again the developed routine in this section will be used on the simple system (\
 This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). The hop matrices are then defined using the \textit{Hop} function. This requires at least a five cell system as shown in \cref{2DHammil}.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.7\textwidth]{Figures/2DHam.eps}
+	\includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
 	\caption{All onsite on offsite hop elements and contact Hamiltonians can be extracted from the matrix produced by \textit{PeriodicHamiltonian} because of the 5-cell setup. \(H_D\) is the device Hamiltonian, \(H_L\) and \(H_R\) are contact Hamiltonians; \(V_L\) and \(V_R\) are hopping matrices (here shown as arrows).}
 	\label{2DHammil}
 \end{figure}
-The device itself consists of two contacts and everything in between. An extra cell on each contact represent the semi-infinite chain.\newline
-Now that the Hamiltonians and hop matrices are found, the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert them to compressed sparse row matrices as shown in \cref{sparse}. This is, however, a trade-off as numerical computations will take more time.
+The device itself consists of two contacts and everything in between. An extra cell on each contact represent the semi-infinite chain.
+Now that the Hamiltonians and hop matrices are found, the developed \textit{EnergyRecursion} function is used to obtain the device Green's matrix. This function is a more elaborate version of the earlier mentioned \textit{RecursionRoutine} and it takes \(\vb{H}_D,\vb{H}_L,\vb{H}_R,\vb{V}_L,\vb{V}_R\), a range of energies and \(\eta\) as inputs. As these matrices are sparse, it is memory efficient to convert them to compressed sparse row matrices as shown in \cref{sparse}.
 \im{Listings/Functions.py}{199}{203}
 \vspace{-.5\baselineskip}
 \captionof{listing}{By using SciPy, \textit{EnergyRecursion} converts all matrices to the more memory efficient ``Compressed Sparse Row matrix''.\label{sparse}}\vspace{\baselineskip}
+This is, however, a trade-off as numerical computations will take more time.
 The next step is to calculate the self-energies for the left and right cells (\(\vb{\Sigma}_{L,R}\)) and the Green's functions for the left and right cells (\(\vb{g}_{L,R}\)) using the \textit{RecursionRoutine} as shown in \cref{ERR}.
 \im{Listings/Functions.py}{210}{212}
 \vspace{-.5\baselineskip}

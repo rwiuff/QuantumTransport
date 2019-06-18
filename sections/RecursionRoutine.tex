@@ -64,11 +64,17 @@ These are calculated out of the Python function's while loop as such:
 \captionof{listing}{Self-energies from left and right as well as a normalised Green's functions-matrix are calculated at the end of the recursion loop.\label{RecurOutputs}}\vspace{\baselineskip}
 This concludes how recursion works and how the first cell Green's function as well as the self-energies are obtained.
 \subsection{Plotting the real and imaginary part of the first cell Green's function}
+% \begin{wrapfigure}[10]{r}{.45\textwidth}
+% 	\vspace{-2em}
+% 	\includegraphics[width=0.45\textwidth]{Figures/BetaimrealTE.eps}
+% 	\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}\label{LDOSsimple}
+% \end{wrapfigure}
 One of the results possible to obtain via the recursion routine is the Green's function of the centre unit cell in relation to the rest of the chain. As mentioned the imaginary part of the elements Green's matrix is the LDOS of the different sites in the unit cell. With a relatively simple approach, the Green's matrix elements can be obtained as a function of energy, using a \textit{for loop}, looping over a range of energies which is then used as input in the \textit{RecursionRoutine} function (\cref{recurfunc}), see \cref{plotcode}:
 \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \vspace{-1\baselineskip}
-\captionof{listing}{Code showing the loop which produces the complex Green's function (or y-values) for a range of energies used in the plot.\cref{LDOSsimple}\label{plotcode}}\vspace{\baselineskip}
-\begin{figure}[ht]
+\captionof{listing}{Code showing the loop which produces the complex Green's function (or y-values) for a range of energies used in the plot in \cref{LDOSsimple}\label{plotcode}}\vspace{\baselineskip}
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=.45\textwidth]{Figures/BetaimrealTE.eps}
 	\caption{A plot showing the real and imaginary part of Green's function at the zeroth site resulting from the recursion routine on the simple system. Note that the yellow imaginary part is the representation of the local density of states.}
 	\label{LDOSsimple}
