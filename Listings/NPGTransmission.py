@@ -36,14 +36,14 @@ q = 0
 for i in kP:
     print('----------------------------------------------------------------------')
     print('Calculating for k-point:    {}'.format(i))
-    Ham = PeriodicHamiltonian(xyz, UY, i)
-    HL = Ham[L]
+    Ham = PeriodicHamiltonian(xyz, UY, i)  # Get Hamiltonian for specific k-point
+    HL = Ham[L]  # Left contact Hamiltonian is in a matrix with indicies specified by "L"
     HL = HL[:, L]
-    HR = Ham[R]
+    HR = Ham[R]  # Right contact Hamiltonian is in a matrix with indicies specified by "R"
     HR = HR[:, R]
-    VL = Ham[L]
+    VL = Ham[L]  # Hop elements from the left are in a matrix with indices "L,RestL"
     VL = VL[:, RestL]
-    VR = Ham[RestR]
+    VR = Ham[RestR]  # Hop elements to the right are in a matrix with indices "RestR,R"
     VR = VR[:, R]
     # gs = GridSpec(2, 2, width_ratios=[1, 2])
     # a = plt.figure(figsize=(7, 4))

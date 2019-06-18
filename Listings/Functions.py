@@ -30,11 +30,11 @@ def xyzimport(path):
 
 
 def Onsite(xyz, Vppi, f):
-    h = np.zeros((xyz.shape[0], xyz.shape[0]))                   # Empty matrix
-    for i in range(xyz.shape[0]):                   # Take an atomic coordinate
-        for j in range(xyz.shape[0]):          # Take another atomic coordinate
+    h = np.zeros((xyz.shape[0], xyz.shape[0]))  # Empty matrix
+    for i in range(xyz.shape[0]):  # Take an atomic coordinate
+        for j in range(xyz.shape[0]):  # Take another atomic coordinate
             h[i, j] = LA.norm(np.subtract(xyz[i], xyz[j]))  # Measure distances
-    h = np.where(h < 1.6, Vppi, 0)      # Replace distances under 1.6 with Vppi
+    h = np.where(h < 1.6, Vppi, 0)  # Replace distances under 1.6 with Vppi
     h = np.subtract(h, Vppi * np.identity(xyz.shape[0]))  # Remove the diagonal
     if f == 1:
         o = 'n'
@@ -70,14 +70,14 @@ def Hop(xyz, xyz1, Vppi):
 
 
 def Hkay(Ham, V1, V2, V3, x, y):
-    Ham = Ham + (V1 * np.exp(-1.0j * x)
-                 + np.transpose(V1) * np.exp(1.0j * x)
-                 + V2 * np.exp(-1.0j * y)
-                 + np.transpose(V2) * np.exp(1.0j * y)
-                 + V3 * np.exp(-1.0j * x) * np.exp(-1.0j * y)
-                 + np.transpose(V3) * np.exp(1.0j * x) * np.exp(1.0j * y))
-    e = LA.eigh(Ham)[0]
-    v = LA.eigh(Ham)[1]
+    Ham = Ham + (V1 * np.exp(-1.0j * x)  # Onsite hops and hops in x
+                 + np.transpose(V1) * np.exp(1.0j * x)  # Hops in -x
+                 + V2 * np.exp(-1.0j * y)  # Hops in y
+                 + np.transpose(V2) * np.exp(1.0j * y)  # Hops in -y
+                 + V3 * np.exp(-1.0j * x) * np.exp(-1.0j * y)  # Hops in both x and y
+                 + np.transpose(V3) * np.exp(1.0j * x) * np.exp(1.0j * y))  # Hops in both -x and -y
+    e = LA.eigh(Ham)[0]  # Eigen energies from the Hamiltonian
+    v = LA.eigh(Ham)[1]  # Eigen vectors from the Hamiltonian
     return e, v
 
 
@@ -89,10 +89,10 @@ def RecursionRoutine(En, h, V, eta):
     e0 = h
     g0 = LA.inv(z - e0)
     q = 1
-    while np.max(np.abs(a0)) > 1e-6:
-        ag = a0 @ g0
+    while np.max(np.abs(a0)) > 1e-6:  # Loop with hop matrix as threshold
+        ag = a0 @ g0  # Product defined here and used multiple times
         a1 = ag @ a0
-        bg = b0 @ g0
+        bg = b0 @ g0  # Product defined here and used multiple times
         b1 = bg @ b0
         e1 = e0 + ag @ b0 + bg @ a0
         es1 = es0 + ag @ b0
@@ -104,9 +104,9 @@ def RecursionRoutine(En, h, V, eta):
         g0 = g1
         q = q + 1
     e, es = e0, es0
-    SelfER = es - h
-    SelfEL = e - h - SelfER
-    G00 = LA.inv(z - es)
+    SelfER = es - h  # Self-energy from the right
+    SelfEL = e - h - SelfER  # Self-energy from the left
+    G00 = LA.inv(z - es)  # Green's functions
     # print(q)
     return G00, SelfER, SelfEL
 
@@ -198,7 +198,7 @@ def DefineDevice(xyz):
 def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
     HD = scp.csr_matrix(HD)
     HL = scp.csr_matrix(HL)
-    HR = scp.csr_matrix(HR)
+    HR = scp.csr_matrix(HR)  # Matrices converted to Compressed Sparse Row Matrix
     VL = scp.csr_matrix(VL)
     VR = scp.csr_matrix(VR)
     start = time.time()
@@ -207,9 +207,9 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
     GammaR = {}
     bar = Bar('Running Recursion          ', max=En.shape[0])
     q = 0
-    for i in En:
-        gl, scrap, SEL = RecursionRoutine(i, HL, VL, eta=eta)
-        gr, SER, scrap = RecursionRoutine(i, HR, VR, eta=eta)
+    for i in En:  # Iteration over each energy
+        gl, scrap, SEL = RecursionRoutine(i, HL, VL, eta=eta)  # Green's functions, Self-energy from the left
+        gr, SER, scrap = RecursionRoutine(i, HR, VR, eta=eta)  # Green's functions, Self-energy from the left
         SS = SEL.shape[0]
         Matrix = np.zeros((HD.shape), dtype=complex)
         Matrix[0:SS, 0:SS] = SEL
@@ -222,10 +222,10 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
 
         SEL = scp.csr_matrix(SEL)
         SER = scp.csr_matrix(SER)
-        GD["GD{:d}".format(q)] = scp.linalg.inv(
+        GD["GD{:d}".format(q)] = scp.linalg.inv(  # Device Green's functions are saved in a dictionary.
             scp.identity(HD.shape[0]) * (i + eta) - HD - SEL - SER)
-        GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())
-        GammaR["GammaR{:d}".format(q)] = 1j * (SER - SER.conj().transpose())
+        GammaL["GammaL{:d}".format(q)] = 1j * (SEL - SEL.conj().transpose())  # Rate matrices are saved in a dictionary.
+        GammaR["GammaR{:d}".format(q)] = 1j * (SER - SER.conj().transpose())  # Rate matrices are saved in a dictionary.
         q = q + 1
         bar.next()
     bar.finish()
@@ -237,20 +237,20 @@ def EnergyRecursion(HD, HL, HR, VL, VR, En, eta):
 def Transmission(GammaL, GammaR, GD, En):
     T = np.zeros(En.shape[0], dtype=complex)
     bar = Bar('Calculating Transmission   ', max=En.shape[0])
-    for i in range(En.shape[0]):
+    for i in range(En.shape[0]):  # Iteration for every energy point.
         T[i] = np.trace((GammaR["GammaR{:d}".format(i)] @ GD["GD{:d}".format(
             i)] @ GammaL["GammaL{:d}".format(i)] @ GD["GD{:d}".format(i)].conj(
-        ).transpose()).todense())
+        ).transpose()).todense())  # Calculate transmission according to equation V.9 and convert to dense matrix
         bar.next()
     bar.finish()
     return T
 
 
 def PeriodicHamiltonian(xyz, UY, i):
-    h, p = Onsite(xyz=xyz, Vppi=-1, f=1)
-    V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)
-    print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))
-    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)
+    h, p = Onsite(xyz=xyz, Vppi=-1, f=1)  # Calculate onsite hops
+    V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)  # Calculate hops
+    print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))  # Printing number of hops
+    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)  # Generate a Hamiltonian for ith k-point
     return Ham
 
 
@@ -267,11 +267,13 @@ def Import(nx, contactrep):  # Function takes in number of device and contact re
     geom = Subbed
     cellsize = geom.xyz.shape[0]  # Determine number of atoms
     geom = geom.tile(nx + 4 * contactrep, 1)  # Repeat structure
-    geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(what='xyz'))  # Rotate structure
+    geom = geom.rotate(270, v=[0, 0, 1], origo=geom.center(
+        what='xyz'))  # Rotate structure
     xyz = geom.xyz
     xyz = np.round(xyz, decimals=1)  # Round off coordinates
 
-    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])  # Create geometry based on coordinates
+    # Create geometry based on coordinates
+    geom = si.Geometry(xyz, [Atom('C')], [2.46, 4.26, 0])
     # geom = geom.sort(axes=(2,1,0))
     LatticeVectors = fdf.get('LatticeVectors')  # Gather lattice vectors
     UY = np.fromstring(LatticeVectors[0], dtype=float, sep=' ')[0]  # ... in Y
