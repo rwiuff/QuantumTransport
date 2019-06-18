@@ -11,10 +11,10 @@ formalism in the shape of matrices.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/illu.eps}
-	\caption{Illustration showing how the different parts of the system are translated into matrix blocks in NPG. The green box is the unit cell of the device with the Hamiltonian \(\textbf{H}_D\). It includes one red and blue box which themselves are unit cells of the left and right contacts and have the Hamiltonians \(\textbf{H}_L,\ \textbf{H}_R\). The two other unit cells lying outside the device region represents what could be an infinite contact region reducible by recursion. Finally the two fat black arrows (not dotted) on each side of the device represents the hopping between the device- and contact region. Note that the direction of hopping corresponds to a specific hopping matrix. F.ex. left-to-right is the ordinary hopping matrix (\(\vb{V}\)) while right-to-left is its conjugate (\(\vb{V}^{\dagger}\)) (for both left and right side of the device).}
+	\caption{Illustration showing how the different parts of the system are translated into matrix blocks in NPG. The green box is the unit cell of the device with the Hamiltonian \(\textbf{H}_D\). It includes one red and blue box which themselves are unit cells of the left and right contacts and have the Hamiltonians \(\textbf{H}_L,\ \textbf{H}_R\). The two other unit cells lying outside the device region represents what could be an infinite contact region reducible by recursion. Finally the two fat black arrows (not dotted) on each side of the device represents the hopping between the device- and contact region. Note that the direction of hopping corresponds to a specific hopping matrix. F.ex. left-to-right is the ordinary hopping matrix (\(\vb{V}\)) while right-to-left is its conjugate (\(\vb{V}^{\dagger}\) for both left and right side of the device).}
 	\label{systemillu}
 \end{figure}
-The first and central piece is the so-called "Device Region" with the on-site Hamiltonian \(\vb{H}_D\) (Green area in \cref{systemillu}). The device region contains at least one central unit cell as well as a "left" and "right" unit cell (Red and blue area in \cref{systemillu}). The left and right unit cells represent the contact region of the device i.e. the two parts that connects to the rest of the system/molecule. They have on-site Hamiltonians \(\vb{H}_L,\vb{H}_R\) and they interact with rest of the system via hopping matrices \(\vb{V}_{L,R},\vb{V}^{\dagger}_{L,R}\). As \(\textbf{H}_D\) contains \(\textbf{H}_{L,R}\) they can be picked out of \(\textbf{H}_D,\)  without further calculation (See \cref{systemillu}) once the \(\vb{H}_D\) has been calculated. The cells next to the contact region can be reduced into a single Hamiltonian by recursion to have same dimension as \(\vb{H}_{L,R}\). Note that \(\vb{H}_{L,R}\) need not be the same dimensions.
+The first and central piece is the so-called "Device Region" with the on-site Hamiltonian \(\vb{H}_D\) (green area in \cref{systemillu}). The device region contains at least one central unit cell as well as a "left" and "right" unit cell (red and blue area in \cref{systemillu}). The left and right unit cells represent the contact region of the device i.e. the two parts that connects to the rest of the system/molecule. They have on-site Hamiltonians \(\vb{H}_L,\vb{H}_R\) and they interact with rest of the system via hopping matrices \(\vb{V}_{L,R},\vb{V}^{\dagger}_{L,R}\). As \(\textbf{H}_D\) contains \(\textbf{H}_{L,R}\) they can be picked out of \(\textbf{H}_D,\)  without further calculation (see \cref{systemillu}) once the \(\vb{H}_D\) has been calculated. The cells next to the contact region can be reduced into a single Hamiltonian by recursion to have same dimension as \(\vb{H}_{L,R}\). Note that \(\vb{H}_{L,R}\) need not be the same dimensions.
 Related to \(\vb{H}_{L,R}\) is the left and right self-energies \(\vb{\Sigma}_{L,R}\) and on-site Green's matrices \(\vb{g}_L\), \(\vb{g}_R\). These can be obtained using the theory and developed methods from \cref{greensec}. However the aim is to obtain the Green's matrix for the device region, \(\vb{G}_D\), as it is the one needed to fully describe the transmission in the region of interest. In other words, propagation of the states in the green area in \cref{systemillu}. To obtain it, one simply has to keep in mind that the effective coupling of the device region to the rest of the system is determined by the two contact regions (\(\vb{H}_{L,R}\)) and thus the correction to the device Green's functions will be determined by the self-energy of those contact regions. So the Green's matrix will be given by the same equation as \cref{Greenssolved} but with a self-energy correction going left ad right:
 \begin{align}\label{devicegreenseq}
 	\vb{G}_D & = [\vb{1}(E+i\eta) - \vb{H}_D - \vb{\Sigma}_L(E) - \vb{\Sigma}_R(E)]^{-1}
@@ -50,7 +50,7 @@ This ultimately leads to transmission because transmission is in essence an expr
 	\label{transeq}
 \end{align}
 \subsection{Transmission in 1D}
-Again the developed routine in this section will be used on the simple system (\cref{inlinepointplot}) as an example and in order to make sure that the obtained results are as expected. First thing is to define the device in the same manner as \cref{systemillu} so that the device Hamiltonian \(\textbf{H}_D\) can be obtained through the already defined function \textit{Onsite}. The left and right Hamiltonian \(\textbf{H}_{L,R}\) are thus picked out as described earlier. An implementation has been made to the script to allow the user to see the left and right contact cells graphically as red and blue marked atom indices in the plot of the unit cell (See \cref{inlinepointplot}).
+Again the developed routine in this section will be used on the simple system (\cref{inlinepointplot}) as an example and in order to make sure that the obtained results are as expected. First thing is to define the device in the same manner as \cref{systemillu} so that the device Hamiltonian \(\textbf{H}_D\) can be obtained through the already defined function \textit{Onsite}. The left and right Hamiltonian \(\textbf{H}_{L,R}\) are thus picked out as described earlier. An implementation has been made to the script to allow the user to see the left and right contact cells graphically as red and blue marked atom indices in the plot of the unit cell (see \cref{inlinepointplot}).
 This allows the user to get an overview of dimensions of \(\vb{H}_{L,R}\). The hop matrices are then defined using the \textit{Hop} function. This requires at least a five cell system as shown in \cref{2DHammil}.
 \begin{figure}[ht]
 	\centering
@@ -115,7 +115,7 @@ Plots for transmission per k-point will be shown for NPG in \cref{CompTB}.
 	\includegraphics[width=\textwidth]{Figures/Flowchart.eps}
 	\caption{Flowchart depicting the routines run in Python. SISL is used to import the geometry. Afterwards the coordinates are either used for band structure plots or for transmission plots. For the band structures, a Hamiltonian at each desired k-point is generated and diagonalised in order to get the eigen energies. These energies are then plotted. With transmission, a periodic Hamiltonian at various transverse k-points are generated and reduced to self-energies in the transport direction (using the recursion algorithm). The self-energies and the Green's functions retrieved here are then multiplied as to get the transmission.}
 	\label{Flowchart}
-\end{figure}
+\end{figure}\newpage
 The final algorithm is shown in \cref{Flowchart}. It is laid our here:
 \begin{enumerate}
 	\item Import geometry and unit vectors with SISL.
@@ -154,12 +154,12 @@ The following results are based on this structure similar to that of \cref{intro
 	\end{subfigure}
 	\caption{Figure showing how the band plots compare for DFT, TBtrans and the developed script.}\label{bandcompare}
 \end{figure}
-The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence with the plot obtained using TBtrans \cref{bsdfttbt} (right) and is also very similar to the plot obtained from DFT \cref{bsdfttbt} (left), proving that the script is capable of creating band structures for NPG-systems. Next is a comparison of the transmission in NPG for different k-points in reciprocal space. The plots are made for transmission through NPG in real space (x-direction) for each three different k-points in the reciprocal space (\(\dfrac{1}{y}\)-direction). The three k-points are \(0,\ \dfrac{\pi}{2},\ \pi\). Additionally an average over these k-points is plotted as well. In \cref{transmissionplots} transmission plots obtained with the script described in \cref{trans2d} is compared with transmission plot obtained through DFT, using the same k-points.
+The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence with the plot obtained using TBtrans \cref{bsdfttbt} (right) and is also very similar to the plot obtained from DFT \cref{bsdfttbt} (left), proving that the script is capable of creating band structures for NPG-systems. Next is a comparison of the transmission in NPG for different k-points in reciprocal space. The plots are made for transmission through NPG in real space (x-direction) for each three different k-points in the reciprocal space (\(\dfrac{1}{y}\)-direction). The three k-points are \(0,\ \dfrac{\pi}{2},\ \pi\). Additionally an average over these k-points is plotted as well.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\centering
-		\includegraphics[width=0.38\textwidth]{Figures/NPGNormal_0.eps}
+		\includegraphics[width=0.36\textwidth]{Figures/NPGNormal_0.eps}
 		\qquad
 		\includegraphics[width=0.35\textwidth]{Figures/txy_0.eps}
 		\caption{Transverse k-point 0}
@@ -168,7 +168,7 @@ The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence wit
 	\vskip
 	\begin{subfigure}[b]{\textwidth}
 		\centering
-		\includegraphics[width=0.38\textwidth]{Figures/NPGNormal_pi-half.eps}
+		\includegraphics[width=0.36\textwidth]{Figures/NPGNormal_pi-half.eps}
 		\qquad
 		\includegraphics[width=0.35\textwidth]{Figures/txy_pi-half.eps}
 		\caption{Transverse k-point \(\dfrac{\pi}{2}\)}
@@ -177,7 +177,7 @@ The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence wit
 	\vskip
 	\begin{subfigure}[b]{\textwidth}
 		\centering
-		\includegraphics[width=0.38\textwidth]{Figures/NPGNormal_pi.eps}
+		\includegraphics[width=0.36\textwidth]{Figures/NPGNormal_pi.eps}
 		\qquad
 		\includegraphics[width=0.35\textwidth]{Figures/txy_pi.eps}
 		\caption{Transverse k-point \(\pi\)}
@@ -186,13 +186,15 @@ The band plot obtained in \cref{bsscript} shows almost 1-to-1 correspondence wit
 	\vskip
 	\begin{subfigure}[b]{\textwidth}
 		\centering
-		\includegraphics[width=0.38\textwidth]{Figures/NPGNormal_AVER.eps}
+		\includegraphics[width=0.36\textwidth]{Figures/NPGNormal_AVER.eps}
 		\qquad
 		\includegraphics[width=0.35\textwidth]{Figures/txy_AVER.eps}
 		\caption{Average over k-points \(0,\ \dfrac{\pi}{2},\ \pi \)}
 		\label{piavg}
 	\end{subfigure}
-	\caption{Figure showing the comparison between plots of transmission through NPG obtained using the developed scripts (left/blue) and obtained using DFT (right/green).}\label{transmissionplots}
+	\caption{Figure showing the comparison between plots of transmission through NPG obtained using the developed scripts (left/blue) and obtained using DFT (right/green).\newline
+		Used with permission from Isaac Alcón Rovira.}\label{transmissionplots}
 \end{figure}
+In \cref{transmissionplots} transmission plots obtained with the script described in \cref{trans2d} is compared with transmission plot obtained through DFT, using the same k-points.
 As one can see in \cref{transmissionplots} The plots show very good correspondence with the DFT calculation. Again proving that the scripts developed on the basis of the tight-binding approximation can produce valid results, when it comes to band structure and transmission through NPG.\\
 This concludes the preliminary work. The tools for calculation of band structures, LDOS and transmission has been successfully developed, using \textit{Python}-programming and the tight-binding approximation. Following will be a range of tests on different NPG systems, using the developed tools.
