@@ -8,7 +8,7 @@ First of all a sentence as to what transmission is: Transmission is the probabil
 where \(m,n\) is the density of states in each side of the region of interest (states going in/out) and \(e^{i\vb{H}t/\hbar}\) is the solution to the Green's function.\\
 To give an overview and explain the different concepts of transmission this section will rely heavily on \cref{systemillu} where all the different parts of the system have been translated from the actual material into mathematical
 formalism in the shape of matrices.
-\begin{figure}
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/illu.eps}
 	\caption{Illustration showing how the different parts of the system are translated into matrix blocks in NPG. The green box is the unit cell of the device with the Hamiltonian \(\textbf{H}_D\). It includes one red and blue box which themselves are unit cells of the left and right contacts and have the Hamiltonians \(\textbf{H}_L,\ \textbf{H}_R\). The two other unit cells lying outside the device region represents what could be an infinite contact region reducible by recursion. Finally the two fat black arrows (not dotted) on each side of the device represents the hopping between the device- and contact region. Note that the direction of hopping corresponds to a specific hopping matrix. F.ex. left-to-right is the ordinary hopping matrix (\(\vb{V}\)) while right-to-left is its conjugate (\(\vb{V}^{\dagger}\) for both left and right side of the device).}
@@ -19,7 +19,8 @@ Related to \(\vb{H}_{L,R}\) is the left and right self-energies \(\vb{\Sigma}_{L
 \begin{align}\label{devicegreenseq}
 	\vb{G}_D & = [\vb{1}(E+i\eta) - \vb{H}_D - \vb{\Sigma}_L(E) - \vb{\Sigma}_R(E)]^{-1}
 \end{align}
-Looking back at \cref{transformal} the Green's function needed has been obtained, but what about the states going in and out of the device region \(\bra{m}\ \text{and}\ \ket{n}\)? As states travel, their corresponding self-energies change in time. Rate operators \(\vb{\Gamma}\) are defined as the change in imaginary self-energy. They describe the 'rate' by which the self-energies of the states moving in and out, change in time. The rate matrices are given by
+Looking back at \cref{transformal} the Green's function needed has been obtained, but what about the states going in and out of the device region \(\bra{m}\ \text{and}\ \ket{n}\)?\newpage
+As states travel, their corresponding self-energies change in time. Rate operators \(\vb{\Gamma}\) are defined as the change in imaginary self-energy. They describe the 'rate' by which the self-energies of the states moving in and out, change in time. The rate matrices are given by
 \begin{align}\label{rateeq}
 	\vb{\Gamma}_{L,R} = i(\vb{\Sigma}_{L,R} - \vb{\Sigma}^{\dagger}_{L,R})
 \end{align}
