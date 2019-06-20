@@ -38,7 +38,7 @@
 % Add total frame count to slides, optional. From Stefan,
 % http://www.latex-community.org/forum/viewtopic.php?f=4&t=2173
 \expandafter\def\expandafter\insertshorttitle\expandafter{%
-  \insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
+	\insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
 \usepackage{minted}
 \setminted{fontsize=\scriptsize}
 \usemintedstyle{tango}
@@ -130,33 +130,33 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Outline}
-\tableofcontents
+	\frametitle{Outline}
+	\tableofcontents
 \end{frame}
 
 \section{Introduction}
 \subsection{Project aim and nanoporous graphene}
 \begin{frame}{Project aim}
 	\centering
-		\begin{beamercolorbox}[sep=1em,wd=10cm]{redbox}
-            ``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
-        \end{beamercolorbox}
+	\begin{beamercolorbox}[sep=1em,wd=10cm]{redbox}
+		``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
+	\end{beamercolorbox}
 \end{frame}
 
 \begin{frame}{Nanoporous graphene}
 	\centering
 	\begin{columns}[c]
-	    \column{.7\textwidth}
-	        \begin{itemize}
-	            \item Planar graphene sheets
-	            \item Periodically removed atoms
-	            \item Ribbons and bridges
-	            %\item Bridge chemistry \(\rightarrow\) current control
-	            \item Ballistic electron movement
-	            \item Potential for controlling currents on nanoscale
-	        \end{itemize}
-	    \column{.7\textwidth}
-	        \includegraphics[width=1\textwidth]{Figures/NPGintroGraphic.eps}
+		\column{.7\textwidth}
+		\begin{itemize}
+			\item Planar graphene sheets
+			\item Periodically removed atoms
+			\item Ribbons and bridges
+			      %\item Bridge chemistry \(\rightarrow\) current control
+			\item Ballistic electron movement
+			\item Potential for controlling currents on nanoscale
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[width=1\textwidth]{Figures/NPGintroGraphic.eps}
 	\end{columns}
 \end{frame}
 
@@ -165,15 +165,15 @@
 \begin{frame}{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
 	\centering
 	\begin{columns}[c]
-	    \column{.7\textwidth}
-	        \begin{itemize}
-	            \item In plane electrons are bound
-	            \item 1 \(p_z\)-electron per site
-	            \item ``Tightly bound'' hops between sites
-	        \end{itemize}
-	    \column{.7\textwidth}
-	        \resizebox{.5\textwidth}{!}{
-	        \begin{tikzpicture}
+		\column{.7\textwidth}
+		\begin{itemize}
+			\item In plane electrons are bound
+			\item 1 \(p_z\)-electron per site
+			\item ``Tightly bound'' hops between sites
+		\end{itemize}
+		\column{.7\textwidth}
+		\resizebox{.5\textwidth}{!}{
+			\begin{tikzpicture}
 				\node (x) at (-1,-3) {x};
 				\node (y) at (-2,-2) {y};
 				\draw[->] (-2,-3) -- (x);
@@ -209,53 +209,53 @@
 					blue/240/south west/1
 				}
 			\end{tikzpicture}}
-			\pgfdeclarelayer{background}
-	        \pgfdeclarelayer{middle}
-	        \pgfdeclarelayer{foreground}
-	\pgfsetlayers{background,middle,main,foreground}
-	\resizebox{.5\textwidth}{!}{
-	\begin{tikzpicture}
-		\begin{pgfonlayer}{background}
-			\orbital[pos = {(6,6)}]{-pz}
-			\node[above] at (6,7) {-p$_\pi$};
-			\orbital[pos = {(4,6)}]{pz}
-			\node[above] at (4,7) {p$_\pi$};
-			\draw[dashed, very thick] (6,6) -- (4,6);
-			\draw[dashed, very thick] (7,4.73) -- (6,6);
-			\draw[dashed, very thick] (4,6) -- (3,4.73);
-		\end{pgfonlayer}
-		\orbital[pos = {(7,4.73)}]{pz}
-		\node[above] at (7,5.73) {p$_\pi$};
-		\orbital[pos = {(3,4.73)}]{-pz}
-		\node[above] at (3,5.73) {-p$_\pi$};
-		\begin{pgfonlayer}{foreground}
-			\orbital[pos = {(4,3.46)}]{pz}
-			\node[above] at (4,4.46) {p$_\pi$};
-			\orbital[pos = {(6,3.46)}]{-pz}
-			\node[above] at (6,4.46) {-p$_\pi$};
-			\draw[dashed, very thick] (4,3.46) -- (6,3.46);
-		\end{pgfonlayer}
-		\draw[dashed, very thick] (6,3.46) -- (7,4.73);
-		\draw[dashed, very thick] (3,4.73) -- (4,3.46);
-	\end{tikzpicture}}
+		\pgfdeclarelayer{background}
+		\pgfdeclarelayer{middle}
+		\pgfdeclarelayer{foreground}
+		\pgfsetlayers{background,middle,main,foreground}
+		\resizebox{.5\textwidth}{!}{
+			\begin{tikzpicture}
+				\begin{pgfonlayer}{background}
+					\orbital[pos = {(6,6)}]{-pz}
+					\node[above] at (6,7) {-p$_\pi$};
+					\orbital[pos = {(4,6)}]{pz}
+					\node[above] at (4,7) {p$_\pi$};
+					\draw[dashed, very thick] (6,6) -- (4,6);
+					\draw[dashed, very thick] (7,4.73) -- (6,6);
+					\draw[dashed, very thick] (4,6) -- (3,4.73);
+				\end{pgfonlayer}
+				\orbital[pos = {(7,4.73)}]{pz}
+				\node[above] at (7,5.73) {p$_\pi$};
+				\orbital[pos = {(3,4.73)}]{-pz}
+				\node[above] at (3,5.73) {-p$_\pi$};
+				\begin{pgfonlayer}{foreground}
+					\orbital[pos = {(4,3.46)}]{pz}
+					\node[above] at (4,4.46) {p$_\pi$};
+					\orbital[pos = {(6,3.46)}]{-pz}
+					\node[above] at (6,4.46) {-p$_\pi$};
+					\draw[dashed, very thick] (4,3.46) -- (6,3.46);
+				\end{pgfonlayer}
+				\draw[dashed, very thick] (6,3.46) -- (7,4.73);
+				\draw[dashed, very thick] (3,4.73) -- (4,3.46);
+			\end{tikzpicture}}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{TB approximation}
 	\centering
 	\begin{columns}[c]
-	\column{.7\textwidth}
-	\begin{itemize}
-	    \item Electrons tightly bound to sites
-	    \item Hops with potential
-	    \item Average electron energy on site
-	    \item The Hamiltonian is a hop matrix
-	\end{itemize}
-	\column{.7\textwidth}
-	\begin{align}
-    	V_{pp\pi} &= \bra{\phi_{\pi}(m)}\vu{H}\ket{\phi_{\pi}(n)}\nonumber\\
-	    \epsilon_0 &= \bra{\phi_{\pi}(i)}\vu{H}\ket{\phi_{\pi}(i)}\nonumber
-	\end{align}
+		\column{.7\textwidth}
+		\begin{itemize}
+			\item Electrons tightly bound to sites
+			\item Hops with potential
+			\item Average electron energy on site
+			\item The Hamiltonian is a hop matrix
+		\end{itemize}
+		\column{.7\textwidth}
+		\begin{align}
+			V_{pp\pi}  & = \bra{\phi_{\pi}(m)}\vu{H}\ket{\phi_{\pi}(n)}\nonumber \\
+			\epsilon_0 & = \bra{\phi_{\pi}(i)}\vu{H}\ket{\phi_{\pi}(i)}\nonumber
+		\end{align}
 	\end{columns}
 	\note{\(\epsilon_0 = 0\)}
 	\note{\(\Psi_{\mathrm{MO}} &= \sum_{\alpha,R}c_{\alpha,R}\phi_{\alpha}(R)\)}
@@ -264,154 +264,154 @@
 \begin{frame}{Hamiltonian for benzene}
 	\centering
 	\begin{columns}[c]
-	\column{.4\textwidth}
+		\column{.4\textwidth}
 		\begin{align}
-	\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
-		\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
-	1 & 0 & 1 & 0 & 0 & 0             \\
-	0 & 1 & 0 & 1 & 0 & 0             \\
-	0 & 0 & 1 & 0 & 1 & 0             \\
-	0 & 0 & 0 & 1 & 0 & 1             \\
-	1 & 0 & 0 & 0 & 1 & 0)} \nonumber
-\end{align}
-	\column{.4\textwidth}
-\begin{tikzpicture}
-		\chemfig{1*6(-2-3-4-5-6-)}
-	\end{tikzpicture}
+			\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
+				\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
+			1 & 0 & 1 & 0 & 0 & 0             \\
+			0 & 1 & 0 & 1 & 0 & 0             \\
+			0 & 0 & 1 & 0 & 1 & 0             \\
+			0 & 0 & 0 & 1 & 0 & 1             \\
+			1 & 0 & 0 & 0 & 1 & 0)} \nonumber
+		\end{align}
+		\column{.4\textwidth}
+		\begin{tikzpicture}
+			\chemfig{1*6(-2-3-4-5-6-)}
+		\end{tikzpicture}
 	\end{columns}
 \end{frame}
 
 \section{The Hamiltonian}
 \subsection{Onsites, hops and the full TB Hamiltonian}
 \begin{frame}{Creating the first Hamiltonian}
-    \begin{center}
-    \begin{columns}[c]
-    \column{.7\textwidth}
-    \begin{itemize}
-        \item Atom coordinates
-        \item Interatomic distances
-        \item Applying potential
-    \end{itemize}
-    \note{Outer product: Nested lööps}
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/atomreffig.eps}
-    \end{columns}
-    \end{center}
-	    \im{Listings/Functions.py}{33}{38}\hspace*{4cm}
+	\begin{center}
+		\begin{columns}[c]
+			\column{.7\textwidth}
+			\begin{itemize}
+				\item Atom coordinates
+				\item Interatomic distances
+				\item Applying potential
+			\end{itemize}
+			\note{Outer product: Nested lööps}
+			\column{.7\textwidth}
+			\includegraphics[width=\textwidth]{Figures/atomreffig.eps}
+		\end{columns}
+	\end{center}
+	\im{Listings/Functions.py}{33}{38}\hspace*{4cm}
 \end{frame}
 
 \begin{frame}{Hopping matrices}
-\centering
-    \begin{columns}[c]
-    \column{.7\textwidth}
-    \begin{itemize}
-        \item Shift by lattice vector 
-        \item Resulting matrices: \(\vb{h_0}, \vb{V}, \vb{V}^{\dagger}\)
-    \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/stitch.eps}
-    \end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.7\textwidth}
+		\begin{itemize}
+			\item Shift by lattice vector
+			\item Resulting matrices: \(\vb{h_0}, \vb{V}, \vb{V}^{\dagger}\)
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[width=\textwidth]{Figures/stitch.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Full Hamiltonian and first band plots}
-\begin{overprint}
-\onslide<1>
-\begin{align}
-    \vb{H}(k_x,k_y) \vb*{\phi}_k &= \vb*{\epsilon}_n\pqty{k_x,k_y}\vb*{\phi}_k\nonumber\\
-	\vb{H}(k_x,k_y) = \vb{h}_0 &+ (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber\\
-	&+ \vb{V}_{xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_x}e^{ik_y})\nonumber
-\end{align}
-    \im{Listings/Functions.py}{73}{80}
-\onslide<2>
-    \begin{columns}[c]
-\column{.7\textwidth}
-\begin{align}
-    \qq{X:} \vb{H}_{X} = \vb{h}_0 + (&\vb{V}_{x}e^{ik_x} + \vb{V}_{x}^{\dagger}e^{-ik_x} + \vb{V}_{y} + \vb{V}_{y}^{\dagger}\nonumber\\
-    +\ &\vb{V}_{xy}e^{ik_x} + \vb{V}_{xy}^{\dagger}e^{-ik_x}) \nonumber\\
-	\qq{Y:} \vb{H}_{Y} = \vb{h}_0 + (&\vb{V}_{x} + \vb{V}_{x}^{\dagger} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber\\
-	+\ &\vb{V}_{xy}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_y}) \nonumber
-\end{align}
-    \column{.7\textwidth}
-    \includegraphics[width=.65\textwidth]{Figures/BetaBandstructures.eps}
-    \end{columns}
-\end{overprint}
+	\begin{overprint}
+		\onslide<1>
+		\begin{align}
+			\vb{H}(k_x,k_y) \vb*{\phi}_k & = \vb*{\epsilon}_n\pqty{k_x,k_y}\vb*{\phi}_k\nonumber                                                               \\
+			\vb{H}(k_x,k_y) = \vb{h}_0   & + (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber \\
+			                             & + \vb{V}_{xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_x}e^{ik_y})\nonumber
+		\end{align}
+		\im{Listings/Functions.py}{73}{80}
+		\onslide<2>
+		\begin{columns}[c]
+			\column{.7\textwidth}
+			\begin{align}
+				\qq{X:} \vb{H}_{X} = \vb{h}_0 + ( & \vb{V}_{x}e^{ik_x} + \vb{V}_{x}^{\dagger}e^{-ik_x} + \vb{V}_{y} + \vb{V}_{y}^{\dagger}\nonumber \\
+				+\                                & \vb{V}_{xy}e^{ik_x} + \vb{V}_{xy}^{\dagger}e^{-ik_x}) \nonumber                                 \\
+				\qq{Y:} \vb{H}_{Y} = \vb{h}_0 + ( & \vb{V}_{x} + \vb{V}_{x}^{\dagger} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber \\
+				+\                                & \vb{V}_{xy}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_y}) \nonumber
+			\end{align}
+			\column{.7\textwidth}
+			\includegraphics[width=.65\textwidth]{Figures/BetaBandstructures.eps}
+		\end{columns}
+	\end{overprint}
 \end{frame}
 
 \section{Green's functions and recursion}
 \subsection{Green's matrix, recursion and LDOS}
 
 \begin{frame}{Green's matrix}
-    \begin{center}
-    \begin{columns}[c]
-    \column{.7\textwidth}
-    \begin{itemize}
-        \item Solution to the Sc\"{o}dinger Equation
-        \item Propagator
-    \end{itemize}
-    \column{.7\textwidth}
-        \begin{align*}
-            &[(E+i\eta)\vb{1}-\vb{H}]\vb{G}(E)=\vb{1}\\
-            &\downarrow\\
-            &\vb{G}(E)=\vb{1}([(E+i\eta)\vb{1}-\vb{H}])^{-1}
-        \end{align*}
-    \end{columns}
-    \end{center}
+	\begin{center}
+		\begin{columns}[c]
+			\column{.7\textwidth}
+			\begin{itemize}
+				\item Solution to the Sc\"{o}dinger Equation
+				\item Propagator
+			\end{itemize}
+			\column{.7\textwidth}
+			\begin{align*}
+				 & [(E+i\eta)\vb{1}-\vb{H}]\vb{G}(E)=\vb{1}        \\
+				 & \downarrow                                      \\
+				 & \vb{G}(E)=\vb{1}([(E+i\eta)\vb{1}-\vb{H}])^{-1}
+			\end{align*}
+		\end{columns}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Recursion}
-\begin{overprint}
-\onslide<1>
-    \begin{center}
-    \begin{columns}[c]
-    \column{.7\textwidth}
-    \begin{itemize}
-        \item Semi-infinite chain
-    \end{itemize}
-    \begin{align*}
-	&\begin{pmatrix}
-		z\mathbf{1}-\mathbf{H}_c & -\mathbf{V}^{\dagger} \\ -\mathbf{V} & (z-\varepsilon')\mathbf{1}
-	\end{pmatrix}
-	\begin{pmatrix}
-		\mathbf{X}      & \mathbf{G}_{0c} \\
-		\mathbf{G}_{c0} & \mathbf{G}_{00}
-	\end{pmatrix}
-	=
-	\begin{pmatrix}
-		\mathbf{1} & \mathbf{0} \\
-		\mathbf{0} & \mathbf{1}
-	\end{pmatrix}
-	\end{align*}
-	\begin{align*}
-	 \mathbf{G}_{00}(z) &= \left[(z-\varepsilon')-\vb{V}(z\vb{1}-\vb{H}_c)\vb{V}^{\dagger}\right]^{-1} \\
-	                   &= (z-\varepsilon'-\Sigma(z))^{-1}\\
-	                   &\qq{where}\\
-	                           z &= E+i\eta\\
-    \end{align*}
-    \column{.7\textwidth}
-    \begin{align*}
-        a_0 &= \vb{V}^{\dagger}, \quad b_0 = \vb{V}\\
-        e_{s0} &= \vb{h}_s, \quad e_0\ = \vb{h}\\
-        &\qq{in loop:}\\
-        a_1 &= a_0 \times g_0 \times a_0\\
-        b_1 &= b_0 \times g_0 \times b_0\\
-        e_1 &= e_0 + a_0 \times g_0 \times b_0 + b_0 \times g_0 \times a_0\\
-        e_{1s} &= e_{0s} + a_0 \times g_0 \times b_0\\
-        g_1 &= \pqty{z-e_1}^{-1}\\
-        \vb{\Sigma}_R &= e_s - h\\
-        \vb{\Sigma}_L &= e - h - \vb{\Sigma}_R\\
-        \vb{G00} &= \pqty{z-e_s}^{-1}
-    \end{align*}
-    \end{columns}
-    \end{center}
-\onslide<2>
-	    \im{Listings/Functions.py}{92}{109}
-\end{overprint}
+	\begin{overprint}
+		\onslide<1>
+		\begin{center}
+			\begin{columns}[c]
+				\column{.7\textwidth}
+				\begin{itemize}
+					\item Semi-infinite chain
+				\end{itemize}
+				\begin{align*}
+					 & \begin{pmatrix}
+						z\mathbf{1}-\mathbf{H}_c & -\mathbf{V}^{\dagger} \\ -\mathbf{V} & (z-\varepsilon')\mathbf{1}
+					\end{pmatrix}
+					\begin{pmatrix}
+						\mathbf{X}      & \mathbf{G}_{0c} \\
+						\mathbf{G}_{c0} & \mathbf{G}_{00}
+					\end{pmatrix}
+					=
+					\begin{pmatrix}
+						\mathbf{1} & \mathbf{0} \\
+						\mathbf{0} & \mathbf{1}
+					\end{pmatrix}
+				\end{align*}
+				\begin{align*}
+					\mathbf{G}_{00}(z) & = \left[(z-\varepsilon')-\vb{V}(z\vb{1}-\vb{H}_c)\vb{V}^{\dagger}\right]^{-1} \\
+					                   & = (z-\varepsilon'-\Sigma(z))^{-1}                                             \\
+					                   & \qq{where}                                                                    \\
+					z                  & = E+i\eta                                                                     \\
+				\end{align*}
+				\column{.7\textwidth}
+				\begin{align*}
+					a_0           & = \vb{V}^{\dagger}, \quad b_0 = \vb{V}                        \\
+					e_{s0}        & = \vb{h}_s, \quad e_0\ = \vb{h}                               \\
+					              & \qq{in loop:}                                                 \\
+					a_1           & = a_0 \times g_0 \times a_0                                   \\
+					b_1           & = b_0 \times g_0 \times b_0                                   \\
+					e_1           & = e_0 + a_0 \times g_0 \times b_0 + b_0 \times g_0 \times a_0 \\
+					e_{1s}        & = e_{0s} + a_0 \times g_0 \times b_0                          \\
+					g_1           & = \pqty{z-e_1}^{-1}                                           \\
+					\vb{\Sigma}_R & = e_s - h                                                     \\
+					\vb{\Sigma}_L & = e - h - \vb{\Sigma}_R                                       \\
+					\vb{G00}      & = \pqty{z-e_s}^{-1}
+				\end{align*}
+			\end{columns}
+		\end{center}
+		\onslide<2>
+		\im{Listings/Functions.py}{92}{109}
+	\end{overprint}
 \end{frame}
 
 \begin{frame}{LDOS}
-\centering
-    \includegraphics[width=.7\textwidth]{Figures/BetaimrealTE.eps}
-	    \im{Listings/SelfEnergyByRecursion.py}{64}{68}
+	\centering
+	\includegraphics[width=.7\textwidth]{Figures/BetaimrealTE.eps}
+	\im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \end{frame}
 
 \section*{Questions}
@@ -424,12 +424,9 @@
 \appendix
 \section{Energy and velocity fits}
 \begin{frame}{Energy and velocity fits}
-	\begin{align}
-		\qq{Velocity for hydrogen:}        & v = 3.12\times10^4 \sqrt{x}+1.72\times10^5   \nonumber \\
-		\qq{Velocity for deuterium:}       & v = 0.7666\times10^4\sqrt{x}+2.295\times10^5 \nonumber \\
-		\qq{Kinetic energy for hydrogen:}  & KE = 11.7x+287.7                             \nonumber \\
-		\qq{Kinetic energy for deuterium:} & KE = 4.387x+637.3 \nonumber
-	\end{align}
+	\begin{itemize}
+		\item Appendix
+	\end{itemize}
 \end{frame}
 
 \end{document}
