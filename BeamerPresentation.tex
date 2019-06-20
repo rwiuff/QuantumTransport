@@ -30,19 +30,19 @@
 \DeclareSIUnit\atm{atm}
 \usepackage{nth}
 \usepackage{physics}
-\usepackage{pgfplots}
-\pgfplotsset{width=10cm}
-\def\axisdefaultwidth{10cm}
-%\usepgfplotslibrary{external}
-\usepgfplotslibrary{units}
-%\tikzexternalize
-
+\usepackage{microtype}
+\usepackage{chemfig}
+\usepackage{tikzorbital}
+\newcommand*\mathinhead[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
 \usepackage{appendixnumberbeamer}
 % Add total frame count to slides, optional. From Stefan,
 % http://www.latex-community.org/forum/viewtopic.php?f=4&t=2173
 \expandafter\def\expandafter\insertshorttitle\expandafter{%
   \insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
-
+\usepackage{minted}
+\setminted{fontsize=\scriptsize}
+\usemintedstyle{tango}
+\newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
 % ------------------------ Define note handout layout -------------------------
 \newcommand{\pgflayout}{
 	\pgfpagesphysicalpageoptions
@@ -107,12 +107,21 @@
 \setbeamercolor{itemize item}{fg=itemcolor}
 \setbeamercolor{redbox}{fg=White,bg=blockbodycolor}
 \setbeamercolor{description item}{fg=DTUred}
+
 % -----------------------------------------------------------------------------
 
-\title{Exam presentation}
-\subtitle{Course 10401}
-\author{\scshape\centering Rasmus Kronborg Finnemann Wiuff (s163977) \\ \vspace{7.5mm} \includegraphics[width=1cm]{Figures/DTU3CMYK.eps}}
-\date{\scshape January 17, 2019}
+\title{Quantum Transport in Nanoporous Graphene}
+\subtitle{Bachelor defense}
+\author{\scshape\centering Christoffer Vendelbo Sørensen (s163965) \vskip\vspace{7.5mm} \includegraphics[width=1cm]{Figures/DTU3CMYK.eps}}
+\date{\scshape June 25, 2019}
+
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>
+%    \frametitle{Outline for section \thesection}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
 
 \begin{document}
 
@@ -120,212 +129,289 @@
 	\titlepage
 \end{frame}
 
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
 \section{Introduction}
-\subsection{Introduction}
-\begin{frame}{Introduction}
-	\begin{center}
-		\begin{columns}[t]
-			\column{.7\textwidth}
-			\textbf{DTU Tokamak Interferometer}\newline
-			\vspace{.26em}
-			\begin{description}[Goal \# 1]
-				\item[Title] Diagnostics via interferometry
-				\item[Goal \# 1] To calculate the phase shift induced by O-mode plasma and investigate different microwave sources
-				\item[Goal \# 2] To design a lens system to accommodate the beam propagation in the small DTU tokamak
-			\end{description}
-			\column{.7\textwidth}
-			\textbf{Fusor Spectral Lines}\newline
-			\begin{description}[Goal \# 1]
-				\item[Title] Fusor exercise
-				\item[Goal \# 1] To measure spectral lines from fusion in the inertial electrostatic confinement fusor at DTU
-				\item[Goal \# 2] To estimate velocities and energies as functions of voltage
-			\end{description}
-		\end{columns}
-	\end{center}
-\end{frame}
-
-\section{Plasma Interferometry}
-\subsection{Cut off/sources}
-\begin{frame}{Cut off}
+\subsection{Project aim and nanoporous graphene}
+\begin{frame}{Project aim}
 	\centering
-	\begin{align}
-		\qq{Proportionallity:} \omega_p^2    & \propto n_\mathrm{e}                   \\
-		\qq{Refreactive index:} N_\mathrm{O} & = \sqrt{1-\frac{\omega_p^2}{\omega^2}}
-	\end{align}
-	The plasma is transparent if
-	\begin{align}
-		\omega > \omega_p = \sqrt{n_\mathrm{e}\frac{e^2}{\varepsilon_0m_\mathrm{e0}}}
-	\end{align}
-	For \(\omega\), \(n_\mathrm{e}\) must not exceed cutoff density \(n_\mathrm{c}\):
-	\begin{align}
-		n_\mathrm{e} < n_\mathrm{c} & = \omega^2\frac{\varepsilon_0m_\mathrm{e0}}{e^2}                                                        \\
-		n_\mathrm{c}                & = \omega^2\frac{\SI{8.854e-12}{\farad\per\meter}\ \SI{9.109e-31}{\kilo\gram}}{\SI{1.602e-19}{\coulomb}}
-	\end{align}
+		\begin{beamercolorbox}[sep=1em,wd=10cm]{redbox}
+            ``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
+        \end{beamercolorbox}
 \end{frame}
 
-\begin{frame}{Cut off}
+\begin{frame}{Nanoporous graphene}
 	\centering
-	\begin{align}
-		n_\mathrm{e} < 0.000314\omega^2
-	\end{align}
-	Electron density range: \SIrange{e16}{e18}{\per\meter\cubed}
-	\begin{align}
-		\omega & > \sqrt{\frac{\SI{e18}{\per\meter\cubed}}{0.000314}} \\
-		       & \Downarrow\nonumber                                  \\
-		f      & \approx \SI{9}{\giga\hertz}
-	\end{align}
-\end{frame}
-\begin{frame}{Four Sources}
-	\begin{columns}
-		\column{.6\textwidth}\\
-		At a density of \SI{e18}{\per\meter\cubed} the minimum frequency of the wave is:
-		\(f \approx \SI{9}{\giga\hertz}\)\newline
-		\begin{itemize}
-			\item \SI{2.45}{\giga\hertz}
-			\item \SI{60}{\giga\hertz} (Transparent)
-			\item \SI{98}{\giga\hertz} (Transparent)
-			\item \SI{130}{\giga\hertz} (Transparent)
-		\end{itemize}
-		\column{.6\textwidth}
-		\includegraphics[width=\textwidth]{Figures/BeamProp.eps}
-	\end{columns}
-\end{frame}
-\begin{frame}{Phase shift}
-	\centering
-	\begin{align}
-		N_\mathrm{O} = \sqrt{1-\frac{\omega_p^2}{\omega^2}} = \sqrt{1-\frac{n_\mathrm{e}}{n_\mathrm{c}}}
-	\end{align}
-	Probing frequency much higher than plasma frequency, critical density much higher than electron density:
-	\begin{align}
-		N_\mathrm{O} & = \sqrt{1-\frac{n_\mathrm{e}}{n_\mathrm{c}}}         \\
-		             & \approx 1-\frac{1}{2}\frac{n_\mathrm{e}}{\mathrm{c}} \\
-		             & = 1-\frac{\omega_p^2}{2\omega^2}
-	\end{align}
-	% O-mode refractive index and electron density linear dependent if:
-	% \begin{align}
-	% 	\frac{n_\mathrm{e}}{n_\mathrm{c}} \leq0.4 \quad \frac{\omega_p}{\omega}           \leq0.6
-	% \end{align}
-\end{frame}
-
-\begin{frame}{Phase shift}
-	The phase shift is given as:
-	\begin{align}
-		\frac{\Phi}{2\pi} & = \frac{\Delta L_{opt}}{\lambda} = \frac{\int_{x_1}^{x_2}\pqty{N_V-N_{\mathrm{O}}(x')}\dd{x'}}{\lambda} \approx \frac{1}{2\lambda n_c}\int_{0}^{x}n_\mathrm{e}(x')\dd{x'} \nonumber \\
-		                  & = 4.48\times 10^{-16} \pqty{\frac{\lambda}{\si{\meter}}}\int_{0}^{x}\pqty{\frac{n_\mathrm{e}(x')}{\si{\per\meter\cubed}}}\pqty{\frac{\dd{x'}}{\si{\meter}}}
-	\end{align}
-	Assuming a Gaussian density distribution:
-	\begin{align}
-		\int_{-\infty}^{\infty}n_\mathrm{e} \exp\pqty{-\frac{(y-b)^2}{2c^2}}\dd{y} \approx n_\mathrm{e}\ c\ \sqrt{2\pi}
-	\end{align}
-	With tokamak diameter of \SI{0.250}{\meter}:
-	\begin{align}
-		\frac{\Phi}{2\pi} & \approx 4.48\times 10^{-16}\pqty{\frac{\lambda}{\si{\meter}}}n_e\SI{0.25}{\meter}\sqrt{2\pi}                                          \\
-		                  & = 1.12\times 10^{-16}\ n_e  \pqty{\frac{\sqrt{2\pi} c}{\omega\si{\meter}}} = 8.416\times 10^{-8}\pqty{\frac{n_e}{\omega\si{\second}}}
-	\end{align}
-\end{frame}
-
-\begin{frame}{Phase shifts}
-	\includegraphics[width=.9\textwidth]{MatlabFigures/PhaseShift/PhaseShift.eps}
-\end{frame}
-
-\subsection{Gaussian telescope}
-\begin{frame}{Beam waist propagation}
-	\centering
-	Beam Waist:
-	\begin{align}
-		w(z) = w_0(z)\sqrt{1+\pqty{\frac{\lambda z}{\pi w_0^2}}^2}
-	\end{align}
 	\begin{columns}[c]
-		\column{.7\textwidth}
-		\centering
-		\includegraphics[width=.7\textwidth]{Figures/PropEx.eps}
-		\column{.7\textwidth}
-		\centering
-		\includegraphics[width=.7\textwidth]{Figures/BeamProp.eps}
+	    \column{.7\textwidth}
+	        \begin{itemize}
+	            \item Planar graphene sheets
+	            \item Periodically removed atoms
+	            \item Ribbons and bridges
+	            %\item Bridge chemistry \(\rightarrow\) current control
+	            \item Ballistic electron movement
+	            \item Potential for controlling currents on nanoscale
+	        \end{itemize}
+	    \column{.7\textwidth}
+	        \includegraphics[width=1\textwidth]{Figures/NPGintroGraphic.eps}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Designing a Gaussian telescope Interferometer}
-	\begin{align}
-		d   & = f_0 + f_1                                                                                    \\
-		w_2 & = \frac{f_1}{f_0}w_0                                                                           \\
-		d_3 & = \frac{f_1}{f_0}\pqty{f_0+f_1-\frac{f_1}{f_0}d_0}                                             \\
-		w_1 & = \frac{\lambda f_0}{\pi w_0}                                                                  \\
-		d_1 & = \pqty{\frac{\frac{d_0}{f_0}-1}{\frac{w_0^2\pi}{f_0\lambda}+\pqty{\frac{d_0}{f_0}-1}^2}+1}f_0 \\
-		d_2 & = d-d_1
-	\end{align}
-\end{frame}
-
-\begin{frame}{Gaussian Telescope}
-	\begin{columns}
-		\column{.6\textwidth}
-		\begin{itemize}
-			\item Input parameters:\\
-			      \(r_p = \SI{0.055}{\meter}\), \(r = \SI{0.125}{\meter}\),
-			      \(w_0 = \SI{0.0275}{\meter}\), \(\mathrm{freq} = \SI{60}{\giga\hertz}\), \(d_0 = \SI{0.2}{\meter}\), \(d_r = \SI{0.1}{\meter}\), \(f_0 = \SI{0.25}{\meter}\), \(f_1 = \SI{0.2}{\meter}\)
-			\item Output distances:\\
-			      \(d_1 = \SI{0.224}{\meter}\), \(d_2 = \SI{0.226}{\meter}\), \(d_3 = \SI{0.232}{\meter}\)
-			\item Output beamwaists:\\
-			      \(w_1 = \SI{0.0145}{\meter}\), \(w_2 = \SI{0.022}{\meter}\)
-			\item Wavelenght: \(\lambda = \SI{0.005}{\meter}\)
-		\end{itemize}
-		\column{.7\textwidth}
-		\includegraphics[width=\textwidth]{MatlabFigures/Interferometer/Interferometer.eps}
+\section{Tight Binding approximation}
+\subsection{\mathinhead{\pi}{\pi}-orbitals, \mathinhead{\pi}{\pi}-electrons and the TB approximation}
+\begin{frame}{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
+	\centering
+	\begin{columns}[c]
+	    \column{.7\textwidth}
+	        \begin{itemize}
+	            \item In plane electrons are bound
+	            \item 1 \(p_z\)-electron per site
+	            \item ``Tightly bound'' hops between sites
+	        \end{itemize}
+	    \column{.7\textwidth}
+	        \resizebox{.5\textwidth}{!}{
+	        \begin{tikzpicture}
+				\node (x) at (-1,-3) {x};
+				\node (y) at (-2,-2) {y};
+				\draw[->] (-2,-3) -- (x);
+				\draw[->] (-2,-3) -- (y);
+				\satom[name=C, color=blue, pos={(0,0)}]{
+					blue/60/north east/2/1,
+					blue/180/west/1,
+					blue/300/south east/2/1
+				}
+				\satom[name=C, color=blue, pos={(1,1.4)}]{
+					blue/0/east/2/1,
+					blue/120/north west/1,
+					blue/240/south west/2/1
+				}
+				\satom[name=C, color=blue, pos={(2.74,1.4)}]{
+					blue/60/north east/1,
+					blue/180/west/2/1,
+					blue/300/south east/2/1
+				}
+				\satom[name=C, color=blue, pos={(3.74,0)}]{
+					blue/0/east/1,
+					blue/120/north west/2/1,
+					blue/240/south west/2/1
+				}
+				\satom[name=C, color=blue, pos={(2.74,-1.4)}]{
+					blue/60/north east/2/1,
+					blue/180/west/2/1,
+					blue/300/south east/1
+				}
+				\satom[name=C, color=blue, pos={(1,-1.4)}]{
+					blue/0/east/2/1,
+					blue/120/north west/2/1,
+					blue/240/south west/1
+				}
+			\end{tikzpicture}}
+			\pgfdeclarelayer{background}
+	        \pgfdeclarelayer{middle}
+	        \pgfdeclarelayer{foreground}
+	\pgfsetlayers{background,middle,main,foreground}
+	\resizebox{.5\textwidth}{!}{
+	\begin{tikzpicture}
+		\begin{pgfonlayer}{background}
+			\orbital[pos = {(6,6)}]{-pz}
+			\node[above] at (6,7) {-p$_\pi$};
+			\orbital[pos = {(4,6)}]{pz}
+			\node[above] at (4,7) {p$_\pi$};
+			\draw[dashed, very thick] (6,6) -- (4,6);
+			\draw[dashed, very thick] (7,4.73) -- (6,6);
+			\draw[dashed, very thick] (4,6) -- (3,4.73);
+		\end{pgfonlayer}
+		\orbital[pos = {(7,4.73)}]{pz}
+		\node[above] at (7,5.73) {p$_\pi$};
+		\orbital[pos = {(3,4.73)}]{-pz}
+		\node[above] at (3,5.73) {-p$_\pi$};
+		\begin{pgfonlayer}{foreground}
+			\orbital[pos = {(4,3.46)}]{pz}
+			\node[above] at (4,4.46) {p$_\pi$};
+			\orbital[pos = {(6,3.46)}]{-pz}
+			\node[above] at (6,4.46) {-p$_\pi$};
+			\draw[dashed, very thick] (4,3.46) -- (6,3.46);
+		\end{pgfonlayer}
+		\draw[dashed, very thick] (6,3.46) -- (7,4.73);
+		\draw[dashed, very thick] (3,4.73) -- (4,3.46);
+	\end{tikzpicture}}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Beware}
+\begin{frame}{TB approximation}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Refraction.eps}
-\end{frame}
-
-\section{Fusor Exercise}
-
-\begin{frame}{Spectrum}
-	\begin{figure}[H]
-		\centering
-		\resizebox{\textwidth}{!}{
-			\begin{tikzpicture}
-				\begin{axis}[
-						width=\textwidth,
-						height=.8\textheight,
-						title={Spectrum of light from fusion in the fusor},
-						use units,
-						x unit prefix=n, x unit=m,
-						y unit=A.U.,
-						xlabel=Wavelength,
-						ylabel=Intensity,
-						ymajorgrids=true,
-						grid style=dashed,
-						%scaled y ticks=manual:{\(10^{-9}\)}{\pgfmathparse{#1*10^9}}
-					]
-					\addplot[color=red] table {Data/SpectrumData.txt};
-				\end{axis}
-			\end{tikzpicture}
-		}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Spectral line width as function of applied voltage}
-	\centering
-	\includegraphics[width=.9\textwidth]{MatlabFigures/Asign3/VSigma.eps}
-\end{frame}
-
-\begin{frame}{Energy and velocity}
-	Spectral line width:
+	\begin{columns}[c]
+	\column{.7\textwidth}
+	\begin{itemize}
+	    \item Electrons tightly bound to sites
+	    \item Hops with potential
+	    \item Average electron energy on site
+	    \item The Hamiltonian is a hop matrix
+	\end{itemize}
+	\column{.7\textwidth}
 	\begin{align}
-		\sigma & = \Delta\lambda = \frac{\lambda_0}{c} v_\mathrm{1D} \\
-		       & = \frac{\lambda_0}{c}\frac{kT}{m}^{1/2}
+    	V_{pp\pi} &= \bra{\phi_{\pi}(m)}\vu{H}\ket{\phi_{\pi}(n)}\nonumber\\
+	    \epsilon_0 &= \bra{\phi_{\pi}(i)}\vu{H}\ket{\phi_{\pi}(i)}\nonumber
 	\end{align}
-	Kinetic energy:
-	\begin{align}
-		\mathrm{KE} = \frac{1}{2}mv^2
-	\end{align}
+	\end{columns}
+	\note{\(\epsilon_0 = 0\)}
+	\note{\(\Psi_{\mathrm{MO}} &= \sum_{\alpha,R}c_{\alpha,R}\phi_{\alpha}(R)\)}
 \end{frame}
 
-\begin{frame}{Energy and velocity}
+\begin{frame}{Hamiltonian for benzene}
 	\centering
-	\includegraphics[width=\textwidth]{MatlabFigures/Asign3/KineticVelo.eps}
+	\begin{columns}[c]
+	\column{.4\textwidth}
+		\begin{align}
+	\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
+		\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
+	1 & 0 & 1 & 0 & 0 & 0             \\
+	0 & 1 & 0 & 1 & 0 & 0             \\
+	0 & 0 & 1 & 0 & 1 & 0             \\
+	0 & 0 & 0 & 1 & 0 & 1             \\
+	1 & 0 & 0 & 0 & 1 & 0)} \nonumber
+\end{align}
+	\column{.4\textwidth}
+\begin{tikzpicture}
+		\chemfig{1*6(-2-3-4-5-6-)}
+	\end{tikzpicture}
+	\end{columns}
+\end{frame}
+
+\section{The Hamiltonian}
+\subsection{Onsites, hops and the full TB Hamiltonian}
+\begin{frame}{Creating the first Hamiltonian}
+    \begin{center}
+    \begin{columns}[c]
+    \column{.7\textwidth}
+    \begin{itemize}
+        \item Atom coordinates
+        \item Interatomic distances
+        \item Applying potential
+    \end{itemize}
+    \note{Outer product: Nested lööps}
+    \column{.7\textwidth}
+    \includegraphics[width=\textwidth]{Figures/atomreffig.eps}
+    \end{columns}
+    \end{center}
+	    \im{Listings/Functions.py}{33}{38}\hspace*{4cm}
+\end{frame}
+
+\begin{frame}{Hopping matrices}
+\centering
+    \begin{columns}[c]
+    \column{.7\textwidth}
+    \begin{itemize}
+        \item Shift by lattice vector 
+        \item Resulting matrices: \(\vb{h_0}, \vb{V}, \vb{V}^{\dagger}\)
+    \end{itemize}
+    \column{.7\textwidth}
+    \includegraphics[width=\textwidth]{Figures/stitch.eps}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Full Hamiltonian and first band plots}
+\begin{overprint}
+\onslide<1>
+\begin{align}
+    \vb{H}(k_x,k_y) \vb*{\phi}_k &= \vb*{\epsilon}_n\pqty{k_x,k_y}\vb*{\phi}_k\nonumber\\
+	\vb{H}(k_x,k_y) = \vb{h}_0 &+ (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber\\
+	&+ \vb{V}_{xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_x}e^{ik_y})\nonumber
+\end{align}
+    \im{Listings/Functions.py}{73}{80}
+\onslide<2>
+    \begin{columns}[c]
+\column{.7\textwidth}
+\begin{align}
+    \qq{X:} \vb{H}_{X} = \vb{h}_0 + (&\vb{V}_{x}e^{ik_x} + \vb{V}_{x}^{\dagger}e^{-ik_x} + \vb{V}_{y} + \vb{V}_{y}^{\dagger}\nonumber\\
+    +\ &\vb{V}_{xy}e^{ik_x} + \vb{V}_{xy}^{\dagger}e^{-ik_x}) \nonumber\\
+	\qq{Y:} \vb{H}_{Y} = \vb{h}_0 + (&\vb{V}_{x} + \vb{V}_{x}^{\dagger} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber\\
+	+\ &\vb{V}_{xy}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_y}) \nonumber
+\end{align}
+    \column{.7\textwidth}
+    \includegraphics[width=.65\textwidth]{Figures/BetaBandstructures.eps}
+    \end{columns}
+\end{overprint}
+\end{frame}
+
+\section{Green's functions and recursion}
+\subsection{Green's matrix, recursion and LDOS}
+
+\begin{frame}{Green's matrix}
+    \begin{center}
+    \begin{columns}[c]
+    \column{.7\textwidth}
+    \begin{itemize}
+        \item Solution to the Sc\"{o}dinger Equation
+        \item Propagator
+    \end{itemize}
+    \column{.7\textwidth}
+        \begin{align*}
+            &[(E+i\eta)\vb{1}-\vb{H}]\vb{G}(E)=\vb{1}\\
+            &\downarrow\\
+            &\vb{G}(E)=\vb{1}([(E+i\eta)\vb{1}-\vb{H}])^{-1}
+        \end{align*}
+    \end{columns}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Recursion}
+\begin{overprint}
+\onslide<1>
+    \begin{center}
+    \begin{columns}[c]
+    \column{.7\textwidth}
+    \begin{itemize}
+        \item Semi-infinite chain
+    \end{itemize}
+    \begin{align*}
+	&\begin{pmatrix}
+		z\mathbf{1}-\mathbf{H}_c & -\mathbf{V}^{\dagger} \\ -\mathbf{V} & (z-\varepsilon')\mathbf{1}
+	\end{pmatrix}
+	\begin{pmatrix}
+		\mathbf{X}      & \mathbf{G}_{0c} \\
+		\mathbf{G}_{c0} & \mathbf{G}_{00}
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\mathbf{1} & \mathbf{0} \\
+		\mathbf{0} & \mathbf{1}
+	\end{pmatrix}
+	\end{align*}
+	\begin{align*}
+	 \mathbf{G}_{00}(z) &= \left[(z-\varepsilon')-\vb{V}(z\vb{1}-\vb{H}_c)\vb{V}^{\dagger}\right]^{-1} \\
+	                   &= (z-\varepsilon'-\Sigma(z))^{-1}\\
+	                   &\qq{where}\\
+	                           z &= E+i\eta\\
+    \end{align*}
+    \column{.7\textwidth}
+    \begin{align*}
+        a_0 &= \vb{V}^{\dagger}, \quad b_0 = \vb{V}\\
+        e_{s0} &= \vb{h}_s, \quad e_0\ = \vb{h}\\
+        &\qq{in loop:}\\
+        a_1 &= a_0 \times g_0 \times a_0\\
+        b_1 &= b_0 \times g_0 \times b_0\\
+        e_1 &= e_0 + a_0 \times g_0 \times b_0 + b_0 \times g_0 \times a_0\\
+        e_{1s} &= e_{0s} + a_0 \times g_0 \times b_0\\
+        g_1 &= \pqty{z-e_1}^{-1}\\
+        \vb{\Sigma}_R &= e_s - h\\
+        \vb{\Sigma}_L &= e - h - \vb{\Sigma}_R\\
+        \vb{G00} &= \pqty{z-e_s}^{-1}
+    \end{align*}
+    \end{columns}
+    \end{center}
+\onslide<2>
+	    \im{Listings/Functions.py}{92}{109}
+\end{overprint}
+\end{frame}
+
+\begin{frame}{LDOS}
+\centering
+    \includegraphics[width=.7\textwidth]{Figures/BetaimrealTE.eps}
+	    \im{Listings/SelfEnergyByRecursion.py}{64}{68}
 \end{frame}
 
 \section*{Questions}
