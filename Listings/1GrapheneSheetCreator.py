@@ -5,7 +5,7 @@ import sisl as si
 import sys
 np.set_printoptions(threshold=sys.maxsize)
 
-Graphene = GrapheneSheet(14, 2)
+Graphene = GrapheneSheet(1, 1)
 
 print(Graphene)
 print(Graphene.xyz)
