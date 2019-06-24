@@ -138,10 +138,10 @@
 \section{Introduction}
 \subsection{Project aim and nanoporous graphene}
 \begin{frame}{Project aim}
-    \centering
-	    \begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
+	\centering
+	\begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
 		``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
-	    \end{beamercolorbox}
+	\end{beamercolorbox}
 \end{frame}
 
 \begin{frame}{Nanoporous graphene}
@@ -166,7 +166,7 @@
 \begin{frame}{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
 	\centering
 	\begin{columns}[c]
-	\column{.05\textwidth}
+		\column{.05\textwidth}
 		\column{.7\textwidth}
 		\begin{itemize}
 			\item In plane electrons are bound
@@ -247,7 +247,7 @@
 \begin{frame}{TB approximation}
 	\centering
 	\begin{columns}[c]
-	\column{.05\textwidth}
+		\column{.05\textwidth}
 		\column{.5\textwidth}
 		\begin{itemize}
 			\item Electrons tightly bound to sites
@@ -268,7 +268,7 @@
 \begin{frame}{Hamiltonian for benzene}
 	\centering
 	\begin{columns}[c]
-	\column{.05\textwidth}
+		\column{.05\textwidth}
 		\column{.7\textwidth}
 		\begin{align}
 			\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
@@ -291,7 +291,7 @@
 \begin{frame}{Creating the first Hamiltonian}
 	\begin{center}
 		\begin{columns}[c]
-		    \column{.05\textwidth}
+			\column{.05\textwidth}
 			\column{.5\textwidth}
 			\begin{itemize}
 				\item Atom coordinates
@@ -309,7 +309,7 @@
 \begin{frame}{Hopping matrices}
 	\centering
 	\begin{columns}[c]
-	\column{.05\textwidth}
+		\column{.05\textwidth}
 		\column{.4\textwidth}
 		\begin{itemize}
 			\item Shift by lattice vector
@@ -350,7 +350,7 @@
 \begin{frame}{Green's matrix}
 	\begin{center}
 		\begin{columns}[c]
-		\column{.05\textwidth}
+			\column{.05\textwidth}
 			\column{.5\textwidth}
 			\begin{itemize}
 				\item Solution to the Sc\"{o}dinger Equation
@@ -413,9 +413,9 @@
 		\end{center}
 		\onslide<2>
 		\begin{columns}[c]
-		    \column{.2\textwidth}
-		    \column{\textwidth}
-		   	\im{Listings/Functions.py}{92}{109}
+			\column{.2\textwidth}
+			\column{\textwidth}
+			\im{Listings/Functions.py}{92}{109}
 		\end{columns}
 	\end{overprint}
 \end{frame}
@@ -424,9 +424,9 @@
 	\centering
 	\includegraphics[width=.55\textwidth]{Figures/BetaimrealTE.eps}
 	\begin{columns}[c]
-	\column{.05\textwidth}
-	\column{\textwidth}
-	    \im{Listings/SelfEnergyByRecursion.py}{64}{68}
+		\column{.05\textwidth}
+		\column{\textwidth}
+		\im{Listings/SelfEnergyByRecursion.py}{64}{68}
 	\end{columns}
 \end{frame}
 
@@ -434,214 +434,214 @@
 \subsection{Device Green's functions, left/right geometry, rate matrices and spectral functions.}
 
 \begin{frame}{Transmission}
-\centering
-\vspace{.05\textwidth}
-       \begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
+	\centering
+	\vspace{.05\textwidth}
+	\begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
 		Transmission is the probability of an electron being transported through a specific region for a specific range of energies.
-	    \end{beamercolorbox}
+	\end{beamercolorbox}
 \end{frame}
 
 \begin{frame}{Translating from system to matrices}
-\begin{columns}[c]
-    \column{.3\textwidth}
-    \column{.9\textwidth}
-    \includegraphics[width=.64\textwidth]{Figures/illu.eps}
-\end{columns}
+	\begin{columns}[c]
+		\column{.3\textwidth}
+		\column{.9\textwidth}
+		\includegraphics[width=.64\textwidth]{Figures/illu.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{The left and right self-energy}
-    \centering
-   \includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
-   \begin{columns}[c]
-       \column{.05\textwidth}
-       \column{.9\textwidth}
-          \im{Listings/Functions.py}{210}{212}
-   \end{columns}
+	\centering
+	\includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
+	\begin{columns}[c]
+		\column{.05\textwidth}
+		\column{.9\textwidth}
+		\im{Listings/Functions.py}{210}{212}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Getting Transmission}
-    \centering
-\begin{overprint}
-\onslide<1>
-\begin{align*}
-    \vb{G}_D &= \bqty{\vb{1}\pqty{E+i\eta}-\vb{H}_D - \vb{\Sigma}_L(E)-\vb{\Sigma}_R(E)}^{-1}\\
-    \vb{\Gamma}_{L,R} &= i\pqty{\vb{\Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
-\end{align*}
-\im{Listings/Functions.py}{225}{228}
-\onslide<2>
-\begin{align*}
-    T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}_D^{\dagger}}(E)
-\end{align*}
-   \begin{columns}[c]
-       \column{.05\textwidth}
-       \column{.9\textwidth}
-    \im{Listings/Functions.py}{240}{243}
-    \end{columns}
-\onslide<3>
-    \begin{columns}[c]
-    \column{.3\textwidth}
-    \includegraphics[width=.92\textwidth]{Figures/PresentationBetaBands.eps}
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/BetaTE.eps}
-    \end{columns}
-\end{overprint}
+	\centering
+	\begin{overprint}
+		\onslide<1>
+		\begin{align*}
+			\vb{G}_D          & = \bqty{\vb{1}\pqty{E+i\eta}-\vb{H}_D - \vb{\Sigma}_L(E)-\vb{\Sigma}_R(E)}^{-1} \\
+			\vb{\Gamma}_{L,R} & = i\pqty{\vb{\Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
+		\end{align*}
+		\im{Listings/Functions.py}{225}{228}
+		\onslide<2>
+		\begin{align*}
+			T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}_D^{\dagger}}(E)
+		\end{align*}
+		\begin{columns}[c]
+			\column{.05\textwidth}
+			\column{.9\textwidth}
+			\im{Listings/Functions.py}{240}{243}
+		\end{columns}
+		\onslide<3>
+		\begin{columns}[c]
+			\column{.3\textwidth}
+			\includegraphics[width=.92\textwidth]{Figures/PresentationBetaBands.eps}
+			\column{.7\textwidth}
+			\includegraphics[width=\textwidth]{Figures/BetaTE.eps}
+		\end{columns}
+	\end{overprint}
 \end{frame}
 
 \subsection{Transmission in 2D}
 
 \begin{frame}{Transmission in 2D}
-\centering
-\begin{columns}[c]
-\column{.6\textwidth}
-		    \begin{align*}
-		        \vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger} \me^{i\pqty{-k_{\perp}}}
-		    \end{align*}
-\column{.6\textwidth}
-			\includegraphics[width=.7\textwidth]{Figures/2DTrans.eps}
-\end{columns}
-\begin{columns}[c]
-       \column{.9\textwidth}
-    \im{Listings/Functions.py}{250}{253}    
-\end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.6\textwidth}
+		\begin{align*}
+			\vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger} \me^{i\pqty{-k_{\perp}}}
+		\end{align*}
+		\column{.6\textwidth}
+		\includegraphics[width=.7\textwidth]{Figures/2DTrans.eps}
+	\end{columns}
+	\begin{columns}[c]
+		\column{.9\textwidth}
+		\im{Listings/Functions.py}{250}{253}
+	\end{columns}
 
 \end{frame}
 
 \begin{frame}{Code validity}
-\centering
-\begin{overprint}
-\onslide<1>
-\centering
-\begin{align*}
-		k = \frac{\pi}{2}
-\end{align*}
-\begin{columns}[t]
-    \column{.6\textwidth}
-    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi-half.eps}
-    \column{.6\textwidth}
-    \includegraphics[width=.87\textwidth]{Figures/txy_pi-half.eps}
-\end{columns}
-\onslide<2>
-\centering
-\begin{align*}
-		k = \pi
-\end{align*}
-\begin{columns}[t]
-    \column{.6\textwidth}
-    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi.eps}
-    \column{.6\textwidth}
-    \includegraphics[width=.87\textwidth]{Figures/txy_pi.eps}
-\end{columns}
-\onslide<3>
-\centering
-\begin{align*}
-		k = \mathrm{AVG}\pqty{0,\frac{\pi}{2},\pi}
-\end{align*}
-\begin{columns}[t]
-    \column{.6\textwidth}
-    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_AVER.eps}
-    \column{.6\textwidth}
-    \includegraphics[width=.87\textwidth]{Figures/txy_AVER.eps}
-\end{columns}
-\end{overprint}
+	\centering
+	\begin{overprint}
+		\onslide<1>
+		\centering
+		\begin{align*}
+			k = \frac{\pi}{2}
+		\end{align*}
+		\begin{columns}[t]
+			\column{.6\textwidth}
+			\includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi-half.eps}
+			\column{.6\textwidth}
+			\includegraphics[width=.87\textwidth]{Figures/txy_pi-half.eps}
+		\end{columns}
+		\onslide<2>
+		\centering
+		\begin{align*}
+			k = \pi
+		\end{align*}
+		\begin{columns}[t]
+			\column{.6\textwidth}
+			\includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi.eps}
+			\column{.6\textwidth}
+			\includegraphics[width=.87\textwidth]{Figures/txy_pi.eps}
+		\end{columns}
+		\onslide<3>
+		\centering
+		\begin{align*}
+			k = \mathrm{AVG}\pqty{0,\frac{\pi}{2},\pi}
+		\end{align*}
+		\begin{columns}[t]
+			\column{.6\textwidth}
+			\includegraphics[width=.9\textwidth]{Figures/NPGNormal_AVER.eps}
+			\column{.6\textwidth}
+			\includegraphics[width=.87\textwidth]{Figures/txy_AVER.eps}
+		\end{columns}
+	\end{overprint}
 \end{frame}
 
 \begin{frame}{Summary of code structure}
-\centering
-\includegraphics[width=1\textwidth]{Figures/Flowchart.eps}
+	\centering
+	\includegraphics[width=1\textwidth]{Figures/Flowchart.eps}
 \end{frame}
 
 \section{Exploring GNR bridges}
 \subsection{Para-O\mathinhead{_4}{_4}-NPG, Para-(OH)\mathinhead{_4}{_4}-NPG, Meta-O\mathinhead{_2}{_2}-NPG, Meta-(OH)\mathinhead{_2}{_2}-NPG}
 
 \begin{frame}{Para and meta bridges}
-\centering
-\begin{overprint}
-\onslide<1>
-\centering
-\begin{columns}[t]
-\column{.55\textwidth}
-    \includegraphics[height=.7\textwidth]{Figures/Parametagraphic.eps}
-\column{.55\textwidth}
-    \includegraphics[height=.7\textwidth]{Figures/Metaparagraphic.eps}
-\end{columns}
-\onslide<2>
-\begin{columns}[c]
-    \column{.4\textwidth}
-        \begin{itemize}
-            \item Path length difference
-            \item Quantum interference
-            \item Transmission
-            \item coupling/decoupling of GNR
-        \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[height=.55\textwidth]{Figures/metapararesultdraft.eps}
-\end{columns}
-\end{overprint}
+	\centering
+	\begin{overprint}
+		\onslide<1>
+		\centering
+		\begin{columns}[t]
+			\column{.55\textwidth}
+			\includegraphics[height=.7\textwidth]{Figures/Parametagraphic.eps}
+			\column{.55\textwidth}
+			\includegraphics[height=.7\textwidth]{Figures/Metaparagraphic.eps}
+		\end{columns}
+		\onslide<2>
+		\begin{columns}[c]
+			\column{.4\textwidth}
+			\begin{itemize}
+				\item Path length difference
+				\item Quantum interference
+				\item Transmission
+				\item coupling/decoupling of GNR
+			\end{itemize}
+			\column{.7\textwidth}
+			\includegraphics[height=.55\textwidth]{Figures/metapararesultdraft.eps}
+		\end{columns}
+	\end{overprint}
 \end{frame}
 
 \begin{frame}{Para-O\mathinhead{_4}{_4}-NPG}
-\centering
-\begin{columns}[c]
-    \column{.05\textwidth}
-    \column{.5\textwidth}
-    \begin{itemize}
-        \item Functionalisation with oxygen
-        \item Quantum inteference at valence band 
-        \item Reproducing DFT result
-        \item Decoupling of GNR 
-        \item Bands at Fermi level
-    \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[height=.8\textwidth]{Figures/fig19.eps}
-\end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.05\textwidth}
+		\column{.5\textwidth}
+		\begin{itemize}
+			\item Functionalisation with oxygen
+			\item Quantum inteference at valence band
+			\item Reproducing DFT result
+			\item Decoupling of GNR
+			\item Bands at Fermi level
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[height=.8\textwidth]{Figures/fig19.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Para-(OH)\mathinhead{_4}{_4}-NPG}
-\centering
-\begin{columns}[c]
-    \column{.05\textwidth}
-    \column{.4\textwidth}
-    \begin{itemize}
-        \item Hydrogenation of oxygen
-        \item Band splitting of DFT
-        \item GNR coupling and resemblance with Para-NPG
-        \item Reproducing DFT results
-    \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[height=.8\textwidth]{Figures/fig20.eps}
-\end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.05\textwidth}
+		\column{.4\textwidth}
+		\begin{itemize}
+			\item Hydrogenation of oxygen
+			\item Band splitting of DFT
+			\item GNR coupling and resemblance with Para-NPG
+			\item Reproducing DFT results
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[height=.8\textwidth]{Figures/fig20.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Meta-O\mathinhead{_2}{_2}-NPG}
-\centering
-\begin{columns}[c]
-    \column{.05\textwidth}
-    \column{.5\textwidth}
-    \begin{itemize}
-        \item Split in the valence for DFT
-        \item Similarity in valence/conduction difference for meta/para
-        \item Trying different potentials 
-        \item Flat bands at Fermi level
-    \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[height=.8\textwidth]{Figures/fig21.eps}
-\end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.05\textwidth}
+		\column{.5\textwidth}
+		\begin{itemize}
+			\item Split in the valence for DFT
+			\item Similarity in valence/conduction difference for meta/para
+			\item Trying different potentials
+			\item Flat bands at Fermi level
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[height=.8\textwidth]{Figures/fig21.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Meta-(OH)\mathinhead{_2}{_2}-NPG}
-\centering
-\begin{columns}[c]
-    \column{.05\textwidth}
-    \column{.5\textwidth}
-    \begin{itemize}
-        \item Hydrogenation lowering potential of oxygen
-        \item Decoulping of oxygen = decouplig of GNR 
-        \item Resemblance with pristine Meta-NPG 
-        \item In agreement with DFT
-    \end{itemize}
-    \column{.7\textwidth}
-    \includegraphics[height=.8\textwidth]{Figures/fig22.eps}
-\end{columns}
+	\centering
+	\begin{columns}[c]
+		\column{.05\textwidth}
+		\column{.5\textwidth}
+		\begin{itemize}
+			\item Hydrogenation lowering potential of oxygen
+			\item Decoulping of oxygen = decouplig of GNR
+			\item Resemblance with pristine Meta-NPG
+			\item In agreement with DFT
+		\end{itemize}
+		\column{.7\textwidth}
+		\includegraphics[height=.8\textwidth]{Figures/fig22.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Conclusion}
@@ -657,13 +657,13 @@
 \begin{frame}
 	\titlepage
 \end{frame}
-
-\appendix
-\section{}
-\begin{frame}{}
-	\begin{itemize}
-		\item Appendix
-	\end{itemize}
-\end{frame}
+%
+% \appendix
+% \section{}
+% \begin{frame}{}
+% 	\begin{itemize}
+% 		\item Appendix
+% 	\end{itemize}
+% \end{frame}
 
 \end{document}
