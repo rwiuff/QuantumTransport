@@ -465,12 +465,12 @@
 \onslide<1>
 \begin{align*}
     \vb{G}_D &= \bqty{\vb{1}\pqty{E+i\eta}-\vb{H}_D - \vb{\Sigma}_L(E)-\vb{\Sigma}_R(E)}^{-1}\\
-    \vb{\Gamma}_{L,R} &= i\pqty{\vb{Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
+    \vb{\Gamma}_{L,R} &= i\pqty{\vb{\Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
 \end{align*}
 \im{Listings/Functions.py}{225}{228}
 \onslide<2>
 \begin{align*}
-    T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}^{\dagger}}(E)
+    T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}_D^{\dagger}}(E)
 \end{align*}
    \begin{columns}[c]
        \column{.05\textwidth}
