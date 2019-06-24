@@ -96,7 +96,7 @@
 	\end{columns}%
 }
 
-\setbeamersize{text margin left=30mm,text margin right=30mm}
+\setbeamersize{text margin left=10mm,text margin right=10mm}
 
 \definecolor{DTUred}{cmyk}{0,0.91,0.72,0.23}
 \definecolor{itemcolor}{cmyk}{0,0,0,0.56}
@@ -138,10 +138,10 @@
 \section{Introduction}
 \subsection{Project aim and nanoporous graphene}
 \begin{frame}{Project aim}
-	\centering
-	\begin{beamercolorbox}[sep=1em,wd=10cm]{redbox}
+    \centering
+	    \begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
 		``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
-	\end{beamercolorbox}
+	    \end{beamercolorbox}
 \end{frame}
 
 \begin{frame}{Nanoporous graphene}
@@ -157,7 +157,7 @@
 			\item Potential for controlling currents on nanoscale
 		\end{itemize}
 		\column{.7\textwidth}
-		\includegraphics[width=1\textwidth]{Figures/NPGintroGraphic.eps}
+		\includegraphics[width=.6\textwidth]{Figures/NPGintroGraphic.eps}
 	\end{columns}
 \end{frame}
 
@@ -166,6 +166,7 @@
 \begin{frame}{\mathinhead{\pi}{\pi}-orbitals and \mathinhead{\pi}{\pi}-electrons}
 	\centering
 	\begin{columns}[c]
+	\column{.05\textwidth}
 		\column{.7\textwidth}
 		\begin{itemize}
 			\item In plane electrons are bound
@@ -173,7 +174,7 @@
 			\item ``Tightly bound'' hops between sites
 		\end{itemize}
 		\column{.7\textwidth}
-		\resizebox{.5\textwidth}{!}{
+		\resizebox{.4\textwidth}{!}{
 			\begin{tikzpicture}
 				\node (x) at (-1,-3) {x};
 				\node (y) at (-2,-2) {y};
@@ -214,7 +215,8 @@
 		\pgfdeclarelayer{middle}
 		\pgfdeclarelayer{foreground}
 		\pgfsetlayers{background,middle,main,foreground}
-		\resizebox{.5\textwidth}{!}{
+		\vskip
+		\resizebox{.4\textwidth}{!}{
 			\begin{tikzpicture}
 				\begin{pgfonlayer}{background}
 					\orbital[pos = {(6,6)}]{-pz}
@@ -245,7 +247,8 @@
 \begin{frame}{TB approximation}
 	\centering
 	\begin{columns}[c]
-		\column{.7\textwidth}
+	\column{.05\textwidth}
+		\column{.5\textwidth}
 		\begin{itemize}
 			\item Electrons tightly bound to sites
 			\item Hops with potential
@@ -265,7 +268,8 @@
 \begin{frame}{Hamiltonian for benzene}
 	\centering
 	\begin{columns}[c]
-		\column{.4\textwidth}
+	\column{.05\textwidth}
+		\column{.7\textwidth}
 		\begin{align}
 			\mqty{                            \\ \\ \\ \vb{H} = V_{pp\pi}\\ \\ \\} \ \mqty{						&  \mqty{1 & 2 & 3 & 4 & 5 & 6} \\
 				\mqty{1                           \\ 2 \\ 3 \\ 4 \\ 5 \\ 6} &	\mqty*(0 & 1 & 0 & 0 & 0 & 1 \\
@@ -275,7 +279,7 @@
 			0 & 0 & 0 & 1 & 0 & 1             \\
 			1 & 0 & 0 & 0 & 1 & 0)} \nonumber
 		\end{align}
-		\column{.4\textwidth}
+		\column{.5\textwidth}
 		\begin{tikzpicture}
 			\chemfig{1*6(-2-3-4-5-6-)}
 		\end{tikzpicture}
@@ -287,30 +291,32 @@
 \begin{frame}{Creating the first Hamiltonian}
 	\begin{center}
 		\begin{columns}[c]
-			\column{.7\textwidth}
+		    \column{.05\textwidth}
+			\column{.5\textwidth}
 			\begin{itemize}
 				\item Atom coordinates
 				\item Interatomic distances
 				\item Applying potential
 			\end{itemize}
 			\note{Outer product: Nested lööps}
-			\column{.7\textwidth}
-			\includegraphics[width=\textwidth]{Figures/atomreffig.eps}
+			\column{.9\textwidth}
+			\includegraphics[width=.6\textwidth]{Figures/atomreffig.eps}
 		\end{columns}
 	\end{center}
-	\im{Listings/Functions.py}{33}{38}\hspace*{4cm}
+	\begin{columns}[t]\column{.05\textwidth}\column{.9\textwidth}\im{Listings/Functions.py}{33}{38}\end{columns}
 \end{frame}
 
 \begin{frame}{Hopping matrices}
 	\centering
 	\begin{columns}[c]
-		\column{.7\textwidth}
+	\column{.05\textwidth}
+		\column{.4\textwidth}
 		\begin{itemize}
 			\item Shift by lattice vector
 			\item Resulting matrices: \(\vb{h_0}, \vb{V}, \vb{V}^{\dagger}\)
 		\end{itemize}
 		\column{.7\textwidth}
-		\includegraphics[width=\textwidth]{Figures/stitch.eps}
+		\includegraphics[width=.8\textwidth]{Figures/stitch.eps}
 	\end{columns}
 \end{frame}
 
@@ -333,7 +339,7 @@
 				+\                                & \vb{V}_{xy}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_y}) \nonumber
 			\end{align}
 			\column{.7\textwidth}
-			\includegraphics[width=.65\textwidth]{Figures/BetaBandstructures.eps}
+			\includegraphics[width=.4\textwidth]{Figures/BetaBandstructures.eps}
 		\end{columns}
 	\end{overprint}
 \end{frame}
@@ -344,7 +350,8 @@
 \begin{frame}{Green's matrix}
 	\begin{center}
 		\begin{columns}[c]
-			\column{.7\textwidth}
+		\column{.05\textwidth}
+			\column{.5\textwidth}
 			\begin{itemize}
 				\item Solution to the Sc\"{o}dinger Equation
 				\item Propagator
@@ -364,7 +371,7 @@
 		\onslide<1>
 		\begin{center}
 			\begin{columns}[c]
-				\column{.7\textwidth}
+				\column{.5\textwidth}
 				\begin{itemize}
 					\item Semi-infinite chain
 				\end{itemize}
@@ -388,7 +395,7 @@
 					                   & \qq{where}                                                                    \\
 					z                  & = E+i\eta                                                                     \\
 				\end{align*}
-				\column{.7\textwidth}
+				\column{.4\textwidth}
 				\begin{align*}
 					a_0           & = \vb{V}^{\dagger}, \quad b_0 = \vb{V}                        \\
 					e_{s0}        & = \vb{h}_s, \quad e_0\ = \vb{h}                               \\
@@ -405,33 +412,51 @@
 			\end{columns}
 		\end{center}
 		\onslide<2>
-		\im{Listings/Functions.py}{92}{109}
+		\begin{columns}[c]
+		    \column{.2\textwidth}
+		    \column{\textwidth}
+		   	\im{Listings/Functions.py}{92}{109}
+		\end{columns}
 	\end{overprint}
 \end{frame}
 
 \begin{frame}{LDOS}
 	\centering
-	\includegraphics[width=.7\textwidth]{Figures/BetaimrealTE.eps}
-	\im{Listings/SelfEnergyByRecursion.py}{64}{68}
+	\includegraphics[width=.55\textwidth]{Figures/BetaimrealTE.eps}
+	\begin{columns}[c]
+	\column{.05\textwidth}
+	\column{\textwidth}
+	    \im{Listings/SelfEnergyByRecursion.py}{64}{68}
+	\end{columns}
 \end{frame}
 
 \section{Transmission}
 \subsection{Device Green's functions, left/right geometry, rate matrices and spectral functions.}
 
-\begin{frame}{Translating from system to matrices}
+\begin{frame}{Transmission}
 \centering
+\vspace{.05\textwidth}
+       \begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
+		Transmission is the probability of an electron being transported through a specific region for a specific range of energies.
+	    \end{beamercolorbox}
+\end{frame}
+
+\begin{frame}{Translating from system to matrices}
 \begin{columns}[c]
-\column{.7\textwidth}
-		    Transmission is the probability of an electron being transported through a specific region for a specific range of energies.
-\column{.7\textwidth}
-			\includegraphics[width=\textwidth]{Figures/illu.eps}
+    \column{.3\textwidth}
+    \column{.9\textwidth}
+    \includegraphics[width=.64\textwidth]{Figures/illu.eps}
 \end{columns}
 \end{frame}
 
 \begin{frame}{The left and right self-energy}
     \centering
-   \includegraphics[width=.9\textwidth]{Figures/2DHam.eps}
-    \im{Listings/Functions.py}{210}{212}
+   \includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
+   \begin{columns}[c]
+       \column{.05\textwidth}
+       \column{.9\textwidth}
+          \im{Listings/Functions.py}{210}{212}
+   \end{columns}
 \end{frame}
 
 \begin{frame}{Getting Transmission}
@@ -447,10 +472,14 @@
 \begin{align*}
     T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}^{\dagger}}(E)
 \end{align*}
+   \begin{columns}[c]
+       \column{.05\textwidth}
+       \column{.9\textwidth}
     \im{Listings/Functions.py}{240}{243}
+    \end{columns}
 \onslide<3>
     \begin{columns}[c]
-    \column{.7\textwidth}
+    \column{.3\textwidth}
     \begin{itemize}
         \item Text1
         \item Text2
@@ -467,14 +496,18 @@
 \begin{frame}{Transmission in 2D}
 \centering
 \begin{columns}[c]
-\column{.7\textwidth}
+\column{.6\textwidth}
 		    \begin{align*}
 		        \vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger} \me^{i\pqty{-k_{\perp}}}
 		    \end{align*}
-		    \im{Listings/Functions.py}{250}{253}
-\column{.7\textwidth}
-			\includegraphics[width=\textwidth]{Figures/2DTrans.eps}
+\column{.6\textwidth}
+			\includegraphics[width=.7\textwidth]{Figures/2DTrans.eps}
 \end{columns}
+\begin{columns}[c]
+       \column{.9\textwidth}
+    \im{Listings/Functions.py}{250}{253}    
+\end{columns}
+
 \end{frame}
 
 \begin{frame}{Code validity}
@@ -486,10 +519,10 @@
 		k = \frac{\pi}{2}
 \end{align*}
 \begin{columns}[t]
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/NPGNormal_pi-half.eps}
-    \column{.7\textwidth}
-    \includegraphics[width=.97\textwidth]{Figures/txy_pi-half.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi-half.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.87\textwidth]{Figures/txy_pi-half.eps}
 \end{columns}
 \onslide<2>
 \centering
@@ -497,10 +530,10 @@
 		k = \pi
 \end{align*}
 \begin{columns}[t]
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/NPGNormal_pi.eps}
-    \column{.7\textwidth}
-    \includegraphics[width=.97\textwidth]{Figures/txy_pi.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_pi.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.87\textwidth]{Figures/txy_pi.eps}
 \end{columns}
 \onslide<3>
 \centering
@@ -508,17 +541,17 @@
 		k = \mathrm{AVG}\pqty{0,\frac{\pi}{2},\pi}
 \end{align*}
 \begin{columns}[t]
-    \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/NPGNormal_AVER.eps}
-    \column{.7\textwidth}
-    \includegraphics[width=.97\textwidth]{Figures/txy_AVER.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.9\textwidth]{Figures/NPGNormal_AVER.eps}
+    \column{.6\textwidth}
+    \includegraphics[width=.87\textwidth]{Figures/txy_AVER.eps}
 \end{columns}
 \end{overprint}
 \end{frame}
 
 \begin{frame}{Summary of code structure}
 \centering
-\includegraphics[width=1.3\textwidth]{Figures/Flowchart.eps}
+\includegraphics[width=1\textwidth]{Figures/Flowchart.eps}
 \end{frame}
 
 \section{Exploring GNR bridges}
@@ -530,22 +563,22 @@
 \onslide<1>
 \centering
 \begin{columns}[t]
-\column{.5\textwidth}
-    \includegraphics[height=\textwidth]{Figures/Parametagraphic.eps}
-\column{.5\textwidth}
-    \includegraphics[height=\textwidth]{Figures/Metaparagraphic.eps}
+\column{.55\textwidth}
+    \includegraphics[height=.7\textwidth]{Figures/Parametagraphic.eps}
+\column{.55\textwidth}
+    \includegraphics[height=.7\textwidth]{Figures/Metaparagraphic.eps}
 \end{columns}
-    \begin{itemize}
-        \item Test
-    \end{itemize}
 \onslide<2>
 \begin{columns}[c]
-    \column{.3\textwidth}
+    \column{.4\textwidth}
         \begin{itemize}
-            \item Text1
+            \item Path length difference
+            \item Quantum interference
+            \item Transmission
+            \item coupling/decoupling of GNR
         \end{itemize}
     \column{.7\textwidth}
-    \includegraphics[height=.9\textwidth]{Figures/metapararesultdraft.eps}
+    \includegraphics[height=.55\textwidth]{Figures/metapararesultdraft.eps}
 \end{columns}
 \end{overprint}
 \end{frame}
@@ -553,54 +586,68 @@
 \begin{frame}{Para-O\mathinhead{_4}{_4}-NPG}
 \centering
 \begin{columns}[c]
-    \column{.7\textwidth}
+    \column{.05\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
-        \item text
+        \item Functionalisation with oxygen
+        \item Quantum inteference at valence band 
+        \item Reproducing DFT result
+        \item Decoupling of GNR 
+        \item Bands at Fermi level
     \end{itemize}
     \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/fig19.eps}
+    \includegraphics[height=.8\textwidth]{Figures/fig19.eps}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Para-(OH)\mathinhead{_4}{_4}-NPG}
 \centering
 \begin{columns}[c]
-    \column{.7\textwidth}
+    \column{.05\textwidth}
+    \column{.4\textwidth}
     \begin{itemize}
-        \item text
+        \item Hydrogenation of oxygen
+        \item Band splitting of DFT
+        \item GNR coupling and resemblance with Para-NPG
+        \item Reproducing DFT results
     \end{itemize}
     \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/fig20.eps}
+    \includegraphics[height=.8\textwidth]{Figures/fig20.eps}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Meta-O\mathinhead{_2}{_2}-NPG}
 \centering
 \begin{columns}[c]
-    \column{.7\textwidth}
+    \column{.05\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
-        \item text
+        \item Split in the valence for DFT
+        \item Similarity in valence/conduction difference for meta/para
+        \item Trying different potentials 
+        \item Flat bands at Fermi level
     \end{itemize}
     \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/fig21.eps}
+    \includegraphics[height=.8\textwidth]{Figures/fig21.eps}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Meta-(OH)\mathinhead{_2}{_2}-NPG}
 \centering
 \begin{columns}[c]
-    \column{.7\textwidth}
+    \column{.05\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
-        \item text
+        \item 
     \end{itemize}
     \column{.7\textwidth}
-    \includegraphics[width=\textwidth]{Figures/fig22.eps}
+    \includegraphics[height=.8\textwidth]{Figures/fig22.eps}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Conclusion}
 	\centering
-	\begin{beamercolorbox}[sep=1em,wd=10cm]{redbox}
+	\begin{beamercolorbox}[sep=1em,wd=15cm]{redbox}
 		``Development of tight-binding routines in Python in order to understand electron transport in novel nanoporous graphene devices (NPGs)''
 	\end{beamercolorbox}
 \end{frame}
