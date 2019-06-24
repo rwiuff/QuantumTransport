@@ -170,7 +170,7 @@
 		\column{.05\textwidth}
 		\column{.7\textwidth}
 		\begin{itemize}
-		    \item How are the electric orbitals structured? 
+			\item How are the electric orbitals structured?
 			\item \(\sigma\)- and \(\pi\)-systems
 			\item 1 \(p_z\)-electron per site
 			\item ``Tightly bound'' hops between sites
@@ -252,7 +252,7 @@
 		\column{.05\textwidth}
 		\column{.5\textwidth}
 		\begin{itemize}
-		    \item What is Tight Binding?
+			\item What is Tight Binding?
 			\item Electrons tightly bound to sites
 			\item Hops with potential
 			\item Average electron energy on site
@@ -297,11 +297,11 @@
 			\column{.05\textwidth}
 			\column{.5\textwidth}
 			\begin{itemize}
-		        \item How do obtain the Hamiltonian
+				\item How do obtain the Hamiltonian
 				\item Atom coordinates
 				\item Interatomic distances
-				\item Find nearest neighbours 
-				\item Fill out Hamiltonian 
+				\item Find nearest neighbours
+				\item Fill out Hamiltonian
 				\item Subtract diagonal
 			\end{itemize}
 			\note{Outer product: Nested lööps}
@@ -318,7 +318,7 @@
 		\column{.05\textwidth}
 		\column{.4\textwidth}
 		\begin{itemize}
-		    \item What is hopping matrices and how do we get them?
+			\item What is hopping matrices and how do we get them?
 			\item Shift by lattice vector
 			\item Resulting matrices: \(\vb{h_0}, \vb{V}, \vb{V}^{\dagger}\)
 		\end{itemize}
@@ -331,7 +331,7 @@
 	\begin{overprint}
 		\onslide<1>
 		\begin{align}
-		\note{We want to solve the S.E. eigen vector/value problem to get the eigen energies for band plots. \\ How do solve it? } 
+			\note{We want to solve the S.E. eigen vector/value problem to get the eigen energies for band plots.                                               \\ How do solve it? }
 			\vb{H}(k_x,k_y) \vb*{\phi}_k & = \vb*{\epsilon}_n\pqty{k_x,k_y}\vb*{\phi}_k\nonumber                                                               \\
 			\vb{H}(k_x,k_y) = \vb{h}_0   & + (\vb{V}_{x}e^{-ik_x} + \vb{V}_{x}^{\dagger}e^{ik_x} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber \\
 			                             & + \vb{V}_{xy}e^{-ik_x}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_x}e^{ik_y})\nonumber
@@ -340,7 +340,7 @@
 		\onslide<2>
 		\vspace{-1cm}
 		\begin{columns}[c]
-		    \column{.1\textwidth}
+			\column{.1\textwidth}
 			\column{.6\textwidth}
 			\includegraphics[width=.8\textwidth]{Figures/BetaStruct.eps}
 			\column{.25\textwidth}
@@ -355,7 +355,7 @@
 				\qq{Y:} \vb{H}_{Y} = \vb{h}_0 + ( & \vb{V}_{x} + \vb{V}_{x}^{\dagger} + \vb{V}_{y}e^{-ik_y} + \vb{V}_{y}^{\dagger}e^{ik_y}\nonumber \\
 				+\                                & \vb{V}_{xy}e^{-ik_y} + \vb{V}_{xy}^{\dagger}e^{ik_y}) \nonumber
 			\end{align}
-		    \column{.001\textwidth}
+			\column{.001\textwidth}
 			\column{.25\textwidth}
 			\includegraphics[width=.8\textwidth]{Figures/Beta2.eps}
 		\end{columns}
@@ -371,10 +371,10 @@
 			\column{.05\textwidth}
 			\column{.5\textwidth}
 			\begin{itemize}
-			    \item What is it? 
+				\item What is it?
 				\item Solution to the Schr\"{o}dinger Equation
 				\item Propagator
-				\item Why do we need it? 
+				\item Why do we need it?
 				\item How do we obtain it?
 			\end{itemize}
 			\column{.7\textwidth}
@@ -394,7 +394,7 @@
 			\begin{columns}[c]
 				\column{.5\textwidth}
 				\begin{itemize}
-				    \item Solution to the system requires recursion
+					\item Solution to the system requires recursion
 					\item Semi-infinite chain
 				\end{itemize}
 				\begin{align*}
@@ -477,9 +477,9 @@
 			\column{.05\textwidth}
 			\column{.5\textwidth}
 			\begin{itemize}
-                \item Device Hamiltonian 
-                \item Left \textit{and} right self-energy
-                \item Device Green's matrix
+				\item Device Hamiltonian
+				\item Left \textit{and} right self-energy
+				\item Device Green's matrix
 			\end{itemize}
 			\column{.9\textwidth}
 			\includegraphics[width=.6\textwidth]{Figures/2DHam.eps}
@@ -493,22 +493,22 @@
 	\begin{overprint}
 		\onslide<1>
 		\begin{itemize}
-		    \item Considering corrections from both contact regions
+			\item Considering corrections from both contact regions
 		\end{itemize}
 		\begin{align*}
 			\vb{G}_D  = \bqty{\vb{1}\pqty{E+i\eta}-\vb{H}_D - \vb{\Sigma}_L(E)-\vb{\Sigma}_R(E)}^{-1}
 		\end{align*}
 		\begin{itemize}
-		    \item How to account for states going in/out? 
+			\item How to account for states going in/out?
 		\end{itemize}
 		\begin{align*}
-		    \vb{\Gamma}_{L,R} & = i\pqty{\vb{\Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
+			\vb{\Gamma}_{L,R} & = i\pqty{\vb{\Sigma}_{L,R} - \vb{\Sigma}_{L,R}^{\dagger}}
 		\end{align*}
 		\im{Listings/Functions.py}{225}{228}
 		\onslide<2>
 		\begin{itemize}
-		    \item States propagating through device 
-		    \item Entering/Exiting by rate \(\Gamma\)
+			\item States propagating through device
+			\item Entering/Exiting by rate \(\Gamma\)
 		\end{itemize}
 		\begin{align*}
 			T(E) = \mathrm{Tr}\bqty{\vb{\Gamma}_R\vb{G}_D\vb{\Gamma}_L\vb{G}_D^{\dagger}}(E)
@@ -545,9 +545,9 @@
 	\begin{columns}[c]
 		\column{.6\textwidth}
 		\begin{itemize}
-		    \item Periodic boundary conditions
-		    \item Shift of cells in transverse direction
-		    \item Bloch phase added 
+			\item Periodic boundary conditions
+			\item Shift of cells in transverse direction
+			\item Bloch phase added
 		\end{itemize}
 		\begin{align*}
 			\vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger} \me^{i\pqty{-k_{\perp}}}
@@ -568,13 +568,13 @@
 		\onslide<1>
 		\centering
 		\begin{columns}[c]
-		\column{.05\textwidth}
-		\column{.5\textwidth}
-		\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
-		\column{.5\textwidth}
-		\begin{align*}
-			k = \frac{\pi}{2}
-		\end{align*}
+			\column{.05\textwidth}
+			\column{.5\textwidth}
+			\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
+			\column{.5\textwidth}
+			\begin{align*}
+				k = \frac{\pi}{2}
+			\end{align*}
 		\end{columns}
 		\begin{columns}[t]
 			\column{.6\textwidth}
@@ -585,13 +585,13 @@
 		\onslide<2>
 		\centering
 		\begin{columns}[c]
-		\column{.05\textwidth}
-		\column{.5\textwidth}
-		\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
-		\column{.5\textwidth}
-		\begin{align*}
-			k = \pi
-		\end{align*}
+			\column{.05\textwidth}
+			\column{.5\textwidth}
+			\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
+			\column{.5\textwidth}
+			\begin{align*}
+				k = \pi
+			\end{align*}
 		\end{columns}
 		\begin{columns}[t]
 			\column{.6\textwidth}
@@ -602,13 +602,13 @@
 		\onslide<3>
 		\centering
 		\begin{columns}[c]
-		\column{.05\textwidth}
-		\column{.5\textwidth}
-		\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
-		\column{.5\textwidth}
-		\begin{align*}
-			k = \mathrm{AVG}\pqty{0,\frac{\pi}{2},\pi}
-		\end{align*}
+			\column{.05\textwidth}
+			\column{.5\textwidth}
+			\includegraphics[width=.8\textwidth]{Figures/NPG_synthesized.png}
+			\column{.5\textwidth}
+			\begin{align*}
+				k = \mathrm{AVG}\pqty{0,\frac{\pi}{2},\pi}
+			\end{align*}
 		\end{columns}
 		\begin{columns}[t]
 			\column{.6\textwidth}
