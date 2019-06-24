@@ -6,18 +6,20 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-numpy = "*"
-scipy = "*"
+numpy = ">=1.13"
+scipy = ">=0.18"
 matplotlib = "*"
 ipython = "*"
 jupyter = "*"
 pandas = "*"
 sympy = "*"
 nose = "*"
-sisl = {extras = ["analysis"],version = "*"}
 progress = "*"
 future = "*"
-netcdf4 = "*"
+sisl = "*"
+six = "*"
+pyparsing = ">=1.5.7"
+netCDF4 = "*"
 
 [requires]
 python_version = "3.7"
