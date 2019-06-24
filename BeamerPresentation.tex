@@ -479,7 +479,6 @@
     \end{columns}
 \onslide<3>
     \begin{columns}[c]
-       \column{.05\textwidth}
     \column{.3\textwidth}
     \begin{itemize}
         \item Text1
@@ -497,14 +496,19 @@
 \begin{frame}{Transmission in 2D}
 \centering
 \begin{columns}[c]
-\column{.7\textwidth}
+\column{.4\textwidth}
 		    \begin{align*}
 		        \vb{H} = \vb{h} + \vb{V}\me^{ik_{\perp}} + \vb{V}^{\dagger} \me^{i\pqty{-k_{\perp}}}
 		    \end{align*}
-		    \im{Listings/Functions.py}{250}{253}
 \column{.7\textwidth}
 			\includegraphics[width=\textwidth]{Figures/2DTrans.eps}
 \end{columns}
+\begin{columns}[c]
+       \column{.05\textwidth}
+       \column{.9\textwidth}
+    \im{Listings/Functions.py}{250}{253}    
+\end{columns}
+
 \end{frame}
 
 \begin{frame}{Code validity}
