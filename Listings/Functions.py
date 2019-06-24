@@ -250,7 +250,7 @@ def PeriodicHamiltonian(xyz, UY, i):
     h, p = Onsite(xyz=xyz, Vppi=-1, f=1)  # Calculate onsite hops
     V = Hop(xyz=xyz, xyz1=xyz + np.array([0, UY, 0]), Vppi=-1)  # Calculate hops
     print('Number of hopping elements: {}'.format(np.sum(np.abs(V))))  # Number of hops
-    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)  # Hamiltonian for ith k-point
+    Ham = h + V * np.exp(1j * i) + np.transpose(V) * np.exp(-1j * i)  # Hamiltonian for ith kp
     return Ham
 
 

@@ -92,7 +92,7 @@ if p == 0:
         plt.title('Sites removed')
 else:
     plt.title('On-site potential mod: {:.2f} eV'.format(p))
-plt.ylim(-1.5, 1.5)
+plt.ylim(-3, 3)
 plt.xlim(np.flip(-Zspace[-1]), Xspace[-1])
 plt.ylabel(r'$E-E_{F}$(eV)', labelpad=0)
 ax.set_aspect(0.12)
