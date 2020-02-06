@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt     # Pyplot for nice graphs
 from matplotlib.gridspec import GridSpec
 from progress.bar import Bar
 import numpy as np                      # NumPy
-from Functions import ImportSystem, Onsite, Hop, DefineDevice
+from Functions import ImportSystem, DefineDevice
 from Functions import EnergyRecursion, Transmission, PeriodicHamiltonian
 import sys
 
